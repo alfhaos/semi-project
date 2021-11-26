@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hello MVC</title>
+<title>Kola !</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 
@@ -13,7 +13,7 @@
 <body>
 	<div id="container">
 		<header>
-			<h1>Hello MVC</h1>
+			<h1>Kola !</h1>
 				<div class="login-container">
 					<!-- 로그인폼 시작 -->
 					<form 
@@ -60,12 +60,15 @@
 				<nav>
 					<ul class="main-nav">
 						<li class="home"><a href="#">Home</a></li>
-						<li class="notice"><a href="#">공지사항</a></li>
-						<li class="board"><a href="#">게시판</a></li>
-						<li class="photo"><a href="#">사진게시판</a></li>
-						<li class="chat"><a href="#">채팅</a></li>
-					
-						<li class="admin"><a href="#">회원관리</a></li>
+						<li class="board"><a href="#">커뮤니티</a>
+							<ul>
+								<li class="gather_study_board"><a href="#">스터디그룹 모집</a></li>
+								<li class="free_board"><a href="#">자유 게시판</a></li>
+								<li class="Q&A_board"><a href="#">Q&A 게시판</a></li>
+							</ul>
+						</li>
+						<li class="writing"><a href="#">새 글쓰기</a></li>
+						
 
 					</ul>
 				</nav>
