@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
+<%@page import="com.kh.member.model.vo.Member"%> 
+    
+<%
+	String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
+
+	Member loginMember = (Member) session.getAttribute("loginMember");
+
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +17,26 @@
 <title>Hello MVC</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-
+<script>
+$(() => {
+	<% if(msg != null){ %>
+	alert("<%= msg %>");
+	
+	<%} %>
+});
+</script>
 </head>
 <body>
 	<div id="container">
 		<header>
 			<h1>Hello MVC</h1>
 				<div class="login-container">
+<% if(loginMember == null){ %>
 					<!-- 로그인폼 시작 -->
 					<form 
 						id="loginFrm" 
-						action=""
-						method="POST">
+						action="<%= request.getContextPath() %>/member/login"
+						method="GET">
 						<table>
 							<tr>
 								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
@@ -43,9 +60,11 @@
 					</form>
 					<!-- 로그인폼 끝-->
 					
+<%} else { %>
+					
 					<table id="login">
 						<tr>
-							<td></td>
+							<td><%= loginMember.getMember_name() %>님, 안녕하세요.</td>
 						</tr>
 						<tr>
 							<td>
@@ -55,6 +74,8 @@
 						</tr>
 					</table>
 				</div>
+<%} %>
+		
 				
 				<!-- 메인메뉴 시작 -->
 				<nav>
