@@ -81,12 +81,16 @@ $(() => {
 				<!-- 메인메뉴 시작 -->
 				<nav>
 					<ul class="main-nav">
+
 						<li class="home"><a href="#">Home</a></li>
 
 						<li class="notice"><a href="#">공지사항</a></li>
 						<li class="board"><a href="#">게시판</a></li>
 						<li class="photo"><a href="#">사진게시판</a></li>
 						<li class="chat"><a href="#">채팅</a></li>
+
+
+						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
 
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
