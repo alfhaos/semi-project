@@ -15,7 +15,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Kola !</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
 $(() => {
@@ -83,7 +82,7 @@ $(() => {
 						<li class="home"><a href="#">Home</a></li>
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
-								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
+								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/boardList">스터디그룹 모집</a></li>
 								<li id="free_board"><a href="#">자유 게시판</a></li>
 								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
 							</ul>
