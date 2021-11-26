@@ -2,4 +2,3 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <h1>KOLA!</h1>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
