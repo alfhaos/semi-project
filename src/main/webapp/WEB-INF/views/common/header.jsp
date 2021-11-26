@@ -83,13 +83,22 @@ $(() => {
 						<li class="home"><a href="#">Home</a></li>
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
-								<li class="gather_study_board"><a href="#">스터디그룹 모집</a></li>
-								<li class="free_board"><a href="#">자유 게시판</a></li>
-								<li class="Q&A_board"><a href="#">Q&A 게시판</a></li>
+								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
+								<li id="free_board"><a href="#">자유 게시판</a></li>
+								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
 							</ul>
 						</li>
 						<li class="writing"><a href="#">새 글쓰기</a></li>
-						
+						<li class="sub_menu">
+							<ul>
+							<li id="my_page"><a href="">마이페이지</a></li>
+							<li id="my_study_group"><a href="">내 스터디그룹</a></li>
+							<li id="my_writing"><a href="">내 작성글</a></li>
+							<li id="my_interest"><a href="">내 관심글</a></li>
+							<li id="logout"><a href="">로그아웃</a></li>
+							<li id="admin_page"><a href="">관리자 페이지</a></li>
+							</ul>
+						</li>
 
 					</ul>
 				</nav>
