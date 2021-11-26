@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
+//import static com.kh.mvc.common.JdbcTemplate.close;
+
 import com.kh.member.MemberException;
 import com.kh.member.model.vo.Member;
 
@@ -28,6 +30,7 @@ public class MemberDao {
 	
 	
 	public Member selectOneMember(String memberId,Connection conn) {
+
 		String sql = prop.getProperty("SelectOneMember");
 
 		PreparedStatement pstmt = null;
@@ -69,5 +72,40 @@ public class MemberDao {
 		
 		return member;
 	}
+
+
+
+	public int insertMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		int result = 0;
+		
+		try {
+			// 1.PreapredStatement객체 준비 - sql값대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getMember_id());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getMember_name());
+			pstmt.setString(4, member.getMember_role());
+			pstmt.setString(5, member.getGender());
+			pstmt.setString(6, member.getLanguage());
+			pstmt.setString(7, member.getEmail());
+			pstmt.setString(8, member.getPhone());
+			pstmt.setString(9, member.getAddress());
+			
+			// 2.실행 - executeUpdate
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new MemberException("회원가입 오류!", e);
+		} finally {
+			// 3.자원반납
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
 
 }
