@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hello MVC</title>
+<title>Kola !</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
@@ -29,7 +29,7 @@ $(() => {
 <body>
 	<div id="container">
 		<header>
-			<h1>Hello MVC</h1>
+			<h1>Kola !</h1>
 				<div class="login-container">
 <% if(loginMember == null){ %>
 					<!-- 로그인폼 시작 -->
@@ -81,12 +81,24 @@ $(() => {
 				<nav>
 					<ul class="main-nav">
 						<li class="home"><a href="#">Home</a></li>
-						<li class="notice"><a href="#">공지사항</a></li>
-						<li class="board"><a href="#">게시판</a></li>
-						<li class="photo"><a href="#">사진게시판</a></li>
-						<li class="chat"><a href="#">채팅</a></li>
-					
-						<li class="admin"><a href="#">회원관리</a></li>
+						<li class="board"><a href="#">커뮤니티</a>
+							<ul>
+								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
+								<li id="free_board"><a href="#">자유 게시판</a></li>
+								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
+							</ul>
+						</li>
+						<li class="writing"><a href="#">새 글쓰기</a></li>
+						<li class="sub_menu">
+							<ul>
+							<li id="my_page"><a href="">마이페이지</a></li>
+							<li id="my_study_group"><a href="">내 스터디그룹</a></li>
+							<li id="my_writing"><a href="">내 작성글</a></li>
+							<li id="my_interest"><a href="">내 관심글</a></li>
+							<li id="logout"><a href="">로그아웃</a></li>
+							<li id="admin_page"><a href="">관리자 페이지</a></li>
+							</ul>
+						</li>
 
 					</ul>
 				</nav>
