@@ -162,6 +162,8 @@ create table study_group_attachment(
 
 );
 
+select * from KOLA_MEMBER;
+
 
 
 

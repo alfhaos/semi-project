@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.member.controller;
 
 import java.io.IOException;
 

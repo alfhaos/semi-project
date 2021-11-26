@@ -1,4 +1,4 @@
-package com.kh.semi.admin.controller;
+package com.kh.admin;
 
 import java.io.IOException;
 import java.util.HashMap;

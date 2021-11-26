@@ -68,7 +68,7 @@ $(() => {
 						</tr>
 						<tr>
 							<td>
-								<input type="button" value="내정보보기" onclick="">
+								<input type="button" value="내정보보기" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
 								<input type="button" value="로그아웃" onclick="logout();">
 							</td>
 						</tr>
@@ -86,7 +86,7 @@ $(() => {
 						<li class="photo"><a href="#">사진게시판</a></li>
 						<li class="chat"><a href="#">채팅</a></li>
 					
-						<li class="admin"><a href="#">회원관리</a></li>
+						<li class="admin"><a href="<%= request.getContextPath() %>/admin/memberList">회원관리</a></li>
 
 					</ul>
 				</nav>
