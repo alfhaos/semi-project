@@ -1,3 +1,4 @@
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
@@ -86,8 +87,6 @@ $(() => {
 						<li class="board"><a href="#">게시판</a></li>
 						<li class="photo"><a href="#">사진게시판</a></li>
 						<li class="chat"><a href="#">채팅</a></li>
-					
-						<li class="admin"><a href="<%= request.getContextPath() %>/admin/memberList">회원관리</a></li>
 
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
@@ -104,7 +103,9 @@ $(() => {
 							<li id="my_writing"><a href="">내 작성글</a></li>
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>
-							<li id="admin_page"><a href="">관리자 페이지</a></li>
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
+							<li id="admin_page"><a href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
+<% } %>
 							</ul>
 						</li>
 

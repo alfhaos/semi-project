@@ -1,6 +1,8 @@
 --------------------------------------------------------------------
 -- 회원
 --------------------------------------------------------------------
+
+
 create table kola_member (
     member_id varchar2 (15),
     password varchar2(300) not null, -- 암호화처리
@@ -163,6 +165,11 @@ create table study_group_attachment(
 );
 
 select * from KOLA_MEMBER;
+select * from kola_member where member_id = 'delete';
+select * from kola_member where member_id = 'delete';
+commit;
+
+
 
 
 
