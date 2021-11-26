@@ -32,7 +32,9 @@ public class CheckIdDuplicateServlet extends HttpServlet {
 		
 		// 3.업무로직
 		Member member = memberService.selectOneMember(memberId);
+		System.out.println(member);
 		boolean available = (member == null);
+		System.out.println(available);
 		
 		// 4.view단 처리
 		request.setAttribute("available", available);
