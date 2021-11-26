@@ -53,7 +53,7 @@ $(() => {
 									<input 
 										type="button" 
 										value="회원가입" 
-										onclick="">
+										onclick="location.href='<%= request.getContextPath() %>/member/memberEnroll';">
 								</td>
 							</tr>
 						</table>
