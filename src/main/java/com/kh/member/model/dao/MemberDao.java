@@ -18,6 +18,7 @@ public class MemberDao {
 	public MemberDao(){
 		// /build/classes 하위에서 파일을 조회
 		String filepath = MemberDao.class.getResource("/member-query.properties").getPath();
+
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {
@@ -28,6 +29,7 @@ public class MemberDao {
 	
 	public Member selectOneMember(String memberId,Connection conn) {
 		String sql = prop.getProperty("SelectOneMember");
+
 		PreparedStatement pstmt = null;
 		Member member = null;
 		ResultSet rset = null;
@@ -41,10 +43,9 @@ public class MemberDao {
 			
 			while(rset.next()) {
 				member = new Member();
-				System.out.println(rset.getString("password"));
+				
 				member.setMember_id(rset.getString("member_id"));
 				member.setPassword(rset.getString("password"));
-				
 				member.setMember_name(rset.getString("member_name"));
 				member.setMember_role(rset.getString("member_role"));
 				member.setGender(rset.getString("gender"));

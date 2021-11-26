@@ -80,7 +80,7 @@ $(() => {
 				<!-- 메인메뉴 시작 -->
 				<nav>
 					<ul class="main-nav">
-						<li class="home"><a href="#">Home</a></li>
+						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
 								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
