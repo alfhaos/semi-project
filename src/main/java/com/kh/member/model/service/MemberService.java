@@ -5,9 +5,12 @@ import static com.kh.common.JDBCTemplate.*;
 //import static com.kh.mvc.common.JdbcTemplate.commit;
 //import static com.kh.mvc.common.JdbcTemplate.getConnection;
 //import static com.kh.mvc.common.JdbcTemplate.rollback;
-
+import static com.kh.mvc.common.JdbcTemplate.close;
+import static com.kh.mvc.common.JdbcTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 
 import com.kh.member.model.vo.Member;
 import com.kh.member.MemberException;
@@ -115,5 +118,21 @@ public class MemberService {
 		}
 		return result;
 	}
+
+
+		public List<Member> searchMember(Map<String, Object> param) {
+			Connection conn = getConnection();
+			List<Member> list = memberDao.searchMember(conn, param);
+			close(conn);
+			return list;
+		}
+
+
+		public List<Member> selectAllMember(Map<String, Object> param) {
+			Connection conn = getConnection();
+			List<Member> list = memberDao.selectAllMember(conn, param);
+			close(conn);
+			return list;
+		}
 
 }

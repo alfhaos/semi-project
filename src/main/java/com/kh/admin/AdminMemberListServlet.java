@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
+
 
 /**
  * Servlet implementation class AdminMemberListServlet
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/admin/memberList")
 public class AdminMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MemberService memberService = new MemberService();
 
 	
 	/**
@@ -44,12 +48,41 @@ public class AdminMemberListServlet extends HttpServlet {
 	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		request.setCharacterEncoding("utf-8");
+		System.out.println("adminmemberListSERVLET 들어옴");
+		//사용자입력
+		final int numPerPage = 10;
+		int cPage = 1;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {}
+		
+		int startNum = (cPage - 1) * numPerPage + 1;
+		int endNum = cPage * numPerPage;
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("startNum", startNum);
+		param.put("endNum", endNum);
+		
+		// 2.업무로직
+		// 2-a. content영역
+		List<Member> list = memberService.selectAllMember(param);
+		System.out.println("list@servlet = " + list);
+		// 2-b. pagebar영역
+//		int totalContent = memberService.selectTotalMemberCount();
+//		String url = request.getRequestURI(); // /mvc/admin/memberList
+//		System.out.println(totalContent);
+//		System.out.println(url);
+//		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
+//		System.out.println("pagebar@servlet = " + pagebar);
+		
+		// 3.view단처리
+		request.setAttribute("list", list);
+//		request.setAttribute("pagebar", pagebar);
 		request
 			.getRequestDispatcher("/WEB-INF/views/admin/memberList.jsp")
 			.forward(request, response);
-			
-	
 	
 	}
 

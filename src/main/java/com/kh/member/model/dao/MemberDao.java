@@ -6,9 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
-
+import static com.kh.mvc.common.JdbcTemplate.close;
 
 import com.kh.member.MemberException;
 import com.kh.member.model.vo.Member;
@@ -184,6 +187,90 @@ public class MemberDao {
 		
 		
 		return result;
+	}
+
+
+	public List<Member> searchMember(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMember");
+		ResultSet rset = null;
+		List<Member> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "memberId": sql += " member_id like '%" + searchKeyword + "%'"; break;
+		case "memberName": sql += " member_name like '%" + searchKeyword + "%'"; break;
+		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Member member = new Member();
+				member.setMember_id(rset.getString("member_id"));
+				member.setPassword(rset.getString("password"));
+				member.setMember_name(rset.getString("member_name"));
+				member.setMember_role(rset.getString("member_role"));
+				member.setGender(rset.getString("gender"));
+				member.setEmail(rset.getString("email"));
+				member.setPhone(rset.getString("phone"));
+				member.setAddress(rset.getString("address"));
+				member.setLanguage(rset.getString("language"));
+				member.setEnroll_date(rset.getDate("enroll_date"));
+				list.add(member);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+
+	public List<Member> selectAllMember(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllMember");
+		ResultSet rset = null;
+		List<Member> list = new ArrayList<>();
+		try {
+			// 1.pstmt객체생성
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (int) param.get("startNum"));
+			pstmt.setInt(2, (int) param.get("endNum"));
+			
+			// 2.실행
+			rset = pstmt.executeQuery();
+			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
+			while(rset.next()) {
+				Member member = new Member();
+				member.setMember_id(rset.getString("member_id"));
+				member.setPassword(rset.getString("password"));
+				member.setMember_name(rset.getString("member_name"));
+				member.setMember_role(rset.getString("member_role"));
+				member.setGender(rset.getString("gender"));
+				member.setEmail(rset.getString("email"));
+				member.setPhone(rset.getString("phone"));
+				member.setAddress(rset.getString("address"));
+				member.setLanguage(rset.getString("language"));
+				member.setEnroll_date(rset.getDate("enroll_date"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4.자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 
