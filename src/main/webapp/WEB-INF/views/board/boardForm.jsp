@@ -44,19 +44,19 @@ $(document.boardEnrollFrm).submit(boardValidate);
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input type="text" name="writer" value="<%= %>" readonly/> <!--loginMember.getMemberId()   -->
+			<input type="text" name="writer" value="" readonly/> 
 		</td>
 	</tr>
 	<tr>
 		<th>사용언어</th>
 		<td>
 			<select name="language" id="language">
-				<option value="Javascript"></option>
-				<option value="Java"></option>
-				<option value="Python"></option>
-				<option value="Spring"></option>
-				<option value="C++"></option>
-				<option value="C"></option>
+				<option value="Javascript">Javascript</option>
+				<option value="Java">Java</option>
+				<option value="Python">Python</option>
+				<option value="Spring">Spring</option>
+				<option value="C++">C++</option>
+				<option value="C">C</option>
 			</select>
 		</td>
 	</tr>
@@ -64,8 +64,8 @@ $(document.boardEnrollFrm).submit(boardValidate);
 		<th>장소</th>
 		<td>
 			<select name="area" id="area">
-				<option value="Off-line"></option>
-				<option value="On-line"></option>
+				<option value="Off-line">Off-line</option>
+				<option value="On-line">On-line</option>
 			</select>
 		</td>
 	</tr>
