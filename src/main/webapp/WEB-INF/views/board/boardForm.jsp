@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>    
 
+
 <script>
 /**
 * boardEnrollFrm 유효성 검사
@@ -26,9 +27,28 @@ function boardValidate(){
 	return true;
 }
 
+$(document).ready(function(){
+$('#area').change(function() {
+	var state = $('#area option:selected').val();
+	
+	if( state =='Off-line'){
+		$('#location').show();
+	}else{
+		$('#location').hide();
+	}
+})
+	
+})
+	
+
 $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
+<style>
+#location {
+	display: none;
+}
+</style>
 <section id="board-container">
 <h2>게시판 작성</h2>
 <form
@@ -64,8 +84,25 @@ $(document.boardEnrollFrm).submit(boardValidate);
 		<th>장소</th>
 		<td>
 			<select name="area" id="area">
-				<option value="Off-line">Off-line</option>
 				<option value="On-line">On-line</option>
+				<option value="Off-line">Off-line</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th>지역</th>
+		<td>
+			<select name="location" id="location">
+				<option value="Seoul">서울</option>
+				<option value="Gyeonggi-N">경기 북부</option>
+				<option value="Gyeonggi-S">경기 남부</option>
+				<option value="Incheon">인천</option>
+				<option value="Busan">부산</option>
+				<option value="Gangwon">강원도</option>
+				<option value="Chungcheong">충청도</option>
+				<option value="Jeolla">전라도</option>
+				<option value="Gyeongsang">경상도</option>
+				<option value="Jeju">제주도</option>
 			</select>
 		</td>
 	</tr>
@@ -80,4 +117,24 @@ $(document.boardEnrollFrm).submit(boardValidate);
 	</tr>
 </table>
 </form>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 </section>
