@@ -1,5 +1,7 @@
 package com.kh.member.model.dao;
 
+import static com.kh.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import static com.kh.common.JDBCTemplate.*;
-import static com.kh.mvc.common.JdbcTemplate.close;
 
 import com.kh.member.MemberException;
 import com.kh.member.model.vo.Member;
@@ -271,6 +271,46 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+
+	public int selectTotalMemberCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalMemberCount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				totalCount = rset.getInt(1); // 컬럼인덱스 1부터
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
+
+
+	public int updateMemberRole(Connection conn, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateMemberRole"); 
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getMember_role());
+			pstmt.setString(2, member.getMember_id());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MemberException("회원권한변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

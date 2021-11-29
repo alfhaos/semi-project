@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.common.MvcUtils;
 
 
 /**
@@ -50,8 +51,7 @@ public class AdminMemberListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
-		System.out.println("adminmemberListSERVLET 들어옴");
-		//사용자입력
+		// 1.사용자입력값
 		final int numPerPage = 10;
 		int cPage = 1;
 		try {
@@ -69,17 +69,19 @@ public class AdminMemberListServlet extends HttpServlet {
 		// 2-a. content영역
 		List<Member> list = memberService.selectAllMember(param);
 		System.out.println("list@servlet = " + list);
+		System.out.println("asdfasdfasdfasdf");
 		// 2-b. pagebar영역
-//		int totalContent = memberService.selectTotalMemberCount();
-//		String url = request.getRequestURI(); // /mvc/admin/memberList
-//		System.out.println(totalContent);
-//		System.out.println(url);
-//		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
-//		System.out.println("pagebar@servlet = " + pagebar);
+		int totalContent = memberService.selectTotalMemberCount();
+		String url = request.getRequestURI(); // /mvc/admin/memberList
+		System.out.println(totalContent);
+		System.out.println(url);
+		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
+		System.out.println("pagebar@servlet = " + pagebar);
 		
 		// 3.view단처리
 		request.setAttribute("list", list);
-//		request.setAttribute("pagebar", pagebar);
+		
+		request.setAttribute("pagebar", pagebar);
 		request
 			.getRequestDispatcher("/WEB-INF/views/admin/memberList.jsp")
 			.forward(request, response);
