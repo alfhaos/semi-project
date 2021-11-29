@@ -1,3 +1,4 @@
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
@@ -67,7 +68,7 @@ $(() => {
 						</tr>
 						<tr>
 							<td>
-								<input type="button" value="내정보보기" onclick="">
+								<input type="button" value="내정보보기" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
 								<input type="button" value="로그아웃" onclick="logout();">
 							</td>
 						</tr>
@@ -79,7 +80,17 @@ $(() => {
 				<!-- 메인메뉴 시작 -->
 				<nav>
 					<ul class="main-nav">
+
+						<li class="home"><a href="#">Home</a></li>
+
+						<li class="notice"><a href="#">공지사항</a></li>
+						<li class="board"><a href="#">게시판</a></li>
+						<li class="photo"><a href="#">사진게시판</a></li>
+						<li class="chat"><a href="#">채팅</a></li>
+
+
 						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
+
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
 								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/boardList">스터디그룹 모집</a></li>
@@ -95,7 +106,9 @@ $(() => {
 							<li id="my_writing"><a href="">내 작성글</a></li>
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>
-							<li id="admin_page"><a href="">관리자 페이지</a></li>
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
+							<li id="admin_page"><a href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
+<% } %>
 							</ul>
 						</li>
 
