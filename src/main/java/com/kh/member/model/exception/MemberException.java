@@ -1,4 +1,4 @@
-package com.kh.member;
+package com.kh.member.model.exception;
 
 public class MemberException extends RuntimeException {
 	public MemberException() {
