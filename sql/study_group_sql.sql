@@ -166,4 +166,3 @@ create table study_group_attachment(
 
 
 
-
