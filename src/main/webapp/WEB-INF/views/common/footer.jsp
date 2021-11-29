@@ -3,7 +3,7 @@
 		</section>
 
 		<footer>
-			<p>&lt;Copyright 1998-2021 <strong>KH정보교육원</strong>. All rights reserved.&gt;</p>
+			<p>footerfooter</p>
 		</footer>
 	</div>
 </body>
