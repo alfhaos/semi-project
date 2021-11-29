@@ -27,17 +27,17 @@ function boardValidate(){
 	return true;
 }
 
+//off-line 선택하면 지역 선택창 뜸
 $(document).ready(function(){
-$('#area').change(function() {
-	var state = $('#area option:selected').val();
-	
-	if( state =='Off-line'){
-		$('#location').show();
-	}else{
-		$('#location').hide();
-	}
-})
-	
+	$('#area').change(function() {
+		var state = $('#area option:selected').val();
+		
+		if( state =='Off-line'){
+			$('#location').show();
+		}else{
+			$('#location').hide();
+		}
+	})	
 })
 	
 
@@ -64,7 +64,7 @@ $(document.boardEnrollFrm).submit(boardValidate);
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input type="text" name="writer" value="" readonly/> 
+			<input type="text" name="writer" value="sss" readonly/> 
 		</td>
 	</tr>
 	<tr>
