@@ -93,23 +93,40 @@ select * from kola_board_comment;
 -- 커뮤니티
 --------------------------------------------------------------------
 
-create table community_board(
+create table free_board(
     no number,                          -- 게시글번호
     title varchar2(100) not null,   -- 제목
     writer varchar2(20),            --작성자
     content varchar2(4000) not null,    --내용
     read_count number default 0,    -- 조회수
     reg_date date default sysdate,
-    ask char(1) default 'X',                            -- 질문 해결여부
-    constraint pk_board_no primary key (no),
-    constraint fk_board_writer foreign key(writer) references member(member_id) on delete set null,
-    constraint ck_community_board_ask check(recruitment_status in ('O','X'))  
+    like_count number default 0,        -- 좋아요
+    constraint pk_free_board_no primary key (no),
+    constraint fk_free_board_writer foreign key(writer) references kola_member(member_id) on delete set null
+    
+);
+
+create table question_board(
+    no number,                          -- 게시글번호
+    title varchar2(100) not null,   -- 제목
+    writer varchar2(20),            --작성자
+    content varchar2(4000) not null,    --내용
+    read_count number default 0,    -- 조회수
+    reg_date date default sysdate,
+    ask char(1) default 'X',                         -- 질문 해결여부
+    like_count number default 0,        -- 좋아요
+    constraint pk_question_board_no primary key (no),
+    constraint fk_question_board_writer foreign key(writer) references kola_member(member_id) on delete set null,
+    constraint ck_question_board_ask check(ask in ('O','X')) 
  
 );
 
+
+
+
+select *from community_board;
+
 create sequence seq_community_board_no;
-
-
 
 
 
