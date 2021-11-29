@@ -25,7 +25,7 @@ insert into kola_member values('admin','1234','관리자','A','M','c',null,'0101
 --------------------------------------------------------------------
 -- 게시글
 --------------------------------------------------------------------
-create table main_board(
+create table kola_main_board(
     no number,                              -- 게시글 번호
     title varchar2(100) not null,     -- 제목
     writer varchar2(20),                -- 작성자
@@ -42,16 +42,31 @@ create table main_board(
     constraint fk_board_writer foreign key(writer) references member(member_id) on delete set null,
     constraint ck_offline_board_status check(recruitment_status in ('O','X'))  
 );
+insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'안녕하세요, 게시판입니다 - 1','honggd','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','c++',10,7,'O');
 
+create sequence kola_seq_main_board_no;
 
-create sequence seq_main_board_no;
+commit;
+select * from kola_main_board;
 
+select 
+    *
+from (
+    select 
+        row_number() over(order by no desc) rnum,
+        b.*,
+        (select count(*) from kola_board_comment where board_no = b.no) comment_count
+    from 
+        kola_main_board b
+)
+where
+    rnum between 1 and 10;
 
 --------------------------------------------------------------------
 -- 게시판 댓글
 --------------------------------------------------------------------
 
-create table board_comment(
+create table kola_board_comment(
     no number,
     comment_level number default 1,
     writer varchar2(15),
@@ -59,13 +74,15 @@ create table board_comment(
     board_no number,
     comment_ref number,
     reg_date date default sysdate,
-    constraint pk_board_comment_no primary key(no),
-    constraint fk_board_comment_writer foreign key(writer) references member(member_id) on delete set null,
-    constraint fk_board_comment_board_no foreign key(board_no) references main_board(no) on delete cascade,
-    constraint fk_board_comment_comment_ref foreign key(comment_ref) references board_comment(no) on delete cascade
+    constraint pk_kola_board_comment_no primary key(no),
+    constraint fk_kola_board_comment_writer foreign key(writer) references kola_member(member_id) on delete set null,
+    constraint fk_kola_board_comment_board_no foreign key(board_no) references kola_main_board(no) on delete cascade,
+    constraint fk_kola_board_comment_comment_ref foreign key(comment_ref) references kola_board_comment(no) on delete cascade
 );
 
 create sequence seq_free_board_comment_no;
+
+select * from kola_board_comment;
 
 -- 게시글 테이블마다 다 따로 생성해야 하는지 물어보기
 
