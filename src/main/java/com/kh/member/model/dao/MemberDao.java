@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.admin.vo.Statistics;
 import com.kh.member.model.exception.MemberException;
 
 import com.kh.member.model.vo.Member;
@@ -205,6 +206,7 @@ public class MemberDao {
 		case "memberId": sql += " member_id like '%" + searchKeyword + "%'"; break;
 		case "memberName": sql += " member_name like '%" + searchKeyword + "%'"; break;
 		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
+		case "rank": sql = " gender = '" + searchKeyword + "'"; break;
 		}
 		System.out.println("sql@dao = " + sql);
 		
@@ -314,6 +316,63 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+
+	public List<Statistics> languageStatistics(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("languageStatistics");
+		ResultSet rset = null;
+		List<Statistics> language = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// 2.실행
+			rset = pstmt.executeQuery();
+			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
+			while(rset.next()) {
+				Statistics stat = new Statistics();
+				stat.setStat(rset.getString("language"));
+				stat.setCount(rset.getInt("count"));
+				stat.setRank(rset.getInt("rank"));
+				language.add(stat);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4.자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return language;
+	}
+
+
+
+	public List<Statistics> enrolldateStatistics(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("enrolldateStatistics");
+		ResultSet rset = null;
+		List<Statistics> enrolldate = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// 2.실행
+			rset = pstmt.executeQuery();
+			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
+			while(rset.next()) {
+				Statistics stat = new Statistics();
+				stat.setStat(rset.getString("enrolldate"));
+				stat.setCount(rset.getInt("count"));
+				stat.setRank(rset.getInt("rank"));
+				enrolldate.add(stat);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4.자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return enrolldate;
 	}
 
 

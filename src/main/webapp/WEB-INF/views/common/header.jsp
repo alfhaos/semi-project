@@ -114,7 +114,9 @@ function noLogin_writing_btn(){
 							<ul>
 							<li id="my_page"><a href="">마이페이지</a></li>
 							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-							<li id="my_writing"><a href="">내 작성글</a></li>
+							
+							<li id="my_writing"><a href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
+							
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>
 <% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
