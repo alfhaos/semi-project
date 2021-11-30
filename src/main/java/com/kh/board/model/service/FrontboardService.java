@@ -5,7 +5,6 @@ import static com.kh.common.JDBCTemplate.commit;
 import static com.kh.common.JDBCTemplate.getConnection;
 import static com.kh.common.JDBCTemplate.rollback;
 
-
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,30 @@ public class FrontboardService {
 		int totalCount = frontboardDao.selectTotalBoardCount(conn);
 		close(conn);
 		return totalCount;
+	}
+
+
+	public int insertBoard(Frontboard board) throws Exception {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = frontboardDao.insertBoard(conn, board);
+			
+			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
+			int boardNo = frontboardDao.selectLastBoardNo(conn);
+			System.out.println("[BoardService] boardNo = " + boardNo);
+			board.setNo(boardNo); // servlet에서 참조할 수 있도록한다.
+			
+			
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 	
 	

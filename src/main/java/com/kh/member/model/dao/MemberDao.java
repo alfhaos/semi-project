@@ -13,7 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.kh.member.MemberException;
+import static com.kh.common.JDBCTemplate.*;
+
+import com.kh.member.model.exception.MemberException;
+
 import com.kh.member.model.vo.Member;
 
 public class MemberDao {

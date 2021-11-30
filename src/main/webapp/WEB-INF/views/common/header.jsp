@@ -16,7 +16,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Kola !</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
 $(() => {
@@ -25,6 +24,11 @@ $(() => {
 	
 	<%} %>
 });
+
+function noLogin_writing_btn(){
+	alert('로그인 후 이용해주세요.'); 
+}
+
 </script>
 </head>
 <body>
@@ -94,12 +98,18 @@ $(() => {
 
 						<li class="board"><a href="#">커뮤니티</a>
 							<ul>
-								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
+								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
 								<li id="free_board"><a href="#">자유 게시판</a></li>
 								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
 							</ul>
 						</li>
-						<li class="writing"><a href="#">새 글쓰기</a></li>
+						<li>
+<% if(loginMember == null){ %>	
+	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+<% } %>		
+						</li>
 						<li class="sub_menu">
 							<ul>
 							<li id="my_page"><a href="">마이페이지</a></li>
