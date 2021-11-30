@@ -60,8 +60,8 @@ public class FrontboardDao {
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
-				
 				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
 				
 				list.add(frontboard);
 			}
