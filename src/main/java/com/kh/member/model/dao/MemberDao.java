@@ -38,7 +38,6 @@ public class MemberDao {
 	public Member selectOneMember(String memberId,Connection conn) {
 
 		String sql = prop.getProperty("SelectOneMember");
-
 		PreparedStatement pstmt = null;
 		Member member = null;
 		ResultSet rset = null;
@@ -49,7 +48,6 @@ public class MemberDao {
 			pstmt.setString(1,memberId);
 			
 			rset = pstmt.executeQuery();
-			
 			while(rset.next()) {
 				member = new Member();
 				
@@ -63,6 +61,8 @@ public class MemberDao {
 				member.setPhone(rset.getString("phone"));
 				member.setAddress(rset.getString("address"));
 				member.setEnroll_date(rset.getDate("enroll_date"));
+				member.setStudy_group(rset.getInt("study_group"));		
+				
 			}
 			
 		} catch (SQLException e) {

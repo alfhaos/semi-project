@@ -35,8 +35,7 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		
 		// 2. 업무 로직
-		Member member = new Member();
-		member = memberService.selectOneMember(memberId);
+		Member member  = memberService.selectOneMember(memberId);
 		
 		System.out.println("[member@MemberLoginServlet] member = " + member);
 		
@@ -75,7 +74,6 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		// 3. view단 제공
 		String location = request.getHeader("Referer");
-		System.out.println("[MemberLoginServlet] location = " + location);
 		response.sendRedirect(location);
 		
 		

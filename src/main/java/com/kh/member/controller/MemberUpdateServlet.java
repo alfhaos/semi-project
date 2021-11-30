@@ -49,7 +49,7 @@ public class MemberUpdateServlet extends HttpServlet {
 			language = String.join(",", _language);
 		
 		Member member = 
-				new Member(memberId, null, memberName, null, gender, language, email, phone, address, null);
+				new Member(memberId, null, memberName, null, gender, language, email, phone, address, null,0);
 		
 		System.out.println("member@servlet = " + member);
 		

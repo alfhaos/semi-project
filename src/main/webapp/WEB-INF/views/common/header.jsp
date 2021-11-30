@@ -44,11 +44,11 @@ function noLogin_writing_btn(){
 						method="GET">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="admin"></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2"></td>
+								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1234"></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -113,7 +113,7 @@ function noLogin_writing_btn(){
 						<li class="sub_menu">
 							<ul>
 							<li id="my_page"><a href="">마이페이지</a></li>
-							<li id="my_study_group"><a href="">내 스터디그룹</a></li>
+							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
 							<li id="my_writing"><a href="">내 작성글</a></li>
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>

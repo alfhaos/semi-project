@@ -14,14 +14,13 @@ public class Member {
 	private String phone;
 	private String address;
 	private Date enroll_date;
+	private int study_group;
 	
 	
-	public Member() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	
 	public Member(String member_id, String password, String member_name, String member_role, String gender,
-			String language, String email, String phone, String address, Date enroll_date) {
+			String language, String email, String phone, String address, Date enroll_date, int study_group) {
 		super();
 		this.member_id = member_id;
 		this.password = password;
@@ -33,6 +32,11 @@ public class Member {
 		this.phone = phone;
 		this.address = address;
 		this.enroll_date = enroll_date;
+		this.study_group = study_group;
+	}
+	public Member() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	public String getMember_id() {
 		return member_id;
@@ -94,12 +98,21 @@ public class Member {
 	public void setEnroll_date(Date enroll_date) {
 		this.enroll_date = enroll_date;
 	}
+	public int getStudy_group() {
+		return study_group;
+	}
+	public void setStudy_group(int study_group) {
+		this.study_group = study_group;
+	}
 	@Override
 	public String toString() {
 		return "Member [member_id=" + member_id + ", password=" + password + ", member_name=" + member_name
 				+ ", member_role=" + member_role + ", gender=" + gender + ", language=" + language + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + ", enroll_date=" + enroll_date + "]";
+				+ ", phone=" + phone + ", address=" + address + ", enroll_date=" + enroll_date + ", study_group="
+				+ study_group + "]";
 	}
+	
+	
 	
 	
 	

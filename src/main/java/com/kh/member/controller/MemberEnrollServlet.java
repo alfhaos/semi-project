@@ -61,7 +61,7 @@ public class MemberEnrollServlet extends HttpServlet {
 			
 			String language = (_language != null) ? String.join(",", _language) : "";
 			
-			Member member = new Member(memberId, password, memberName, MemberService.USER_ROLE, gender, language, email, phone, address, null);
+			Member member = new Member(memberId, password, memberName, MemberService.USER_ROLE, gender, language, email, phone, address, null,0);
 			System.out.println("member@servlet = " + member);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
