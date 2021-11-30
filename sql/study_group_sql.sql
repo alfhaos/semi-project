@@ -205,12 +205,18 @@ create table study_group_attachment(
 );
 
 select * from KOLA_MEMBER;
+select * from kola_main_board;
 select * from kola_member where member_id = 'delete';
 select * from kola_member where member_id = 'delete';
 commit;
 SELECT * FROM tabs;
+select to_char(enroll_date, 'yy/mm/dd'), count(*) from kola_member group by to_char(enroll_date, 'yy/mm/dd');
+select language, count(*) from kola_member group by language;
 
+select language 선호언어, count(*) 관심수, row_number() over (order by count(language) desc) rank from kola_member group by language;
+select to_char(enroll_date, 'yy/mm/dd') 가입일,count(*) 가입수, row_number() over (order by count(to_char(enroll_date, 'yy/mm/dd')) desc) 순위 from kola_member group by to_char(enroll_date, 'yy/mm/dd');
 
+update kola_member set email ='aaaaa@naver.com' where email = 'null';
 
 
 
