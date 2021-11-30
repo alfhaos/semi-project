@@ -30,16 +30,18 @@ public class MemberDao {
 	
 	public Member selectOneMember(String memberId,Connection conn) {
 
-		String sql = prop.getProperty("SelectOneMember");
+		String sql = prop.getProperty("selectOneMember");
 
 		PreparedStatement pstmt = null;
 		Member member = null;
 		ResultSet rset = null;
 		
+		System.out.println("[MemberDao] sql = " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,memberId);
+			
 			
 			rset = pstmt.executeQuery();
 			

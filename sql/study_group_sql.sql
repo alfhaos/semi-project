@@ -204,6 +204,7 @@ select * from kola_member where member_id = 'delete';
 commit;
 
 
+select * from kola_member where member_id = 'honggd';
 
 
 
