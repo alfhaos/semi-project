@@ -10,8 +10,8 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 
 import com.kh.member.model.vo.Member;
-import com.kh.member.MemberException;
 import com.kh.member.model.dao.MemberDao;
+import com.kh.member.model.exception.MemberException;
 
 public class MemberService {
 
