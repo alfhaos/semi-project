@@ -16,7 +16,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Kola !</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
 $(() => {
@@ -25,6 +24,11 @@ $(() => {
 	
 	<%} %>
 });
+
+function noLogin_writing_btn(){
+	alert('로그인 후 이용해주세요.'); 
+}
+
 </script>
 </head>
 <body>
@@ -40,11 +44,11 @@ $(() => {
 						method="GET">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="hhhhh"></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2"></td>
+								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1111"></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -66,6 +70,7 @@ $(() => {
 					<table id="login">
 						<tr>
 							<td><%= loginMember.getMember_name() %>님, 안녕하세요.</td>
+							
 						</tr>
 						<tr>
 							<td>
@@ -92,18 +97,24 @@ $(() => {
 
 						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
 
-						<li class="board"><a href="#">커뮤니티</a>
+						<li class="board"><a href="">커뮤니티</a>
 							<ul>
-								<li id="gather_study_board"><a href="#">스터디그룹 모집</a></li>
-								<li id="free_board"><a href="#">자유 게시판</a></li>
+								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
+								<li id="free_board"><a href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
 								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
 							</ul>
 						</li>
-						<li class="writing"><a href="#">새 글쓰기</a></li>
+						<li>
+<% if(loginMember == null){ %>	
+	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+<% } %>		
+						</li>
 						<li class="sub_menu">
 							<ul>
 							<li id="my_page"><a href="">마이페이지</a></li>
-							<li id="my_study_group"><a href="">내 스터디그룹</a></li>
+							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
 							<li id="my_writing"><a href="">내 작성글</a></li>
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>
@@ -120,3 +131,4 @@ $(() => {
 		</header>
 		
 		<section id="content">
+		

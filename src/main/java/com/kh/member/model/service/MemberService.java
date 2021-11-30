@@ -1,17 +1,23 @@
 package com.kh.member.model.service;
 
-import static com.kh.common.JDBCTemplate.*;
-//import static com.kh.mvc.common.JdbcTemplate.close;
-//import static com.kh.mvc.common.JdbcTemplate.commit;
-//import static com.kh.mvc.common.JdbcTemplate.getConnection;
-//import static com.kh.mvc.common.JdbcTemplate.rollback;
-
+import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
+
 
 import com.kh.member.model.vo.Member;
-import com.kh.member.MemberException;
+
 import com.kh.member.model.dao.MemberDao;
+
+import com.kh.member.model.vo.Member;
+
+import com.kh.member.model.exception.MemberException;
+
 
 public class MemberService {
 
@@ -115,5 +121,47 @@ public class MemberService {
 		}
 		return result;
 	}
+
+
+		public List<Member> searchMember(Map<String, Object> param) {
+			Connection conn = getConnection();
+			List<Member> list = memberDao.searchMember(conn, param);
+			close(conn);
+			return list;
+		}
+
+
+		public List<Member> selectAllMember(Map<String, Object> param) {
+			Connection conn = getConnection();
+			List<Member> list = memberDao.selectAllMember(conn, param);
+			close(conn);
+			return list;
+		}
+
+
+		public int selectTotalMemberCount() {
+			Connection conn = getConnection();
+			int totalCount = memberDao.selectTotalMemberCount(conn);
+			close(conn);
+			return totalCount;
+		}
+
+
+		public int updateMemberRole(Member member) {
+			Connection conn = null;
+			int result = 0;
+			try {
+				conn = getConnection();
+				result = memberDao.updateMemberRole(conn, member);
+				commit(conn);
+			} catch (Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				close(conn);
+			}
+			
+			return result;
+		}
 
 }

@@ -23,7 +23,6 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1.업무로직
-		
 		// 2.view단 jsp위임
 		request
 			.getRequestDispatcher("/WEB-INF/views/member/memberView.jsp")

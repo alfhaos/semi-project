@@ -2,6 +2,8 @@ package com.kh.board.model.dao;
 
 
 
+import static com.kh.common.JDBCTemplate.close;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,11 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.kh.board.model.vo.Frontboard;
-import static com.kh.common.JDBCTemplate.close;
-
-
 import com.kh.board.model.exception.FrontboardException;
+import com.kh.board.model.vo.Frontboard;
 
 
 
@@ -96,6 +95,46 @@ public class FrontboardDao {
 			close(pstmt);
 		}
 		return totalCount;
+	}
+
+	public int insertBoard(Connection conn, Frontboard board) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FrontboardException("게시물 등록 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectLastBoardNo(Connection conn){
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastBoardNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				boardNo = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new FrontboardException("최근 게시글번호 조회 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return boardNo;
 	}
 
 }

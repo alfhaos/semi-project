@@ -14,14 +14,20 @@ create table kola_member (
     phone char(11) not null,
     address varchar2(300),
     enroll_date date default sysdate,
-    constraint pk_member_id primary key (member_id),
-    constraint ck_member_role check(member_role in ('U','A')),
-    constraint ck_member_language check(language in('c','c++','java','javaScript','Python','Spring'))
+    study_group number,
+    constraint pk_member_id_test primary key (member_id),
+    constraint ck_member_role_test check(member_role in ('U','A')),
+    constraint ck_member_language_test check(language in('c','c++','java','javaScript','Python','Spring'))
 );
 -- 회원이 속한 스터디 그룹 표시
+
 commit;
+
+insert into kola_member values('admin','1234','관리자','A','M','c',null,'01012341234',null,null,1);
+
 select * from kola_member;
-insert into kola_member values('admin','1234','관리자','A','M','c',null,'01012341234',null,null);
+
+
 
 
 --------------------------------------------------------------------
@@ -105,23 +111,40 @@ select * from kola_board_comment;
 -- 커뮤니티
 --------------------------------------------------------------------
 
-create table community_board(
+create table free_board(
     no number,                          -- 게시글번호
     title varchar2(100) not null,   -- 제목
     writer varchar2(20),            --작성자
     content varchar2(4000) not null,    --내용
     read_count number default 0,    -- 조회수
     reg_date date default sysdate,
-    ask char(1) default 'X',                            -- 질문 해결여부
-    constraint pk_board_no primary key (no),
-    constraint fk_board_writer foreign key(writer) references member(member_id) on delete set null,
-    constraint ck_community_board_ask check(recruitment_status in ('O','X'))  
+    like_count number default 0,        -- 좋아요
+    constraint pk_free_board_no primary key (no),
+    constraint fk_free_board_writer foreign key(writer) references kola_member(member_id) on delete set null
+    
+);
+
+create table question_board(
+    no number,                          -- 게시글번호
+    title varchar2(100) not null,   -- 제목
+    writer varchar2(20),            --작성자
+    content varchar2(4000) not null,    --내용
+    read_count number default 0,    -- 조회수
+    reg_date date default sysdate,
+    ask char(1) default 'X',                         -- 질문 해결여부
+    like_count number default 0,        -- 좋아요
+    constraint pk_question_board_no primary key (no),
+    constraint fk_question_board_writer foreign key(writer) references kola_member(member_id) on delete set null,
+    constraint ck_question_board_ask check(ask in ('O','X')) 
  
 );
 
+
+
+
+select *from community_board;
+
 create sequence seq_community_board_no;
-
-
 
 
 
@@ -129,32 +152,51 @@ create sequence seq_community_board_no;
 -- 스터디그룹
 --------------------------------------------------------------------
 
-create table study_group(
+create table kola_study_group(
     group_no number,          -- 그룹 번호
     group_name varchar2(100) not null,         -- 그룹 이름
     reg_date date default sysdate,          -- 생성날짜
     max_member number,                      -- 최대 인원
     now_member number,                      -- 현재인원
+    recruitment_status char(1) default 'O', -- 모집상태
+    area varchar2(200),
     language varchar2(100) not null,  -- 언어 선택
     
-    constraint pk_study_group primary key (no)
+    constraint pk_kola_study_group primary key (group_no)
 
 );
 
-create sequence seq_study_group_no;
+--drop table kola_study_group;
+--drop sequence seq_kola_study_group_no;
+create sequence seq_kola_study_group_no;
+commit;
 
-create table study_group_member(
+select * from  kola_study_group;
+
+select seq_kola_study_group_no.currval from dual;
+
+insert into kola_study_group(group_no, group_name, max_member, now_member, recruitment_status, area, language)
+    values (seq_kola_study_group_no.nextval,'시험그룹',3,1,'O','gi','c++');
+-----------------------------------------------------------
+-- 스터디 그룹 멤버
+-----------------------------------------------------------
+create table kola_study_group_member(
     group_member_no number,             -- 그룹번호
     group_member_id varchar2 (15),      -- 멤버아이디
     group_member_name varchar2(100) not null,   -- 멤버 이름
-    group_member_study_time  time,              -- 공부시간
-    group_member_role char(1) not null,
+    group_member_study_time  number,              -- 공부시간
+    group_member_role char(1) default 'U',
     constraint pk_group_member_id primary key (group_member_id),
-    constraint fk_study_group_member_id foreign key(group_member_id) references member(member_id) on delete set null,
-    constraint fk_group_member_no foreign key( group_member_no) references study_group(group_no) on delete cascade,
-    constraint ck_group_member_role check( group_member_role in ('U','A'))
+    constraint ck_group_member_role check(group_member_role in ('U','A'))
 
 );
+
+commit;
+
+--drop table kola_study_group_member;
+
+insert into kola_study_group_member values(21,'aaaafsd','일일이',null,'U');
+select * from kola_study_group_member where group_member_no = 21;
 create sequence seq_study_group_member_no;
 
 
@@ -197,9 +239,12 @@ select * from KOLA_MEMBER;
 select * from kola_member where member_id = 'delete';
 select * from kola_member where member_id = 'delete';
 commit;
+SELECT * FROM tabs;
 
 
 
+
+select * from kola_member where member_id = 'honggd';
 
 
 
