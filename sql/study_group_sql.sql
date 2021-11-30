@@ -28,6 +28,8 @@ insert into kola_member values('admin','1234','관리자','A','M','c',null,'0101
 select * from kola_member;
 
 
+
+
 --------------------------------------------------------------------
 -- 게시글
 --------------------------------------------------------------------
@@ -164,8 +166,8 @@ commit;
 
 --drop table kola_study_group_member;
 
-insert into kola_study_group_member values(1,'honggd','홍길동',null,'U');
-select * from kola_study_group_member;
+insert into kola_study_group_member values(21,'aaaafsd','일일이',null,'U');
+select * from kola_study_group_member where group_member_no = 21;
 create sequence seq_study_group_member_no;
 
 

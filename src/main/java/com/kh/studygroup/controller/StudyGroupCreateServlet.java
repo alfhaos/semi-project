@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.member.model.vo.Member;
 import com.kh.studygroup.model.service.StudyGroupService;
 import com.kh.studygroup.model.vo.StudyGroup;
 
@@ -15,7 +16,7 @@ import com.kh.studygroup.model.vo.StudyGroup;
  * Servlet implementation class StudyGroupCreate
  */
 @WebServlet("/studygroup/create")
-public class StudyGroupCreate extends HttpServlet {
+public class StudyGroupCreateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudyGroupService groupService = new StudyGroupService();
 	
@@ -56,11 +57,12 @@ public class StudyGroupCreate extends HttpServlet {
 		
 		String memberId = request.getParameter("memberId");
 		String memberName = request.getParameter("memberName");
+		Member member = new Member(memberId,memberName,0);
 		
 		// 2. 업무로직
 		int result = 0;
 		
-		result = groupService.InsertGroup(group,memberId,memberName);
+		result = groupService.InsertGroup(group,member);
 
 		String msg = result > 0 ? "스터디 그룹 생성 완료" : "스터디 그룹 생성 실패";
 		request.getSession().setAttribute("msg", msg);

@@ -2,9 +2,24 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%@page import="com.kh.studygroup.model.vo.StudyGroupMember"%> 
+<%@ page import = "java.util.List" %>
+<%
+	List<StudyGroupMember> list = (List<StudyGroupMember>) session.getAttribute("MemberList");
+
+	
+%>
 
 <% if(loginMember.getStudy_group() != 0) {%>
 	<h1><%= loginMember.getStudy_group() %>번 스터디 입니다.</h1>
+	<hr />
+	<ul>
+	
+		<% for(StudyGroupMember member : list){ %>
+			<li><%= member.getGroupMemberName() %></li>
+		<%} %>		
+
+	</ul>
 
 <%} else{ %>
 
@@ -14,6 +29,10 @@
 	
 	
 	<%} %>
+
+
+
+
 
 <br /><br /><br />
 

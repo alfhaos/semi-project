@@ -44,11 +44,11 @@ function noLogin_writing_btn(){
 						method="GET">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="admin"></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="hhhhh"></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1234"></td>
+								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1111"></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -70,6 +70,7 @@ function noLogin_writing_btn(){
 					<table id="login">
 						<tr>
 							<td><%= loginMember.getMember_name() %>님, 안녕하세요.</td>
+							
 						</tr>
 						<tr>
 							<td>
@@ -130,3 +131,4 @@ function noLogin_writing_btn(){
 		</header>
 		
 		<section id="content">
+		

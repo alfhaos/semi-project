@@ -17,7 +17,12 @@ public class Member {
 	private int study_group;
 	
 	
-	
+	public Member(String member_id, String member_name,int study_group) {
+		super();
+		this.member_id = member_id;
+		this.member_name = member_name;
+		this.study_group = study_group;
+	}
 	
 	public Member(String member_id, String password, String member_name, String member_role, String gender,
 			String language, String email, String phone, String address, Date enroll_date, int study_group) {
