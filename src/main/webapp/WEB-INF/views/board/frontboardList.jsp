@@ -3,36 +3,116 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
 <section id="board-container">
-	<h2>게시판 </h2>
-<table id="tbl-board">
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>작성일</th>
-			<th>첨부파일</th><%--첨부파일이 있는 경우 /images/file.png 표시 width:16px --%>
-			<th>조회수</th>
-		</tr>
-		
+<div id="banner">
+	<ul class="ulbanner">
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
+	<li class="libanner"></li>
+	</ul>
+</div>
+<div id="tbl-board">
+		<ul class="ultest">
 <% 
 	List<Frontboard> list = (List<Frontboard>) request.getAttribute("list"); 
 	for(Frontboard frontboard : list){
-%>
-		<tr>
-			<td><%= frontboard.getNo() %></td>
-			<td>
-				<a href="<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>"><%= frontboard.getTitle() %></a>
-				<%= frontboard.getCommentCount() > 0 ? "(" + frontboard.getCommentCount() + ")" : "" %>
-			</td>
-			<td><%= frontboard.getWriter() %></td>
-			<td><%= frontboard.getRegDate() %></td>
-			<td><%= frontboard.getReadCount() %></td>
-		</tr>
+%>   
+
+		
+			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';">
+			<h1><%= frontboard.getTitle() %></h1>
+				<ul class="ultest1">
+					
+					<% 
+						if(frontboard.getLanguage().equals("javascript"))
+						{
+							%>  
+							<li class="litest1">
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=50rem; height=50rem;>
+							<p>javascript</p>
+							</li>
+							<% 
+						}
+					%>
+					<% 
+						if(frontboard.getLanguage().equals("java"))
+						{
+							%>  
+							<li class="litest1">
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=50rem; height=50rem;>
+							<p>java</p>
+							</li>
+							<% 
+						}
+					%>
+					<% 
+						if(frontboard.getLanguage().equals("python"))
+						{
+							%>  
+							<li class="litest1">
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=50rem; height=50rem;>
+							<p>python</p>
+							</li>
+							<% 
+						}
+					%> 
+					<% 
+						if(frontboard.getLanguage().equals("c++"))
+						{
+							%>  
+							<li class="litest1">
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=50rem; height=50rem;>
+							<p>c++</p>
+							<div class="undertext">
+							&#128064;
+							<p>조회수</p>	
+							</div>
+							</li>
+							<% 
+						}
+					%>
+					<% 
+						if(frontboard.getLanguage().equals("spring"))
+						{
+							%>  
+							<li class="litest1">
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=50rem; height=50rem;>
+							<p>spring</p>
+							</li>
+							<% 
+						}
+					%>  
+					<% 
+						if(frontboard.getLanguage().equals("java,javascript"))
+						{
+							%>  
+							<li class="litest1"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=50rem; height=50rem;>
+							<p>java</p>
+							</li>
+							<li class="litest1"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=50rem; height=50rem;>
+							<p>javascript</p>
+							</li>
+							
+							<% 
+						}
+					%>  
+					
+				
+				
+				</ul>
+		
+			</li>
 	
+		
+		
 <%			
 	}
 %>		
-	</table>
+		</ul>
+	</div>
 </section>
