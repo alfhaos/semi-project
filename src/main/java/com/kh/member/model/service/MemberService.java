@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 import com.kh.member.model.vo.Member;
-
+import com.kh.admin.vo.Statistics;
 import com.kh.member.model.dao.MemberDao;
 
 import com.kh.member.model.vo.Member;
@@ -162,6 +162,22 @@ public class MemberService {
 			}
 			
 			return result;
+		}
+
+
+		public List<Statistics> languageStatistics() {
+			Connection conn = getConnection();
+			List<Statistics> language = memberDao.languageStatistics(conn);
+			close(conn);
+			return language;
+		}
+
+
+		public List<Statistics> enrolldateStatistics() {
+			Connection conn = getConnection();
+			List<Statistics> enrolldate = memberDao.enrolldateStatistics(conn);
+			close(conn);
+			return enrolldate;
 		}
 
 }

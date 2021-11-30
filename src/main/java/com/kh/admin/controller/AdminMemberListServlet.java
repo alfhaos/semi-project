@@ -1,4 +1,4 @@
-package com.kh.admin;
+package com.kh.admin.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.admin.vo.Statistics;
 import com.kh.common.MvcUtils;
 
 
@@ -69,7 +70,11 @@ public class AdminMemberListServlet extends HttpServlet {
 		// 2-a. content영역
 		List<Member> list = memberService.selectAllMember(param);
 		System.out.println("list@servlet = " + list);
-		System.out.println("asdfasdfasdfasdf");
+		List<Statistics> language = memberService.languageStatistics();
+		System.out.println("language@servlet = " + language);
+		List<Statistics> enrolldate = memberService.enrolldateStatistics();
+		System.out.println("enrolldate@servlet = " + enrolldate);
+
 		// 2-b. pagebar영역
 		int totalContent = memberService.selectTotalMemberCount();
 		String url = request.getRequestURI(); // /mvc/admin/memberList
@@ -80,6 +85,8 @@ public class AdminMemberListServlet extends HttpServlet {
 		
 		// 3.view단처리
 		request.setAttribute("list", list);
+		request.setAttribute("language", language);
+		request.setAttribute("enrolldate", enrolldate);
 		
 		request.setAttribute("pagebar", pagebar);
 		request

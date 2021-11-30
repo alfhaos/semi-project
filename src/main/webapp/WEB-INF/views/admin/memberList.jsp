@@ -1,3 +1,4 @@
+<%@page import="com.kh.admin.vo.Statistics"%>
 <%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="java.util.List"%>
@@ -8,6 +9,9 @@
 	if(msg != null) session.removeAttribute("msg");
 	
 	List<Member> list = (List<Member>) request.getAttribute("list");
+	List<Statistics> language = (List<Statistics>) request.getAttribute("language");
+	List<Statistics> enrolldate = (List<Statistics>) request.getAttribute("enrolldate");
+	
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -38,7 +42,7 @@ $(() => {
 	<h2>회원관리</h2>
 	<nav>
 		<ul class="admin-nav">
-			<li class="language-stats"><a href="#">관심 언어 통계</a></li>
+			<li class="language-stats"><a href="<%= request.getContextPath() %>/admin/memberStatistics">관심 언어 통계</a></li>
 			<li class="memberEnroll-stats"><a href="#">가입일 통계</a></li>
 			<li class="hi"><a href="#">이것저것</a></li>
 			<li class="bye"><a href="#">생각나면추가</a></li>
@@ -53,6 +57,8 @@ $(() => {
             <option value="memberId" <%= "memberId".equals(searchType) ? "selected" : "" %>>아이디</option>		
             <option value="memberName" <%= "memberName".equals(searchType) ? "selected" : "" %>>회원명</option>
             <option value="gender" <%= "gender".equals(searchType) ? "selected" : "" %>>성별</option>
+            <option value="rank" <%= "rank".equals(searchType) ? "selected" : "" %>>통계</option>
+
         </select>
         <div id="search-memberId" class="search-type">
             <form action="<%=request.getContextPath()%>/admin/memberFinder">
@@ -78,8 +84,43 @@ $(() => {
         </div>
     </div>
 	
+
 	
 	<table id="tbl-member">
+	<thead>
+			<tr>
+				<th>선호언어</th>
+				<th>관심 수</th>
+				<th>순위</th>
+			</tr>
+	</thead>
+		<tbody>
+<% for(Statistics lang : language){ %>
+		<tr>
+				<th><%= lang.getStat() %></th>
+				<th><%= lang.getCount() %></th>
+				<th><%= lang.getRank() %></th>
+		</tr>
+<% } %>
+		</tbody>
+	<thead>
+			<tr>
+				<th>가입일</th>
+				<th>가입 수</th>
+				<th>순위</th>
+			</tr>
+	</thead>
+	<tbody>
+<% for(Statistics enroll : enrolldate){ %>
+		<tr>
+				<th><%= enroll.getStat() %></th>
+				<th><%= enroll.getCount() %></th>
+				<th><%= enroll.getRank() %></th>
+		</tr>
+<% } %>
+	</tbody>
+
+
 		<thead>
 			<tr>
 				<th>아이디</th>
