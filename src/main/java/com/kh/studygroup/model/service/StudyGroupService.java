@@ -1,14 +1,16 @@
 package com.kh.studygroup.model.service;
 
-import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.*;
 import static com.kh.common.JDBCTemplate.getConnection;
 import static com.kh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.kh.member.model.vo.Member;
 import com.kh.studygroup.model.dao.StudyGroupDao;
 import com.kh.studygroup.model.vo.StudyGroup;
+import com.kh.studygroup.model.vo.StudyGroupMember;
 
 public class StudyGroupService {
 	
@@ -18,23 +20,25 @@ public class StudyGroupService {
 	private static StudyGroupDao groupDao = new StudyGroupDao();
 	
 	
-	public int InsertGroup(StudyGroup group, String memberId, String memberName) {
+	public int InsertGroup(StudyGroup group,Member member) {
 		Connection conn = getConnection();
-		int result1 = 0;
-		int result2 = 0;
+		int result = 0;
 		try {
 			
-			result1 = groupDao.InsertGroup(group,conn);
+			result += groupDao.InsertGroup(group,conn);
 			int groupNum = groupDao.selectLastGroupNo(group,conn);
 			
+			member.setStudy_group(groupNum); // servlet에서 참조할 수 있도록 한다.
 			
-			result2 = groupDao.InsertGroupMember(conn,memberId,memberName, ADMIN_ROLE,groupNum);
 			
-			if(result2 == 0 ) {
-				result1 = 0;
-				rollback(conn);
+			result += groupDao.InsertGroupMember(conn,member, ADMIN_ROLE,groupNum);
+			result += groupDao.UpdateMemberStudyGroup(conn,groupNum,member);
+
+			
+			if(result != 3 ) {
+				result = 0;
 			}
-			
+			commit(conn);
 			
 		}
 		catch(Exception e) {
@@ -47,7 +51,30 @@ public class StudyGroupService {
 		
 		
 		
-		return result1;
+		return result;
+	}
+
+
+	public List<StudyGroupMember> selectAllGroupMember(int studyGroup) {
+		Connection conn = getConnection();
+		List<StudyGroupMember> MemberList = null;
+		
+		try {
+		MemberList = groupDao.selectAllGroupMember(conn,studyGroup);
+		
+		}
+		
+		catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		
+		
+		
+		return MemberList;
 	}
 
 }
