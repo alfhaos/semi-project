@@ -208,6 +208,9 @@ select * from KOLA_MEMBER;
 select * from kola_member where member_id = 'delete';
 select * from kola_member where member_id = 'delete';
 commit;
+SELECT * FROM tabs;
+
+
 
 
 

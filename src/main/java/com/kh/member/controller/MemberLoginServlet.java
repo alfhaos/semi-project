@@ -41,7 +41,6 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		
 		
-		
 		//HttpSession session = request.getSession();
 		HttpSession session = request.getSession(true);
 		

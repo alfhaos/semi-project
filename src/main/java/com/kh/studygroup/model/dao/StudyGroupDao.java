@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 
-import com.kh.member.MemberException;
+
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 
