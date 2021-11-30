@@ -15,9 +15,9 @@ public class FreeboardService {
 
 	private FreeboardDao freeboardDao = new FreeboardDao();
 
-	public List<Freeboard> selectAllBoard(Map<String, Integer> param) {
+	public List<Freeboard> selectAllFreeBoard(Map<String, Integer> param) {
 		Connection conn = getConnection();
-		List<Freeboard> list = freeboardDao.selectAllBoard(conn, param);
+		List<Freeboard> list = freeboardDao.selectAllFreeBoard(conn, param);
 		close(conn);
 		return list;
 	}

@@ -33,9 +33,9 @@ public class FreeboardDao {
 	
 	
 
-	public List<Freeboard> selectAllBoard(Connection conn, Map<String, Integer> param) {
+	public List<Freeboard> selectAllFreeBoard(Connection conn, Map<String, Integer> param) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectAllBoard");
+		String sql = prop.getProperty("selectAllFreeBoard");
 		ResultSet rset = null;
 		List<Freeboard> list = new ArrayList<>();
 		

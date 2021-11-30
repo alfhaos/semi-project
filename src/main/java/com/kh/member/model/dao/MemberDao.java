@@ -37,12 +37,7 @@ public class MemberDao {
 	
 	public Member selectOneMember(String memberId,Connection conn) {
 
-<<<<<<< HEAD
-		String sql = prop.getProperty("selectOneMember");
-
-=======
 		String sql = prop.getProperty("SelectOneMember");
->>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
 		PreparedStatement pstmt = null;
 		Member member = null;
 		ResultSet rset = null;

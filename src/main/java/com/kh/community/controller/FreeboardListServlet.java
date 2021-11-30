@@ -39,7 +39,7 @@ public class FreeboardListServlet extends HttpServlet {
 		param.put("end", end);
 		
 		// 2. 업무로직
-		List<Freeboard> list = freeboardService.selectAllBoard(param);
+		List<Freeboard> list = freeboardService.selectAllFreeBoard(param);
 		System.out.println("list@servlet = " + list);
 		
 		request.setAttribute("list", list);
