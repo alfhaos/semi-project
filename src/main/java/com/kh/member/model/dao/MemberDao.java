@@ -42,10 +42,12 @@ public class MemberDao {
 		Member member = null;
 		ResultSet rset = null;
 		
+		System.out.println("[MemberDao] sql = " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,memberId);
+			
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
