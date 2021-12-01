@@ -113,9 +113,9 @@ select * from kola_board_comment;
 
 create table free_board(
     no number,                          -- 게시글번호
-    title varchar2(100) not null,   -- 제목
+    title varchar2(100),   -- 제목
     writer varchar2(20),            --작성자
-    content varchar2(4000) not null,    --내용
+    content varchar2(4000),    --내용
     read_count number default 0,    -- 조회수
     reg_date date default sysdate,
     like_count number default 0,        -- 좋아요
@@ -140,12 +140,12 @@ create table question_board(
 );
 
 
-
+create sequence seq_free_board_no;
 
 select *from community_board;
+select*from free_board;
 
 create sequence seq_community_board_no;
-
 
 
 --------------------------------------------------------------------

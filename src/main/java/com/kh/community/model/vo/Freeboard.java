@@ -15,14 +15,14 @@ public class Freeboard extends FreeboardEntity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Freeboard(int no, String title, String writer, String content, int readCount, Date regDate, String ask,
+	public Freeboard(int no, String title, String writer, String content, int readCount, Date regDate,
 			int likeCount) {
 		super(no, title, writer, content, readCount, regDate, likeCount);
 		// TODO Auto-generated constructor stub
 	}
 	
 
-	public Freeboard(int no, String title, String writer, String content, int readCount, Date regDate, String ask,
+	public Freeboard(int no, String title, String writer, String content, int readCount, Date regDate,
 			int likeCount, int attachCount, List<Attachment> attachments, int commentCount) {
 		super(no, title, writer, content, readCount, regDate, likeCount);
 		this.attachCount = attachCount;

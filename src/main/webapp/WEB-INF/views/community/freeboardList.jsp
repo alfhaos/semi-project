@@ -26,7 +26,7 @@
 		<tr>
 			<td><%= freeboard.getNo() %></td>
 			<td>
-				<a href="<%= request.getContextPath() %>/board/boardView?no=<%= freeboard.getNo() %>"><%= freeboard.getTitle() %></a>
+				<a href="<%= request.getContextPath() %>/community/freeboardView?no=<%= freeboard.getNo() %>"><%= freeboard.getTitle() %></a>
 				<%= freeboard.getCommentCount() > 0 ? "(" + freeboard.getCommentCount() + ")" : "" %>
 			</td>
 			<td><%= freeboard.getWriter() %></td>

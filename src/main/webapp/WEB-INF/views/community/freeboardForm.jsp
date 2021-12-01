@@ -35,8 +35,7 @@ $(document.boardEnrollFrm).submit(boardValidate);
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/community/freeboardEnroll" 
-	method="post"
-	enctype="multipart/form-data">
+	method="post">
 	<table id="tbl-board-view">
 	<tr>
 		<th>제 목</th>

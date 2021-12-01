@@ -18,6 +18,7 @@ import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.vo.Freeboard;
 
 
+
 public class FreeboardDao {
 	
 	private Properties prop = new Properties();
@@ -66,6 +67,63 @@ public class FreeboardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+
+
+	public int insertFreeBoard(Connection conn, Freeboard freeboard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, freeboard.getTitle());
+			pstmt.setString(2, freeboard.getWriter());
+			pstmt.setString(3, freeboard.getContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FreeboardException("게시물 등록 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public Freeboard selectAllFreeBoard(Connection conn, int no) {
+		Freeboard freeboard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneFreeBoard");
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				freeboard = new Freeboard();
+				freeboard.setNo(rset.getInt("no"));
+				freeboard.setTitle(rset.getString("title"));
+				freeboard.setWriter(rset.getString("writer"));
+				freeboard.setContent(rset.getString("content"));
+				freeboard.setReadCount(rset.getInt("read_count"));
+				freeboard.setRegDate(rset.getDate("reg_date"));
+				freeboard.setLikeCount(rset.getInt("like_count"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return freeboard;
 	}
 
 }
