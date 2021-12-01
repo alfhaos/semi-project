@@ -16,6 +16,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Kola !</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
 $(() => {
@@ -32,6 +33,7 @@ function noLogin_writing_btn(){
 </script>
 </head>
 <body>
+
 	<div id="container">
 		<header>
 			<h1>Kola !</h1>
@@ -115,9 +117,12 @@ function noLogin_writing_btn(){
 							<ul>
 							<li id="my_page"><a href="">마이페이지</a></li>
 							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-							
-							<li id="my_writing"><a href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
-							
+<% if(loginMember != null){ %>	
+	<form name="myboardListFrm" action="<%= request.getContextPath() %>/board/MyBoardList" method="GET">
+	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />	
+	</form>
+							<li id="my_writing"><a href="#" onclick="myboardlist();">내 작성글</a></li>
+<% } %>						
 							<li id="my_interest"><a href="">내 관심글</a></li>
 							<li id="logout"><a href="">로그아웃</a></li>
 <% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
@@ -131,6 +136,13 @@ function noLogin_writing_btn(){
 				<!-- 메인메뉴 끝-->
 						
 		</header>
-		
 		<section id="content">
+
+<script>
+const myboardlist = () => {
+		$(document.myboardListFrm).submit();
+
+}
+</script>
+
 		
