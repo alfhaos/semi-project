@@ -114,7 +114,7 @@ function noLogin_writing_btn(){
 							<tr>
 								<td colspan="2">
 									<input type="checkbox" name="saveId" id="saveId" />
-									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
+									<label for="saveId">아이디저장</label>
 									<input 
 										type="button" 
 										value="회원가입" 
