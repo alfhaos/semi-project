@@ -1,12 +1,11 @@
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%
 	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
-
 	Member loginMember = (Member) session.getAttribute("loginMember");
-
 %>   
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
@@ -86,15 +85,12 @@ $(() => {
 </form>
 
 <script>
-
 const updatePassword = () => location.href = "<%= request.getContextPath() %>/member/updatePassword";
-
 const deleteMember = () => {
 	if(confirm("정말로 탈퇴하시겠습니까?")){
 		$(document.memberDelFrm).submit();
 	}
 }
-
 const updateMember = () => {
 	// 폼의 action값을 할당후 제출!
 	$(memberUpdateFrm)
@@ -102,4 +98,3 @@ const updateMember = () => {
 		.submit();
 };
 </script>
-
