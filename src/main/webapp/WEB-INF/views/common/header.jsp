@@ -137,57 +137,7 @@ function noLogin_writing_btn(){
 				</div>
 <%} %>
 
-		
-				
-				<!-- 메인메뉴 시작 -->
-				<nav>
-					<ul class="main-nav">
-
-						<li class="home"><a href="#">Home</a></li>
-
-						<li class="notice"><a href="#">공지사항</a></li>
-						<li class="board"><a href="#">게시판</a></li>
-						<li class="photo"><a href="#">사진게시판</a></li>
-						<li class="chat"><a href="#">채팅</a></li>
-
-
-						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
-
-						<li class="board"><a href="">커뮤니티</a>
-							<ul>
-								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
-								<li id="free_board"><a href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
-							</ul>
-						</li>
-						<li>
-<% if(loginMember == null){ %>	
-	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
-<%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
-<% } %>		
-						</li>
-						<li class="sub_menu">
-							<ul>
-							<li id="my_page"><a href="">마이페이지</a></li>
-							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-<% if(loginMember != null){ %>	
-	<form name="myboardListFrm" action="<%= request.getContextPath() %>/board/MyBoardList" method="GET">
-	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />	
-	</form>
-							<li id="my_writing"><a href="#" onclick="myboardlist();">내 작성글</a></li>
-<% } %>						
-							<li id="my_interest"><a href="">내 관심글</a></li>
-							<li id="logout"><a href="">로그아웃</a></li>
-<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
-							<li id="admin_page"><a href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
-<% } %>
-							</ul>
-						</li>
-
-					</ul>
-				</nav>
-				<!-- 메인메뉴 끝-->
+			
 						
 		</header>
 
