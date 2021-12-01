@@ -19,16 +19,7 @@
 
 <title>Kola !</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<style>
-	header{
-		height: 20vh;
-		weight: 80%;
-		text-align: center;
-		margin: 0 auto;
-		padding: 0 auto;
-		
-	}
-</style>
+
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
@@ -114,7 +105,7 @@ function noLogin_writing_btn(){
 							<tr>
 								<td colspan="2">
 									<input type="checkbox" name="saveId" id="saveId" />
-									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
+									<label for="saveId">아이디저장</label>
 									<input 
 										type="button" 
 										value="회원가입" 
