@@ -6,6 +6,13 @@
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
 <section id="board-container">
+<!-- 글쓰기 버튼 -->
+<% if(loginMember == null){ %>	
+	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+<% } %>		
+
 <div id="banner">
 	<ul class="ulbanner">
 	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>

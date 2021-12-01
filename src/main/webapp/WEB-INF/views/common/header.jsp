@@ -64,15 +64,6 @@ function noLogin_writing_btn(){
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
         
-<!-- 글쓰기 버튼 -->
-<% if(loginMember == null){ %>	
-	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
-<%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
-<% } %>		
-
-
-
 <% if(loginMember == null){ %>
 				<div class="col-md-3 text-end">
         			<button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>'">Login</button>
