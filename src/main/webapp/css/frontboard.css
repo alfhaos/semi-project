@@ -13,13 +13,14 @@ section#board-container h2{margin:10px 0;}
 
 div#banner{display:block;}
 ul.ulbanner{list-style:none; display:flex; flex-wrap: wrap; background: skyblue;}
-li.libanner{margin: 1.5rem;}
-ul.ultest{display: flex; flex-wrap: wrap;list-style: none;  margin-left: auto; margin-right: auto;}
-li.litest{ width: 15rem; height: 15rem; margin:5rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
+
+
+ul.ultest{display: flex; flex-wrap: wrap;list-style: none;  margin: 0 auto;}
+li.litest{ width: 20rem; height: 20rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 transition: all 0.5s; }
-li.litest:hover {width: 15.5rem; height: 15.5rem; }
+li.java:hover {width: 15.5rem; height: 15.5rem; }
 li.litest h1{ font-family: 'InfinitySans-RegularA1';}
 li.litest p{ font-family: 'InfinitySans-RegularA1';}
 ul.ultest1{display: flex; flex-wrap: wrap; list-style: none;}
-li.litest1{margin: 10px;}
+li.litest1{margin: 10px; }
 div.undertext{display:in-line-block; position:absolute; padding:none; text-align:center;}

@@ -3,18 +3,128 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
+
+<script>
+$(function(){
+	var clicks = 1;
+	$('.libanner1').click(function() {
+		if(clicks%2 != 0){
+		  $(this).css('opacity', '0.3');
+		
+		  $('.javascript').hide();
+		  
+		} else{
+		  $(this).css('opacity', '1');
+		
+		  $('.javascript').show();
+		}
+		++clicks;
+	});
+});
+
+$(function(){
+	var clicks = 1;
+	$('.libanner2').click(function() {
+		if(clicks%2 != 0){
+		  $(this).css('opacity', '0.3');
+		  $('.java').hide();
+		} else{
+		  $(this).css('opacity', '1');
+		  $('.java').show();
+		}
+		++clicks;
+	});
+});
+
+$(function(){
+	var clicks = 1;
+	$('.libanner3').click(function() {
+		if(clicks%2 != 0){
+		  $(this).css('opacity', '0.3');
+		  $('.c쁠쁠').hide();
+		} else{
+		  $(this).css('opacity', '1');
+		  $('.c쁠쁠').show();
+		}
+		++clicks;
+	});
+});
+
+$(function(){
+	var clicks = 1;
+	$('.libanner4').click(function() {
+		if(clicks%2 != 0){
+		  $(this).css('opacity', '0.3');
+		  $('.python').hide();
+		} else{
+		  $(this).css('opacity', '1');
+		  $('.python').show();
+		}
+		++clicks;
+	});
+});
+
+$(function(){
+	var clicks = 1;
+	$('.libanner5').click(function() {
+		if(clicks%2 != 0){
+		  $(this).css('opacity', '0.3');
+		 
+		} else{
+		  $(this).css('opacity', '1');
+		}
+		++clicks;
+	});
+});
+
+
+
+</script>
+<style>
+
+	#title{
+	font-size: 5rem;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	text-decoration-line : none;
+	}
+	#title span{
+	color: #eb4b3f;
+	font-family: 'Secular One', sans-serif;
+	font-weight: 600;
+	}
+	#title2{
+	font-size: 1rem;
+	size: width: 10px;
+	}
+	.title{
+	margin: 2rem;
+	padding: 1rem;
+	}
+</style>
 <section id="board-container">
+<div class="title">
+	<span id="title2">스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법</span>
+	<span id="title">Kola <span>!</span></span>
+<!-- 글쓰기 버튼 -->
+<br />
+<% if(loginMember == null){ %>	
+	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+<% } %>		
+
+</div>
+
 <div id="banner">
 	<ul class="ulbanner">
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
-	<li class="libanner"></li>
-	</ul>
+		<li class="libanner1" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
+		<li class="libanner2" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
+		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
+		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
+		<li class="libanner5" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
+</ul>
 </div>
 <div id="tbl-board">
 		<ul class="ultest">
@@ -23,9 +133,13 @@
 	for(Frontboard frontboard : list){
 %>   
 
-		
-			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';">
-			<h4><%= frontboard.getTitle() %></h4>
+
+			<li id="<%= frontboard.getNo() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';" 
+			style="width: 15rem; height: 15rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
+					transition: all 0.5s;">
+			
+			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
+
 				<ul class="ultest1">
 					
 					<% 
@@ -34,7 +148,7 @@
 							%>  
 							<li class="litest1">
 							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=50rem; height=50rem;>
-							<p>javascript</p>
+							<p style= "font-family: 'InfinitySans-RegularA1';">javascript</p>
 							</li>
 							<% 
 						}
@@ -45,7 +159,7 @@
 							%>  
 							<li class="litest1">
 							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=50rem; height=50rem;>
-							<p>java</p>
+							<p style= "font-family: 'InfinitySans-RegularA1';">java</p>
 							</li>
 							<% 
 						}
@@ -55,21 +169,30 @@
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=50rem; height=50rem;>
-							<p>python</p>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=50rem; height=50rem;>
+
+							
+
+							<p style= "font-family: 'InfinitySans-RegularA1';">python</p>
+
 							</li>
 							<% 
 						}
 					%> 
 					<% 
-						if(frontboard.getLanguage().equals("c++"))
+						if(frontboard.getLanguage().equals("c쁠쁠"))
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=50rem; height=50rem;>
-							<p>c++</p>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=50rem; height=50rem;>
+
+							
+
+							<p style= "font-family: 'InfinitySans-RegularA1';">c++</p>
+
 							<div class="undertext">
-							<p>조회수</p>	
+							&#128064;
+							<p style= "font-family: 'InfinitySans-RegularA1';">조회수</p>	
 							</div>
 							</li>
 							<% 
@@ -87,7 +210,7 @@
 						}
 					%>  
 					<% 
-						if(frontboard.getLanguage().equals("java,javascript"))
+						if(frontboard.getLanguage().equals("java javascript"))
 						{
 							%>  
 							<li class="litest1"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=50rem; height=50rem;>
@@ -108,10 +231,7 @@
 			</li>
 	
 		
-		
-<%			
-	}
-%>		
+<%} %>
 		</ul>
 	</div>
 </section>

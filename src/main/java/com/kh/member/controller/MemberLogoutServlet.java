@@ -28,7 +28,8 @@ public class MemberLogoutServlet extends HttpServlet {
 			session.invalidate();
 		
 		// redirect - url변경
-		String location = request.getContextPath() + "/index.jsp";
+
+		String location = request.getContextPath() + "/";
 		response.sendRedirect(location);
 		
 	}

@@ -63,7 +63,7 @@ insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_da
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'파이썬 2개월 스터디 팀원구해요~','hhhhh','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','java',10,5,'O');
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'c++ 6개월 스터디 그룹원 구해용','pppp','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','javascript',10,3,'O');
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'자바 스크립트 프로젝트 팀원구해요~','ykuhk','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','javascript',10,3,'O');
-update kola_main_board set  title='c++ 스터디 팀원 구합니다~' where content ='반갑습니다';
+update kola_main_board set  language='c쁠쁠' where language ='c++';
 
 create sequence kola_seq_main_board_no;
 
@@ -114,9 +114,9 @@ select * from kola_board_comment;
 
 create table free_board(
     no number,                          -- 게시글번호
-    title varchar2(100) not null,   -- 제목
+    title varchar2(100),   -- 제목
     writer varchar2(20),            --작성자
-    content varchar2(4000) not null,    --내용
+    content varchar2(4000),    --내용
     read_count number default 0,    -- 조회수
     reg_date date default sysdate,
     like_count number default 0,        -- 좋아요
@@ -141,12 +141,12 @@ create table question_board(
 );
 
 
-
+create sequence seq_free_board_no;
 
 select *from community_board;
+select*from free_board;
 
 create sequence seq_community_board_no;
-
 
 
 --------------------------------------------------------------------

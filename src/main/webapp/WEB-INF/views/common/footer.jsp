@@ -6,5 +6,6 @@
 			<p>footerfooter</p>
 		</footer>
 	</div>
+	</div>
 </body>
 </html>

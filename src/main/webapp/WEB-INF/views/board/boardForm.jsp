@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>    
+<%@ include file="/WEB-INF/views/common/header.jsp" %>  
 
 
 <script>
@@ -44,10 +44,20 @@ $(document).ready(function(){
 $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <style>
 #location {
 	display: none;
 }
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+table, td, th {
+    border-collapse : collapse;
+    border : 1px solid black;
+};
 </style>
 <section id="board-container">
 <h2>게시판 작성</h2>
