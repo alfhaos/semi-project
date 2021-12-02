@@ -25,7 +25,7 @@
 
 		
 			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';">
-			<h1><%= frontboard.getTitle() %></h1>
+			<h4><%= frontboard.getTitle() %></h4>
 				<ul class="ultest1">
 					
 					<% 
@@ -69,7 +69,6 @@
 							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=50rem; height=50rem;>
 							<p>c++</p>
 							<div class="undertext">
-							&#128064;
 							<p>조회수</p>	
 							</div>
 							</li>

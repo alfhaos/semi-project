@@ -55,6 +55,14 @@ public class FrontboardService {
 		}
 		return result;
 	}
+
+
+	public List<Frontboard> myboardlist(String memberId) {
+		Connection conn = getConnection();
+		List<Frontboard> list = frontboardDao.myboardlist(conn, memberId);
+		close(conn);
+		return list;
+	}
 	
 	
 }
