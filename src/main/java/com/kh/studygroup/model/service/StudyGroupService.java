@@ -77,4 +77,45 @@ public class StudyGroupService {
 		return MemberList;
 	}
 
+
+	public String selectStudyTime(String memberId) {
+		Connection conn = getConnection();
+		String dbtime = null;
+		try {
+		dbtime = groupDao.selectStudyTime(conn,memberId);
+		
+		}
+		
+		catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		
+		
+		return dbtime;
+	}
+
+
+	public int insertStudyTime(String memberId, String time) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = groupDao.insertStudyTime(conn,memberId,time);
+			commit(conn);
+		}
+		
+		catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		
+		
+		return result;	}
+
 }
