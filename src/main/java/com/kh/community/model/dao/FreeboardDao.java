@@ -257,6 +257,24 @@ public class FreeboardDao {
 
 
 
+	public int deleteFreeBoardComment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteFreeBoardComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FreeboardException("댓글 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
 
 
 }

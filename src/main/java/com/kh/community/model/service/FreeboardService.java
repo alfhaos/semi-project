@@ -130,6 +130,20 @@ public class FreeboardService {
 	}
 
 
+	public int deleteFreeBoardComment(int no) {
+		Connection conn = getConnection(); 
+		int result = 0;
+		try {
+			result = freeboardDao.deleteFreeBoardComment(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+
 
 	
 }
