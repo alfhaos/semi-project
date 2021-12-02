@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.vo.Freeboard;
+import com.kh.community.model.vo.FreeboardComment;
 
 
 
@@ -194,6 +195,43 @@ public class FreeboardDao {
 		}
 		return result;
 	}
+
+
+
+	public List<FreeboardComment> selectFreeBoardCommentList(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectFreeBoardCommentList");
+		ResultSet rset = null;
+		List<FreeboardComment> commentList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FreeboardComment bc = new FreeboardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setWriter(rset.getString("writer"));
+				bc.setContent(rset.getString("content"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				bc.setCommentRef(rset.getInt("comment_ref")); // 댓글인 경우 null이고, 이는 0으로 치환된다.
+				bc.setRegDate(rset.getDate("reg_date"));
+				commentList.add(bc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return commentList;
+	}
+
+
+
 
 
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.kh.community.model.dao.FreeboardDao;
 import com.kh.community.model.vo.Freeboard;
+import com.kh.community.model.vo.FreeboardComment;
 
 
 public class FreeboardService {
@@ -102,5 +103,16 @@ public class FreeboardService {
 		}
 		return result;
 	}
+
+
+	public List<FreeboardComment> selectFreeBoardCommentList(int boardNo) {
+		Connection conn = getConnection();
+		List<FreeboardComment> commentList = freeboardDao.selectFreeBoardCommentList(conn, boardNo);
+		close(conn);
+		return commentList;
+	}
+
+
+
 	
 }
