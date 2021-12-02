@@ -66,6 +66,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		session.setAttribute("msg", msg);
 		
 		String location = request.getContextPath() + "/member/memberView";
+		System.out.println("memberViewServlet location = " +location);
 		response.sendRedirect(location);
 		
 	

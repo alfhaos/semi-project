@@ -5,7 +5,7 @@
 <%@page import="com.kh.member.model.vo.Member"%> 
     
 <%
-	String msg = (String) request.getAttribute("msg");
+	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
 
 	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -35,6 +35,9 @@ function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
 
+const logout = () => {
+	location.href="<%= request.getContextPath() %>/member/logout";
+};
 </script>
 
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -46,7 +49,7 @@ function noLogin_writing_btn(){
 
 	<div id="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-	<h1>Kola!</h1>
+	<h1 id="kola" style="cursor:pointer">Kola!</h1></a>
 	
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
@@ -71,6 +74,7 @@ function noLogin_writing_btn(){
 <% } %>		
 
 <!-- 마이페이지 드롭다운 -->
+
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -78,7 +82,7 @@ function noLogin_writing_btn(){
           <ul id="sub_menu" class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
+            <li><a class="dropdown-item" href="#" onclick="myboardlist();">내 작성글</a></li>
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">로그아웃</a></li>
@@ -128,7 +132,8 @@ function noLogin_writing_btn(){
 					
 					<table id="login">
 						<tr>
-							<td><%= loginMember.getMember_name() %>님, 안녕하세요.</td>
+							<td>
+							<%= loginMember.getMember_name() %>님, 안녕하세요.<a href="">스터디그룹 신청알람해야됨</a></td>
 							
 						</tr>
 						<tr>
@@ -146,15 +151,26 @@ function noLogin_writing_btn(){
 		</header>
 
     </header>
+<% if(loginMember != null){ %>
+    <form 
+    name="myboardListFrm"
+    action="<%= request.getContextPath() %>/board/MyBoardList"
+    method="GET">
+    <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
+    </form>
+    
+<% } %>
 
 		<section id="content">
-
-
+		
 <script>
 const myboardlist = () => {
 		$(document.myboardListFrm).submit();
 
 }
+$(kola).click(() => {
+	location.href = '<%= request.getContextPath() %>';
+});
 </script>
 
 
