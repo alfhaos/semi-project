@@ -64,5 +64,9 @@ const deleteBoard = () => {
 		$(document.boardDelFrm).submit();		
 	}
 };
+
+const updateBoard = () => {
+	location.href = "<%= request.getContextPath() %>/community/freeboardUpdate?no=<%= freeboard.getNo() %>";
+};
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

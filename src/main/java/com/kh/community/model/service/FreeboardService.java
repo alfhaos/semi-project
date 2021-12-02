@@ -83,5 +83,24 @@ public class FreeboardService {
 		}
 		return result;
 	}
+
+
+	public int updateFreeBoard(Freeboard freeboard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+	
+			result = freeboardDao.updateFreeBoard(conn, freeboard);
+			
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 	
 }
