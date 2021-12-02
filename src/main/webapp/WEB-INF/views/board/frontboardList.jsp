@@ -101,9 +101,8 @@ $(function(){
 
 			<li id="<%= frontboard.getNo() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';" style="width: 15rem; height: 15rem; margin:5rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			<h1 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h1>
-			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';">
-			<h4><%= frontboard.getTitle() %></h4>
+			
+			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
 
 				<ul class="ultest1">
 					
@@ -134,7 +133,7 @@ $(function(){
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=50rem; height=50rem;>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=50rem; height=50rem;>
 							<p style= "font-family: 'InfinitySans-RegularA1';">python</p>
 							</li>
 							<% 
@@ -145,12 +144,11 @@ $(function(){
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=50rem; height=50rem;>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=50rem; height=50rem;>
 							<p style= "font-family: 'InfinitySans-RegularA1';">c++</p>
 							<div class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';">조회수</p>	
-							<p>조회수</p>
 							</div>
 							</li>
 							<% 
