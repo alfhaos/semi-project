@@ -60,6 +60,7 @@ public class StudyGroupCreateServlet extends HttpServlet {
 		Member member = new Member(memberId,memberName,0);
 		
 		// 2. 업무로직
+		
 		int result = 0;
 		
 		result = groupService.InsertGroup(group,member);
