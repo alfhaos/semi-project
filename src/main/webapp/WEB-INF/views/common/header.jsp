@@ -7,9 +7,7 @@
 <%
 	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
-
 	Member loginMember = (Member) session.getAttribute("loginMember");
-
 %>   
 <!DOCTYPE html>
 <html>
@@ -30,22 +28,29 @@ $(() => {
 	
 	<%} %>
 });
-
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
-
 </script>
 <style>
 	header{
-	margin: 0 auto;
-    width: 1000px;
-    height: 30vh;
-    }
+		width: 75%;
+		height: 30vh;
+		text-align: center;
+		margin: 0 auto;
+		padding: 0 auto;
+	}
+	.wrapper{
+		width: 80%;
+		text-align: center;
+		margin: 0 auto;
+		padding: 0 auto;
+		
+	}
 </style>
 </head>
 <body>
-	<div class="wrapper">
+<div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 	<h1>Kola!</h1>
 	
@@ -63,24 +68,24 @@ function noLogin_writing_btn(){
 	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
-        
 <% if(loginMember == null){ %>
-				<div class="col-md-3 text-end">
-        			<button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>'">Login</button>
-        			<button type="button" class="btn btn-primary">Sign-up</button>
-      			</div>
-					<!-- 로그인안한 상태일경우 -->
+					<!-- 로그인폼 시작 -->
+					
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>'">Login</button>
+        <button type="button" class="btn btn-primary">Sign-up</button>
+      </div>
 					<form 
 						id="loginFrm" 
 						action="<%= request.getContextPath() %>/member/login"
 						method="GET">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="hhhhh"></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1111"></td>
+								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = ""></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -95,12 +100,13 @@ function noLogin_writing_btn(){
 							</tr>
 						</table>
 					</form>
+					<!-- 로그인폼 끝-->
 					
 <%} else { %>
-<!-- 로그인 한 경우-->
 					
-		<span><%= loginMember.getMember_name() %>님, 열공해요!</span>
-					<!-- 마이페이지 드롭다운 -->
+
+<!-- 마이페이지 드롭다운 -->
+		<span><%= loginMember.getMember_name() %>님, 열공합시다 !</span>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -111,15 +117,13 @@ function noLogin_writing_btn(){
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<%= request.getContextPath()%>/member/logout">로그아웃</a></li>
+            <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 <% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
             <li><hr class="dropdown-divider"></li>
 			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
-<% } %>
           </ul>
         </div>
-<%} %>
+<% } %>
+<% } %>
     </header>
 		<section id="content">
-		
-		

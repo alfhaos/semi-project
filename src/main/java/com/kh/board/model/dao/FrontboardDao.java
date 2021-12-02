@@ -137,4 +137,42 @@ public class FrontboardDao {
 		return boardNo;
 	}
 
+	public List<Frontboard> myboardlist(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("myboardlist");
+		ResultSet rset = null;
+		List<Frontboard> list = new ArrayList<>();
+		System.out.println("myboardList sql = " + sql);
+		System.out.println(memberId);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				Frontboard frontboard = new Frontboard();
+				frontboard.setNo(rset.getInt("no")); // number
+				frontboard.setTitle(rset.getString("title")); // varchar2, char
+				frontboard.setWriter(rset.getString("writer"));
+				frontboard.setContent(rset.getString("content"));
+				frontboard.setReadCount(rset.getInt("read_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));
+				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				list.add(frontboard);
+			}
+			
+		} catch (SQLException e) {
+			throw new FrontboardException("게시글 목록 조회 오류!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+				
+				
+
 }

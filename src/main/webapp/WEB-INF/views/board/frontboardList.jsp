@@ -17,8 +17,8 @@
 	<ul class="ulbanner">
 	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
 	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=100rem; height=100rem;></li>
-	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
+	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
 	<li class="libanner"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
 	<li class="libanner"></li>
 	</ul>
@@ -62,7 +62,7 @@
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=50rem; height=50rem;>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=50rem; height=50rem;>
 							<p>python</p>
 							</li>
 							<% 
@@ -73,7 +73,7 @@
 						{
 							%>  
 							<li class="litest1">
-							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=50rem; height=50rem;>
+							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=50rem; height=50rem;>
 							<p>c++</p>
 							<div class="undertext">
 							<p>조회수</p>	
