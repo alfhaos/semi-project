@@ -24,6 +24,8 @@ public class FreeboardEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+			request.setCharacterEncoding("utf-8");
+			
 			String title = request.getParameter("title");
 			String writer = request.getParameter("writer");
 			String content = request.getParameter("content");

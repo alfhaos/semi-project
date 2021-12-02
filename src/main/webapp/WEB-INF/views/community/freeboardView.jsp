@@ -22,7 +22,10 @@
 			<th>작성자</th>
 			<td><%= freeboard.getWriter() %></td>
 		</tr>
-		
+		<tr>
+			<th>조회수</th>
+			<td><%= freeboard.getReadCount() %></td>
+		</tr>
 		
 		<tr>
 			<th>내 용</th>
@@ -48,4 +51,18 @@
 	</table>
 	</section>
 
+<form
+	name="boardDelFrm"
+	method="POST" 
+	action="<%= request.getContextPath() %>/community/freeboardDelete" >
+	<input type="hidden" name="no" value="<%= freeboard.getNo() %>" />
+</form>	
+
+<script>
+const deleteBoard = () => {
+	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
+		$(document.boardDelFrm).submit();		
+	}
+};
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

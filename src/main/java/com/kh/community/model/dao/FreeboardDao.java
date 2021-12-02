@@ -126,4 +126,47 @@ public class FreeboardDao {
 		return freeboard;
 	}
 
+
+
+	public int updateReadCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FreeboardException("조회수 증가 처리 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public int deleteFreeBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteFreeBoard"); 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, no);
+		
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 }
