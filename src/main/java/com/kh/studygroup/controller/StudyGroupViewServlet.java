@@ -44,8 +44,8 @@ public class StudyGroupViewServlet extends HttpServlet {
 		if(studyGroup != 0) {
 			List<StudyGroupMember> MemberList = groupService.selectAllGroupMember(studyGroup);
 			
-			session.setAttribute("MemberList", MemberList);
-
+			request.setAttribute("MemberList", MemberList);
+			
 		}
 		// 3. view단
 		request

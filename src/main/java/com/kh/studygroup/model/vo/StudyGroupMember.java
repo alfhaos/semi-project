@@ -5,13 +5,13 @@ public class StudyGroupMember {
 	private int groupNum;
 	private String groupMemberId;
 	private String groupMemberName;
-	private int studyTime;
+	private String studyTime;
 	private String MemberRole;
 	public StudyGroupMember() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public StudyGroupMember(int groupNum, String groupMemberId, String groupMemberName, int studyTime,
+	public StudyGroupMember(int groupNum, String groupMemberId, String groupMemberName, String studyTime,
 			String memberRole) {
 		super();
 		this.groupNum = groupNum;
@@ -38,10 +38,10 @@ public class StudyGroupMember {
 	public void setGroupMemberName(String groupMemberName) {
 		this.groupMemberName = groupMemberName;
 	}
-	public int getStudyTime() {
+	public String getStudyTime() {
 		return studyTime;
 	}
-	public void setStudyTime(int studyTime) {
+	public void setStudyTime(String studyTime) {
 		this.studyTime = studyTime;
 	}
 	public String getMemberRole() {

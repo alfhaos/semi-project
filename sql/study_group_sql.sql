@@ -30,6 +30,7 @@ select * from kola_member;
 
 
 
+
 --------------------------------------------------------------------
 -- 게시글
 --------------------------------------------------------------------
@@ -190,15 +191,15 @@ create table kola_study_group_member(
     constraint ck_group_member_role check(group_member_role in ('U','A'))
 
 );
-
+--alter table kola_study_group_member modify(group_member_study_time varchar2(100));
 commit;
 
 --drop table kola_study_group_member;
 
-insert into kola_study_group_member values(21,'aaaafsd','일일이',null,'U');
-select * from kola_study_group_member where group_member_no = 21;
-create sequence seq_study_group_member_no;
 
+select * from kola_study_group_member where group_member_no = 21 order by group_member_study_time desc;
+--update kola_study_group_member set group_member_study_time = '00:40:03' where group_member_id = 'aaaafsd';
+create sequence seq_study_group_member_no;
 
 create table study_group_board(
     group_board_no number,             -- 게시글 번호
