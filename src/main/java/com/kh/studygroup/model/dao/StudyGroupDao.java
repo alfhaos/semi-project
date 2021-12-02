@@ -159,7 +159,7 @@ public class StudyGroupDao {
 
 		PreparedStatement pstmt = null;
 		List<StudyGroupMember> MemberList = new ArrayList<>();
-		ResultSet rset;
+		ResultSet rset = null;
 
 		
 		
@@ -175,24 +175,86 @@ public class StudyGroupDao {
 				member.setGroupNum(rset.getInt("group_member_no"));
 				member.setGroupMemberId(rset.getString("group_member_id"));
 				member.setGroupMemberName(rset.getString("group_member_name"));
-				member.setStudyTime(rset.getInt("group_member_study_time"));
+				member.setStudyTime(rset.getString("group_member_study_time"));
 				member.setMemberRole(rset.getString("group_member_role"));
-				
 				
 				MemberList.add(member);
 				
 			}
 			
 		} catch (SQLException e) {
+			throw new GroupException("스터디 그룹 멤버 출력 오류!",e);
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return MemberList;
+	}
+
+	public String selectStudyTime(Connection conn, String memberId) {
+		String sql = prop.getProperty("selectStudyTime");
+
+		PreparedStatement pstmt = null;
+		String dbTime = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				dbTime = rset.getString("group_member_study_time");
+				
+			}
+			
+			
+			
+		} 
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new GroupException("스터디 그룹 멤버 공부시간 출력 오류!",e);
+		}
+		finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
 		
+		return dbTime;
+	}
+
+	public int insertStudyTime(Connection conn, String memberId, String time) {
+		String sql = prop.getProperty("insertStudyTime");
+
+		PreparedStatement pstmt = null;
+		String dbTime = null;
+		int result = 0;
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, time);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("[StudyGroup@Dao] result = "+ result);
+			
+		} 
+		catch (SQLException e) {
+			throw new GroupException("스터디 그룹 멤버 공부시간 입력 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
 		
-		return MemberList;
+		return result;
 	}
 
 }

@@ -43,7 +43,6 @@ public class MemberDao {
 		Member member = null;
 		ResultSet rset = null;
 		
-		System.out.println("[MemberDao] sql = " + sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -67,7 +66,7 @@ public class MemberDao {
 				member.setStudy_group(rset.getInt("study_group"));		
 				
 			}
-			System.out.println("멤버 스터디그루웁 = "+ member.getStudy_group() );
+			
 			
 		} catch (SQLException e) {
 			throw new MemberException("로그인 오류 발생",e);
