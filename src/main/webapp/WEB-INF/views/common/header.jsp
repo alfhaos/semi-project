@@ -48,6 +48,9 @@ function noLogin_writing_btn(){
 		
 	}
 </style>
+
+</script>
+
 </head>
 <body>
 <div class="wrapper">
@@ -118,12 +121,13 @@ function noLogin_writing_btn(){
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
-<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())) { %>	
             <li><hr class="dropdown-divider"></li>
 			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
           </ul>
         </div>
-<% } %>
-<% } %>
+        <% } %>
+        <% } %>
+
     </header>
 		<section id="content">
