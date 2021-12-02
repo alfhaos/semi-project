@@ -18,6 +18,9 @@
 <title>Kola !</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+<!-- 타이틀 폰트 -->
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@600&family=IBM+Plex+Sans+KR&family=Secular+One&display=swap" rel="stylesheet">
+
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
@@ -34,7 +37,6 @@ function noLogin_writing_btn(){
 </script>
 <style>
 	header{
-		width: 75%;
 		height: 30vh;
 		text-align: center;
 		margin: 0 auto;
@@ -47,7 +49,18 @@ function noLogin_writing_btn(){
 		padding: 0 auto;
 		
 	}
+	#title{
+	font-size: 4rem;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	text-decoration-line : none;
+	}
+	#title span{
+	color: #eb4b3f;
+	font-family: 'Secular One', sans-serif;
+	}
 </style>
+
 
 </script>
 
@@ -55,6 +68,8 @@ function noLogin_writing_btn(){
 <body>
 <div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+	<a href='<%= request.getContextPath() %>' id="title">Kola <span>!</span></a>
 	<h1>Kola!</h1>
 	
 <!-- 커뮤니티 드롭다운 -->
@@ -121,12 +136,14 @@ function noLogin_writing_btn(){
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
-<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())) { %>	
+
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
+
             <li><hr class="dropdown-divider"></li>
 			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
           </ul>
         </div>
-        <% } %>
+<% } %>
         <% } %>
 
     </header>

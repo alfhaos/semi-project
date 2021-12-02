@@ -82,14 +82,21 @@ $(function(){
 
 </script>
 <section id="board-container">
+<!-- 글쓰기 버튼 -->
+<% if(loginMember == null){ %>	
+	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+<% } %>		
+
 <div id="banner">
 	<ul class="ulbanner">
 		<li class="libanner1" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
 		<li class="libanner2" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
-		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=100rem; height=100rem;></li>
-		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=100rem; height=100rem;></li>
+		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
+		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
 		<li class="libanner5" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
-	</ul>
+</ul>
 </div>
 <div id="tbl-board">
 		<ul class="ultest">
@@ -134,7 +141,11 @@ $(function(){
 							%>  
 							<li class="litest1">
 							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=50rem; height=50rem;>
+
+							
+
 							<p style= "font-family: 'InfinitySans-RegularA1';">python</p>
+
 							</li>
 							<% 
 						}
@@ -145,7 +156,11 @@ $(function(){
 							%>  
 							<li class="litest1">
 							<img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=50rem; height=50rem;>
+
+							
+
 							<p style= "font-family: 'InfinitySans-RegularA1';">c++</p>
+
 							<div class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';">조회수</p>	
