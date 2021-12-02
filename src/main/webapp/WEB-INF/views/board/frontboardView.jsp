@@ -33,6 +33,12 @@
 				<%= frontboard.getContent() %> 
 			</td>
 		</tr>
+		<tr>
+			<th>스터디그룹 정보</th>
+			<td>
+				어쩌구
+			</td>
+		</tr>
 		<% 	if(
 				loginMember != null && 
 				(
@@ -49,6 +55,13 @@
 		</tr>
 		<% 	} %>
 	</table>
+	<br />
+<% if(loginMember == null){ %>	
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<%} else { %>
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
+<% } %>		
+	
 	</section>
 
 <form
