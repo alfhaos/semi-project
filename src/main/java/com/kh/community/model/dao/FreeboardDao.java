@@ -232,6 +232,31 @@ public class FreeboardDao {
 
 
 
+	public int insertFreeBoardComment(Connection conn, FreeboardComment bc) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFreeBoardComment");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bc.getCommentLevel()); 	// 1, 2
+			pstmt.setString(2, bc.getWriter()); 	// memberId
+			pstmt.setString(3, bc.getContent()); 	// ..
+			pstmt.setInt(4, bc.getBoardNo());		// boardNo
+//			pstmt.setInt(5, bc.getCommentRef());	// 0
+//			pstmt.setInt(5, bc.getCommentRef() == 0 ? null : bc.getCommentRef());	// NullPointerException
+			pstmt.setObject(5, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
 
 
 }

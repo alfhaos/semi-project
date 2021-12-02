@@ -113,6 +113,23 @@ public class FreeboardService {
 	}
 
 
+	public int insertFreeBoardComment(FreeboardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = freeboardDao.insertFreeBoardComment(conn, bc);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
 
 	
 }
