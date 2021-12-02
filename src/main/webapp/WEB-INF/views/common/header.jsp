@@ -4,7 +4,7 @@
     pageEncoding="UTF-8" %>
     
 <%
-	String msg = (String) request.getAttribute("msg");
+	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -67,9 +67,30 @@ $(() => {
 });
 </script>
 
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/stopWatch.css"/>
 
+	/**
+	 * 로그인폼 유효성 검사
+	 */
+	$(loginFrm).submit((e) => {
+		const $memberId = $(memberId);
+		const $password = $(password);
+		
+		if(!/^\w{4,}$/.test($memberId.val())){
+			alert("유효한 아이디를 입력하세요.");
+			$memberId.select();
+			return false;
+		}
+		if(!/^.{4,}$/.test($password.val())){
+			alert("유효한 비밀번호를 입력하세요.");
+			$password.select();
+			return false;
+		}
+	});
+	
+<% } %>
+
+});
+</script>
 </head>
 <body>
 	<div id="container">
