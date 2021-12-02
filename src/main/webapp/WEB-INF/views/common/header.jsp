@@ -20,6 +20,7 @@
 
 <!-- 타이틀 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@600&family=IBM+Plex+Sans+KR&family=Secular+One&display=swap" rel="stylesheet">
+
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
@@ -59,11 +60,17 @@ function noLogin_writing_btn(){
 	font-family: 'Secular One', sans-serif;
 	}
 </style>
+
+
+</script>
+
 </head>
 <body>
 <div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
 	<a href='<%= request.getContextPath() %>' id="title">Kola <span>!</span></a>
+	<h1>Kola!</h1>
 	
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
@@ -129,12 +136,15 @@ function noLogin_writing_btn(){
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
+
 <% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
+
             <li><hr class="dropdown-divider"></li>
 			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
           </ul>
         </div>
 <% } %>
-<% } %>
+        <% } %>
+
     </header>
 		<section id="content">
