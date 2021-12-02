@@ -1,63 +1,95 @@
 <%@page import="com.kh.member.model.service.MemberService"%>
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
     
-<%@page import="com.kh.member.model.vo.Member"%> 
-    
 <%
-	String msg = (String) request.getAttribute("msg");
+	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
-
+	
 	Member loginMember = (Member) session.getAttribute("loginMember");
-
-%>   
+	
+	//쿠키처리
+	Cookie[] cookies = request.getCookies();
+	String saveMemberId = null;
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			String name = cookie.getName();
+			String value = cookie.getValue();
+			System.out.println(name + " = " + value);
+			if("saveId".equals(name)){
+				saveMemberId = value;
+			}
+		}
+	}
+	System.out.println("saveMemberId@header.jsp = " + saveMemberId);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Kola !</title>
+<title>Hello MVC</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script>
 $(() => {
-	<% if(msg != null){ %>
+
+<% if(msg != null){ %>	
+
 	alert("<%= msg %>");
 	
-	<%} %>
+<% } %>
+
+<%-- 로그인하지 않은 경우만 출력 --%>
+<% if(loginMember == null){ %>
+
+	/**
+	 * 로그인폼 유효성 검사
+	 */
+	$(loginFrm).submit((e) => {
+		const $memberId = $(memberId);
+		const $password = $(password);
+		
+		if(!/^\w{4,}$/.test($memberId.val())){
+			alert("유효한 아이디를 입력하세요.");
+			$memberId.select();
+			return false;
+		}
+		if(!/^.{4,}$/.test($password.val())){
+			alert("유효한 비밀번호를 입력하세요.");
+			$password.select();
+			return false;
+		}
+	});
+	
+<% } %>
+
 });
-
-function noLogin_writing_btn(){
-	alert('로그인 후 이용해주세요.'); 
-}
-
 </script>
-
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/stopWatch.css"/>
-
 </head>
 <body>
 	<div id="container">
 		<header>
-			<h1>Kola !</h1>
+			<h1>Hello MVC</h1>
 				<div class="login-container">
 <% if(loginMember == null){ %>
 					<!-- 로그인폼 시작 -->
 					<form 
 						id="loginFrm" 
 						action="<%= request.getContextPath() %>/member/login"
-						method="GET">
+						method="POST">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="hhhhh"></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="<%= saveMemberId != null ? saveMemberId : "" %>"></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = "1111"></td>
+								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2"></td>
 								<td></td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<input type="checkbox" name="saveId" id="saveId" />
+									<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %>/>
 									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
 									<input 
 										type="button" 
@@ -68,68 +100,32 @@ function noLogin_writing_btn(){
 						</table>
 					</form>
 					<!-- 로그인폼 끝-->
-					
-<%} else { %>
-					
+<% } else { %>
 					<table id="login">
 						<tr>
-							<td><%= loginMember.getMember_name() %>님, 안녕하세요.</td>
-							
+							<td><%= loginMember.getMemberName() %>님, 안녕하세요.</td>
 						</tr>
 						<tr>
 							<td>
 								<input type="button" value="내정보보기" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
-								<input type="button" value="로그아웃" onclick="logout();">
+								<input type="button" value="로그아웃" onclick="location.href='<%= request.getContextPath() %>/member/logout';">
 							</td>
 						</tr>
 					</table>
+<% } %>
 				</div>
-<%} %>
-		
 				
 				<!-- 메인메뉴 시작 -->
 				<nav>
 					<ul class="main-nav">
-
-						<li class="home"><a href="#">Home</a></li>
-
+						<li class="home"><a href="<%= request.getContextPath() %>">Home</a></li>
 						<li class="notice"><a href="#">공지사항</a></li>
-						<li class="board"><a href="#">게시판</a></li>
-						<li class="photo"><a href="#">사진게시판</a></li>
-						<li class="chat"><a href="#">채팅</a></li>
-
-
-						<li class="home"><a href="<%= request.getContextPath() %>/board/frontboardList">Home</a></li>
-
-						<li class="board"><a href="">커뮤니티</a>
-							<ul>
-								<li id="gather_study_board"><a href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
-								<li id="free_board"><a href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-								<li id="Q&A_board"><a href="#">Q&A 게시판</a></li>
-							</ul>
-						</li>
-						<li>
-<% if(loginMember == null){ %>	
-	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
-<%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
-<% } %>		
-						</li>
-						<li class="sub_menu">
-							<ul>
-							<li id="my_page"><a href="">마이페이지</a></li>
-							<li id="my_study_group"><a href=" <%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-							
-							<li id="my_writing"><a href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
-							
-							<li id="my_interest"><a href="">내 관심글</a></li>
-							<li id="logout"><a href="">로그아웃</a></li>
-<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
-							<li id="admin_page"><a href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
+						<li class="board"><a href="<%= request.getContextPath() %>/board/boardList">게시판</a></li>
+						<li class="photo"><a href="<%= request.getContextPath() %>/photo/photoList">사진게시판</a></li>
+						<li class="chat"><a href="<%= request.getContextPath() %>/chat/chatroom">채팅</a></li>
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>						
+						<li class="admin"><a href="<%= request.getContextPath() %>/admin/memberList">회원관리</a></li>
 <% } %>
-							</ul>
-						</li>
-
 					</ul>
 				</nav>
 				<!-- 메인메뉴 끝-->
@@ -137,4 +133,3 @@ function noLogin_writing_btn(){
 		</header>
 		
 		<section id="content">
-		
