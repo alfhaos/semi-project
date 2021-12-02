@@ -44,10 +44,20 @@ $(document).ready(function(){
 $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <style>
 #location {
 	display: none;
 }
+table {
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+table, td, th {
+    border-collapse : collapse;
+    border : 1px solid black;
+};
 </style>
 <section id="board-container">
 <h2>게시판 작성</h2>

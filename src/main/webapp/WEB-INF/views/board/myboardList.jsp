@@ -24,7 +24,7 @@
 %>   
 
 		
-			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';">
+			<li class="litest" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';">
 			<h1><%= frontboard.getTitle() %></h1>
 				<ul class="ultest1">
 					

@@ -44,7 +44,6 @@ function noLogin_writing_btn(){
 	}
 	.wrapper{
 		width: 80%;
-		text-align: center;
 		margin: 0 auto;
 		padding: 0 auto;
 		
@@ -59,6 +58,10 @@ function noLogin_writing_btn(){
 	color: #eb4b3f;
 	font-family: 'Secular One', sans-serif;
 	}
+	#cola{
+		width: 50px;
+		
+	}
 </style>
 
 
@@ -68,10 +71,13 @@ function noLogin_writing_btn(){
 <body>
 <div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+ 
+ <a href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" /></a>
 
-	<a href='<%= request.getContextPath() %>' id="title">Kola <span>!</span></a>
-	<h1>Kola!</h1>
-	
+	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+        
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -83,9 +89,6 @@ function noLogin_writing_btn(){
             <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
           </ul>
         </div>
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
 <% if(loginMember == null){ %>
 					<!-- 로그인폼 시작 -->
 					
@@ -124,7 +127,7 @@ function noLogin_writing_btn(){
 					
 
 <!-- 마이페이지 드롭다운 -->
-		<span><%= loginMember.getMember_name() %>님, 열공합시다</span>
+		<span><%= loginMember.getMember_name() %>님, 열공합시다!</span>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
