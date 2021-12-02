@@ -3,6 +3,7 @@
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
     
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,6 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<a href="<%= request.getContextPath() %>">home</a>
 	<h1>작성글보기</h1>
 	<div id="tbl-board">
 		<ul class="ultest">
