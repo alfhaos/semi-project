@@ -28,6 +28,7 @@ public class MyBoardListServlet extends HttpServlet {
 		
 		try {
 			String memberId = request.getParameter("memberId");
+			System.out.println("memberId = " + memberId);
 			
 			List<Frontboard> list = frontboardService.myboardlist(memberId);
 			System.out.println("myboardList@servlet = " + list);
