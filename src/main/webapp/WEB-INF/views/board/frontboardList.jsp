@@ -187,10 +187,7 @@ $(function(){
 			</li>
 	
 		
-		
-<%			
-	}
-%>		
+<%} %>
 		</ul>
 	</div>
 </section>
