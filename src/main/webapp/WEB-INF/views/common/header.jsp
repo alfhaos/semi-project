@@ -4,7 +4,7 @@
     pageEncoding="UTF-8" %>
     
 <%
-	String msg = (String) session.getAttribute("msg");
+	String msg = (String) request.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
@@ -66,6 +66,10 @@ $(() => {
 
 });
 </script>
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/stopWatch.css"/>
+
 </head>
 <body>
 	<div id="container">
