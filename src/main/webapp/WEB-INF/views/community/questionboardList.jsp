@@ -43,6 +43,5 @@
 	}
 %>		
 	</table>
-	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -48,7 +48,7 @@ public class QuestionboardListServlet extends HttpServlet {
 			// 3. view단 처리
 			request.setAttribute("list", list);
 			request
-				.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp")
+				.getRequestDispatcher("/WEB-INF/views/community/questionboardList.jsp")
 				.forward(request, response);
 
 		} catch (Exception e) {
