@@ -1,22 +1,10 @@
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
-	Member loginMember = (Member) session.getAttribute("loginMember");
-%>   
+<%@ include file="/WEB-INF/views/common/header.jsp" %>  
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-<script>
-$(() => {
-	<% if(msg != null){ %>
-	alert("<%= msg %>");
-	
-	<%} %>
-});
-</script>
+
 <section id=enroll-container>
 	<h2>회원 정보</h2>
 	<form id="memberUpdateFrm" method="post">

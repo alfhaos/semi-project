@@ -14,9 +14,9 @@
 			<div id="time" class="time">00:00:00</div>
 		</div>
 		<div class="btnBox">
-			<i id="startbtn" class="fa fa-play" aria-hidden="false"></i>
-			<i id="pausebtn" class="fa fa-pause" aria-hidden="true"></i>
-			<i id="stopbtn" class="fa fa-stop" aria-hidden="true"></i>
+			<div id="startbtn" class="fa fa-play">시작</div>
+			<div id="pausebtn" class="fa fa-pause">일시정지</div>
+			<div id="stopbtn" class="fa fa-stop">멈춤</div>
 		</div>
 	</div>
 
