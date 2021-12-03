@@ -107,6 +107,7 @@ $(function(){
 <div class="title">
 	<span id="title2">스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법</span>
 	<span id="title">Kola <span>!</span></span>
+	</div>
 <!-- 글쓰기 버튼 -->
 <br />
 <% if(loginMember == null){ %>	
@@ -115,7 +116,6 @@ $(function(){
 	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
 <% } %>		
 
-</div>
 
 <div id="banner">
 	<ul class="ulbanner">
@@ -235,3 +235,5 @@ $(function(){
 		</ul>
 	</div>
 </section>
+</div>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -93,7 +93,7 @@ function noLogin_writing_btn(){
 					<!-- 로그인폼 시작 -->
 					
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>'">Login</button>
+        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
         <button type="button" class="btn btn-primary">Sign-up</button>
       </div>
 					<form 
