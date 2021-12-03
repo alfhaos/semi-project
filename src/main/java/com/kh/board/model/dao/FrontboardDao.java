@@ -20,7 +20,6 @@ import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.vo.Frontboard;
 
 
-
 public class FrontboardDao {
 	
 	private Properties prop = new Properties();
@@ -171,6 +170,57 @@ public class FrontboardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int updateReadCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FrontboardException("조회수 증가 처리 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Frontboard selectOneBoard(Connection conn, int no) {
+		Frontboard frontboard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneBoard");
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				frontboard = new Frontboard();
+				frontboard.setNo(rset.getInt("no"));
+				frontboard.setTitle(rset.getString("title"));
+				frontboard.setWriter(rset.getString("writer"));
+				frontboard.setContent(rset.getString("content"));
+				frontboard.setReadCount(rset.getInt("read_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return frontboard;
 	}
 				
 				
