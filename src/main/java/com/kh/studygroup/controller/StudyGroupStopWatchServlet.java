@@ -15,7 +15,7 @@ import com.kh.studygroup.model.service.StudyGroupService;
  * Servlet implementation class StudyGroupStopWatch
  */
 @WebServlet("/studygroup/stopwatch")
-public class StudyGroupStopWatch extends HttpServlet {
+public class StudyGroupStopWatchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudyGroupService groupService = new StudyGroupService();
 
