@@ -1,5 +1,3 @@
-<%@page import="com.kh.studygroup.model.vo.Alram"%>
-<%@page import="java.util.List"%>
 <%@page import="com.kh.member.model.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
@@ -33,17 +31,13 @@ $(() => {
 	
 	<%} %>
 	fn_alramList();
-	console.log("123123123123")
-},3000);
+});
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
-
 const logout = () => {
 	location.href="<%= request.getContextPath() %>/member/logout";
 };
-
-
 </script>
 
 <script src="https://kit.fontawesome.com/4123702f4b.js" crossorigin="anonymous"></script>
@@ -100,7 +94,6 @@ const logout = () => {
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
           <!-- <i class="fas fa-search"></i> -->
-
         
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
@@ -110,7 +103,7 @@ const logout = () => {
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a id="gathere_study_board" class="dropdown-item" href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
             <li><a id="free_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-            <li><a id="Q&A_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/questionboardList">Q&A 게시판</a></li>
+            <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
           </ul>
         </div>
 <% if(loginMember == null){ %>
@@ -150,29 +143,13 @@ const logout = () => {
 <%} else { %>
 					
 
-					<table id="login">
-						<tr>
-							<td>
-							<%= loginMember.getMember_name() %>님, 안녕하세요.
-							<a href="#">
-							<span class="badge"></span>
-							</a>
-							</td>
-							
-						</tr>
-						<tr>
-							<td>
-								<input type="button" value="내정보보기" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
-								<input type="button" value="로그아웃" onclick="logout();">
-							</td>
-						</tr>
-					</table>
-				</div>
-<%} %>
-
-
 <!-- 마이페이지 드롭다운 -->
-		<span><%= loginMember.getMember_name() %>님, 열공합시다!</span>
+		<span>
+		<%= loginMember.getMember_name() %>님, 열공합시다!
+		<a href="#">
+		<span class="badge"></span>
+		</a>
+		</span>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -185,7 +162,6 @@ const logout = () => {
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 
-
 <% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
 
             <li><hr class="dropdown-divider"></li>
@@ -193,11 +169,9 @@ const logout = () => {
           </ul>
         </div>
 <% } %>
-
+        <% } %>
 
     </header>
-
-
 <% if(loginMember != null){ %>
     <form 
     name="myboardListFrm"
@@ -206,10 +180,7 @@ const logout = () => {
     <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
     </form>
 <% } %>
-    
-
 		<section id="content">
-		
 <script>
 const myboardlist = () => {
 		$(document.myboardListFrm).submit();
@@ -249,4 +220,3 @@ function fn_alramList(){
 }
 
 </script>
-
