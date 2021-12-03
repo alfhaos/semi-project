@@ -81,39 +81,17 @@ $(function(){
 
 
 </script>
-<style>
-
-	#title{
-	font-size: 5rem;
-	color: black;
-	font-family: 'Exo', sans-serif;
-	text-decoration-line : none;
-	}
-	#title span{
-	color: #eb4b3f;
-	font-family: 'Secular One', sans-serif;
-	font-weight: 600;
-	}
-	#title2{
-	font-size: 1rem;
-	size: width: 10px;
-	}
-	.title{
-	margin: 2rem;
-	padding: 1rem;
-	}
-</style>
 <section id="board-container">
 <div class="title">
-	<span id="title2">스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법</span>
-	<span id="title">Kola <span>!</span></span>
+	<p id="title2">스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법</p>
+	<p id="title">Kola <span>!</span></p>
 	</div>
 <!-- 글쓰기 버튼 -->
 <br />
 <% if(loginMember == null){ %>	
-	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark"onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
 <%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
 <% } %>		
 
 

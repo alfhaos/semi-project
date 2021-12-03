@@ -34,10 +34,9 @@ $(() => {
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
-const logout = () => {
-	location.href="<%= request.getContextPath() %>/member/logout";
-};
 </script>
+
+<script src="https://kit.fontawesome.com/4123702f4b.js" crossorigin="anonymous"></script>
 <style>
 	header{
 		height: 30vh;
@@ -49,6 +48,7 @@ const logout = () => {
 		width: 80%;
 		margin: 0 auto;
 		padding: 0 auto;
+		text-align: center;
 		
 	}
 	#title{
@@ -62,10 +62,21 @@ const logout = () => {
 	font-family: 'Secular One', sans-serif;
 	}
 	#cola{
-		width: 50px;
+		width: 40px;
 		
 	}
+	#header_title{
+		font-size: 2rem;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	text-decoration-line : none;
+	}
+	#header_title span{
+	color: #eb4b3f;
+	font-family: 'Secular One', sans-serif;
+	}
 </style>
+
 
 
 </head>
@@ -73,13 +84,13 @@ const logout = () => {
 <div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
  
- <a href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" /></a>
+ <a id="header_title" href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" />Kola <span id="header_title!">!</span></a>
 
 	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
+          <!-- <i class="fas fa-search"></i> -->
         
-
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,46 +102,12 @@ const logout = () => {
             <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
           </ul>
         </div>
-
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-        
-<!-- 글쓰기 버튼 -->
-<% if(loginMember == null){ %>	
-	<input type="button" value="글쓰기" id="writing-btn" onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
-<%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
-<% } %>		
-
-<!-- 마이페이지 드롭다운 -->
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul id="sub_menu" class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-            <li><a class="dropdown-item" href="#" onclick="myboardlist();">내 작성글</a></li>
-            <li><a class="dropdown-item" href="#">내 관심글</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">로그아웃</a></li>
-<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
-            <li><hr class="dropdown-divider"></li>
-			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
-<% } %>
-          </ul>
-        </div>
-
-
 <% if(loginMember == null){ %>
 					<!-- 로그인폼 시작 -->
 					
-
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-outline-danger me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
+        <button type="button" class="btn btn-danger">Sign-up</button>
       </div>
 					<form 
 						id="loginFrm" 
@@ -162,45 +139,28 @@ const logout = () => {
 <%} else { %>
 					
 
-					<table id="login">
-						<tr>
-							<td>
-							<%= loginMember.getMember_name() %>님, 안녕하세요.<a href="">스터디그룹 신청알람해야됨</a></td>
-							
-						</tr>
-						<tr>
-							<td>
-								<input type="button" value="내정보보기" onclick="location.href='<%= request.getContextPath() %>/member/memberView';">
-								<input type="button" value="로그아웃" onclick="logout();">
-							</td>
-						</tr>
-					</table>
-				</div>
-<%} %>
+<!-- 마이페이지 드롭다운 -->
+		<span><%= loginMember.getMember_name() %>님, 열공합시다!</span>
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul id="sub_menu" class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
+            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
+            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
+            <li><a class="dropdown-item" href="#">내 관심글</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 
-						
-		</header>
+<% if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())){ %>	
 
+            <li><hr class="dropdown-divider"></li>
+			<li id="admin_page"><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/memberList">관리자 페이지</a></li>
+          </ul>
+        </div>
+<% } %>
+        <% } %>
 
     </header>
-
-<% if(loginMember != null){ %>
-    <form 
-    name="myboardListFrm"
-    action="<%= request.getContextPath() %>/board/MyBoardList"
-    method="GET">
-    <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
-    </form>
-<% } %>
-    
-
 		<section id="content">
-		
-<script>
-const myboardlist = () => {
-		$(document.myboardListFrm).submit();
-
-}
-
-</script>
-

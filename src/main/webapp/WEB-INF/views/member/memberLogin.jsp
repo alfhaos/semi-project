@@ -79,7 +79,7 @@ form {
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-danger" type="submit">Sign in</button>
   </form>
 </main>
   </body>
