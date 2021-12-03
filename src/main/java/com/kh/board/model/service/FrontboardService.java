@@ -4,7 +4,6 @@ import static com.kh.common.JDBCTemplate.close;
 import static com.kh.common.JDBCTemplate.commit;
 import static com.kh.common.JDBCTemplate.getConnection;
 import static com.kh.common.JDBCTemplate.rollback;
-
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +61,33 @@ public class FrontboardService {
 		List<Frontboard> list = frontboardDao.myboardlist(conn, memberId);
 		close(conn);
 		return list;
+	}
+
+
+	public int updateReadCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = frontboardDao.updateReadCount(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+	public Frontboard selectOneBoard(int no) {
+		Connection conn = getConnection();
+		Frontboard board = frontboardDao.selectOneBoard(conn, no);
+//		List<Attachment> attachments = boardDao.selectAttachmentByBoardNo(conn, no);
+//		board.setAttachments(attachments);
+		close(conn);
+		return board;
 	}
 	
 	
