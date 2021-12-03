@@ -33,7 +33,7 @@
 			<td><%= questionboard.getRegDate() %></td>
 			<td>
 <% 	if(questionboard.getAttachCount() > 0){ %>
-				<img alt="" src="<%= request.getContextPath() %>/images/file.png" width="16px">	
+				<img alt="" src="<%= request.getContextPath() %>/images/attachment-g5d16ffa11_640.png" width="16px" height="14px">	
 <%	}	%>
 			</td>
 			<td><%= questionboard.getReadCount() %></td>

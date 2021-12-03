@@ -15,7 +15,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.kh.community.model.exception.FreeboardException;
-import com.kh.community.model.vo.Freeboard;
+import com.kh.community.model.exception.QuestionboardException;
+import com.kh.community.model.vo.Attachment;
 import com.kh.community.model.vo.Questionboard;
 
 public class QuestionboardDao {
@@ -61,12 +62,82 @@ private Properties prop = new Properties();
 			}
 			
 		} catch (SQLException e) {
-			throw new FreeboardException("게시글 목록 조회 오류!", e);
+			throw new FreeboardException("게시글 목록 조회 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		return list;
 	}
+
+
+	public int insertQuestionBoard(Connection conn, Questionboard questionboard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQuestionBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, questionboard.getTitle());
+			pstmt.setString(2, questionboard.getWriter());
+			pstmt.setString(3, questionboard.getContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new QuestionboardException("게시물 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int selectLastQuestionBoardNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastQuestionBoardNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				boardNo = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new QuestionboardException("최근 게시글번호 조회 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return boardNo;
+	}
+
+
+	public int insertAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, attach.getBoardNo());
+			pstmt.setString(2, attach.getOriginalFilename());
+			pstmt.setString(3, attach.getRenamedFilename());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new QuestionboardException("첨부파일 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
 
 }
