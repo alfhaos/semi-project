@@ -1,6 +1,7 @@
 package com.kh.common;
 
 import com.kh.board.model.vo.Attachment;
+
 import com.oreilly.servlet.MultipartRequest;
 
 public class MvcUtils {
@@ -60,15 +61,6 @@ public class MvcUtils {
 		}
 		
 		return pagebar.toString();
-	}
-
-	public static Attachment makeAttachment(MultipartRequest multipartRequest, String name) {
-		Attachment attach = new Attachment();
-		String originalFilename = multipartRequest.getOriginalFileName(name);
-		String renamedFilename = multipartRequest.getFilesystemName(name);
-		attach.setOriginalFilename(originalFilename);
-		attach.setRenamedFilename(renamedFilename);
-		return attach;
 	}
 
 }

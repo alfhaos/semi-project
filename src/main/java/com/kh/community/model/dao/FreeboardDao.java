@@ -17,6 +17,7 @@ import java.util.Properties;
 import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.FreeboardComment;
+import com.kh.community.model.vo.FreeboardLike;
 
 
 
@@ -270,6 +271,26 @@ public class FreeboardDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+
+
+	public int updateLikeCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLikeCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FreeboardException("추천수 증가 처리 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
