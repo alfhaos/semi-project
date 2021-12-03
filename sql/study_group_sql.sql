@@ -139,15 +139,32 @@ create table question_board(
     constraint ck_question_board_ask check(ask in ('O','X')) 
  
 );
+<<<<<<< HEAD
 
 
 
+=======
+create sequence seq_free_board_no;
+>>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
 
 select *from community_board;
 
 create sequence seq_community_board_no;
 
 
+<<<<<<< HEAD
+=======
+create table free_board_like(
+    bno number,
+    check_user varchar2(15),
+    like_flag number default 1,
+    constraints fk_like_bno foreign key(bno) references free_board(no) on delete cascade,
+    constraints fk_like_check_user foreign key(check_user) references kola_member(member_id)
+);    
+update free_board set like_count = like_count+1 where (no, writer) in (select bno, check_user from free_board_like where like_flag=1);
+
+drop table free_board_like;
+>>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
 
 --------------------------------------------------------------------
 -- 스터디그룹

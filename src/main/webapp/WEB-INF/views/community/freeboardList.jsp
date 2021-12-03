@@ -16,6 +16,7 @@
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>조회수</th>
+			<th>추천수</th>
 		</tr>
 		
 <% 
@@ -31,12 +32,14 @@
 			<td><%= freeboard.getWriter() %></td>
 			<td><%= freeboard.getRegDate() %></td>
 			<td><%= freeboard.getReadCount() %></td>
+			<td><%= freeboard.getLikeCount() %></td>
 		</tr>
 <%
 	}
 %>		
 	</table>
 </section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 <br />
 <br />
 <br />

@@ -80,6 +80,7 @@ public class FreeboardViewServlet extends HttpServlet {
 			List<FreeboardComment> commentList = freeboardService.selectFreeBoardCommentList(no);
 			System.out.println("[FreeboardViewServlet] commentList = " + commentList);
 			
+			
 			//3. jsp forwarding
 			request.setAttribute("commentList", commentList);
 			request.setAttribute("freeboard", freeboard);

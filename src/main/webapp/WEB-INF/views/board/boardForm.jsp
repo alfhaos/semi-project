@@ -44,6 +44,7 @@ $(document).ready(function(){
 $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <style>
 #location {
@@ -54,29 +55,62 @@ table {
     margin-right:auto;
 }
 
-table, td, th {
-    border-collapse : collapse;
-    border : 1px solid black;
-};
 </style>
 <section id="board-container">
 <h2>게시판 작성</h2>
 <form
 	name="boardEnrollFrm"
-	action="<%=request.getContextPath() %>/board/boardEnroll" 
+	action="<%=request.getContextPath() %>/board/frontboardEnroll" 
 	method="post"
-	enctype="multipart/form-data">
+	enctype="multipart/form-data">      
+		<div class="row justify-content-md-center">
+            <div class="col-sm-5">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">제 목</label>
+                  </div>            
+                  <input type="text" class="form-control">              
+                </div>
+            </div>
+            <div class="col-sm-4">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text">작성자</label>
+                  </div>            
+                  <input readonly type="text" class="form-control" value="<%= loginMember.getMember_name() %>">              
+                </div>
+            </div>
+            
+            <div class="col-sm-1">
+                <div class="input-group mb-1">
+                    <select class="custom-select" id="inputGroupSelect03">
+                    <option selected>분류</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>  
+                </div>            
+                </div>
+		<div>
+                  <textarea class="form-control" id="p_content"></textarea>
+                  <script type="text/javascript">
+                  CKEDITOR.replace('p_content'
+                                                  , {height: 500                                             
+                                                  });
+                  </script>
+		</div>        
+		<br />
+		
+		<div class="row justify-content-md-center">
+        <button type="submit" class="btn btn-outline-secondary" style="width: 20%; font-weight: bold">
+             등   록          
+            </button>
+        </div>
+        </div>
+        </form>
 	<table id="tbl-board-view">
+	
 	<tr>
-		<th>제 목</th>
-		<td><input type="text" name="title" required></td>
-	</tr>
-	<tr>
-		<th>작성자</th>
-		<td>
-			<input type="text" name="writer" value="sss" readonly/> 
-		</td>
-	</tr>
 	<tr>
 		<th>사용언어</th>
 		<td>
@@ -116,17 +150,8 @@ table, td, th {
 			</select>
 		</td>
 	</tr>
-	<tr>
-		<th>내 용</th>
-		<td><textarea rows="5" cols="40" name="content"></textarea></td>
-	</tr>
-	<tr>
-		<th colspan="2">
-			<input type="submit" value="등록하기">
-		</th>
-	</tr>
-</table>
-</form>
+	</table>
+      
 <br />
 <br />
 <br />
@@ -148,3 +173,5 @@ table, td, th {
 <br />
 <br />
 </section>
+<script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor/ckeditor.js"></script>
+

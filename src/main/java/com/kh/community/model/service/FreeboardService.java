@@ -12,6 +12,7 @@ import java.util.Map;
 import com.kh.community.model.dao.FreeboardDao;
 import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.FreeboardComment;
+import com.kh.community.model.vo.FreeboardLike;
 
 
 public class FreeboardService {
@@ -139,6 +140,23 @@ public class FreeboardService {
 		} catch(Exception e) {
 			rollback(conn);
 			throw e;
+		}
+		return result;
+	}
+
+
+	public int updateLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = freeboardDao.updateLikeCount(conn,no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
 		}
 		return result;
 	}
