@@ -86,8 +86,8 @@ $(function(){
 	<ul class="ulbanner">
 		<li class="libanner1" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/javascript.png" width=100rem; height=100rem;></li>
 		<li class="libanner2" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/java.png" width=100rem; height=100rem;></li>
-		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.jpg" width=100rem; height=100rem;></li>
-		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.jpg" width=100rem; height=100rem;></li>
+		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
+		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
 		<li class="libanner5" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
 	</ul>
 </div>
@@ -101,9 +101,7 @@ $(function(){
 
 			<li id="<%= frontboard.getNo() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/boardView?no=<%= frontboard.getNo() %>';" style="width: 15rem; height: 15rem; margin:5rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			
 			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
-
 				<ul class="ultest1">
 					
 					<% 
