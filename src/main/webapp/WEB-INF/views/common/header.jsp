@@ -99,7 +99,7 @@ function noLogin_writing_btn(){
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a id="gathere_study_board" class="dropdown-item" href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
             <li><a id="free_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-            <li><a id="Q&A_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/questionboardList">Q&A 게시판</a></li>
+            <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
           </ul>
         </div>
 <% if(loginMember == null){ %>
