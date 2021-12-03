@@ -19,6 +19,7 @@ import com.kh.admin.vo.Statistics;
 import com.kh.member.model.exception.MemberException;
 
 import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.Alram;
 
 public class MemberDao {
 
@@ -375,6 +376,54 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return enrolldate;
+	}
+
+
+	public int insertAlram(Connection conn, String memberId, String writer) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertAlram"); 
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, writer);
+			pstmt.setString(2, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MemberException("회원권한변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public List<Alram> selectAllAlram(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllAlram");
+		ResultSet rset = null;
+		List<Alram> alramlist = new ArrayList<>();
+		try {
+			// 1.pstmt객체생성
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			// 2.실행
+			rset = pstmt.executeQuery();
+			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
+			while(rset.next()) {
+				Alram alram = new Alram();
+				alram.setMember_id(rset.getString("member_id"));
+				alramlist.add(alram);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4.자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return alramlist;
 	}
 
 

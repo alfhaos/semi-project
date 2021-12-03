@@ -57,21 +57,44 @@
 	</table>
 	<br />
 <% if(loginMember == null){ %>	
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
 <%} else { %>
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
+	<input type="button" value="스터디그룹 참가신청" onclick="groupApply()"/>
 <% } %>		
+
 	
 	</section>
+<% if(loginMember != null){ %>
+<form 
+	name = "groupApplyFrm"
+	action="<%= request.getContextPath() %>/group/groupApply"
+	method="GET">
+	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
+	<input type="hidden" name="writer" value="<%= frontboard.getWriter() %>" />
+	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
+</form>
+<% } %>
 
 <form
 	name="boardDelFrm"
 	method="POST" 
 	action="<%= request.getContextPath() %>/board/frontboardDelete" >
 	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
-</form>	
+</form>
 
 <script>
+
+function groupApply() {
+	if(confirm("지원하시겠습니까?")){
+		$(document.groupApplyFrm).submit();		
+	}
+};
+
+
+function noLogin_writing_btn(){
+	alert('로그인 후 이용해주세요.'); 
+}
+
 const deleteBoard = () => {
 	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
 		$(document.boardDelFrm).submit();		

@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.Alram;
 import com.kh.admin.vo.Statistics;
 import com.kh.member.model.dao.MemberDao;
 
@@ -178,6 +179,35 @@ public class MemberService {
 			List<Statistics> enrolldate = memberDao.enrolldateStatistics(conn);
 			close(conn);
 			return enrolldate;
+		}
+
+
+		public int insertAlram(String memberId, String writer) {
+			Connection conn = getConnection();
+			int result = 0;
+			try {
+				// 1.Connection객체 생성
+				conn = getConnection();
+				// 2.Dao요청
+				result = memberDao.insertAlram(conn, memberId, writer);
+				// 3.트랜잭션처리
+				commit(conn);
+			} catch (Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				// 4.Connection 자원반납
+				close(conn);
+			}
+			return result;
+		}
+
+
+		public List<Alram> selectAllAlram(String memberId) {
+			Connection conn = getConnection();
+			List<Alram> alramlist = memberDao.selectAllAlram(conn, memberId);
+			close(conn);
+			return alramlist;
 		}
 
 }

@@ -1,3 +1,5 @@
+<%@page import="com.kh.studygroup.model.vo.Alram"%>
+<%@page import="java.util.List"%>
 <%@page import="com.kh.member.model.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
@@ -17,7 +19,7 @@
 
 <title>Kola !</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 타이틀 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@600&family=IBM+Plex+Sans+KR&family=Secular+One&display=swap" rel="stylesheet">
 
@@ -30,13 +32,16 @@ $(() => {
 	alert("<%= msg %>");
 	
 	<%} %>
-});
+	fn_alramList();
+	console.log("123123123123")
+},3000);
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
 const logout = () => {
 	location.href="<%= request.getContextPath() %>/member/logout";
 };
+
 </script>
 <style>
 	header{
@@ -75,9 +80,6 @@ const logout = () => {
  
  <a href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" /></a>
 
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
         
 
 <!-- 커뮤니티 드롭다운 -->
@@ -161,11 +163,14 @@ const logout = () => {
 					
 <%} else { %>
 					
-
 					<table id="login">
 						<tr>
 							<td>
-							<%= loginMember.getMember_name() %>님, 안녕하세요.<a href="">스터디그룹 신청알람해야됨</a></td>
+							<%= loginMember.getMember_name() %>님, 안녕하세요.
+							<a href="#">
+							<span class="badge"></span>
+							</a>
+							</td>
 							
 						</tr>
 						<tr>
@@ -200,6 +205,38 @@ const logout = () => {
 const myboardlist = () => {
 		$(document.myboardListFrm).submit();
 
+}
+
+function fn_alramList(){
+	var memberId = {
+			loginMember:"<%= (loginMember != null) ? loginMember.getMember_id() : null %>"
+	}
+	$.ajax({
+		url : "<%=request.getContextPath()%>/member/alramList.do",
+		data : memberId,
+		type : "post",
+		dataType: "json",
+		success : function(data){
+			//console.log("alramList:"+data);
+			var count = data.length;
+			//console.log(count);
+			$(".badge").text(count);
+
+
+		},
+		error : function(jqxhr, textStatus, errorThrown){
+			console.log("ajax 처리 실패");
+			//에러로그
+			console.log(jqxhr);
+			console.log(textStatus);
+			console.log(errorThrown);
+		}
+	});
+	
+	//3초마다 리스트 갱신
+	setTimeout(function() {
+		fn_alramList();	
+	}, 3000);
 }
 
 </script>
