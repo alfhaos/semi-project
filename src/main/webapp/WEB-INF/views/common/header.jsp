@@ -35,8 +35,6 @@ function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
 </script>
-
-<script src="https://kit.fontawesome.com/4123702f4b.js" crossorigin="anonymous"></script>
 <style>
 	header{
 		height: 30vh;
@@ -48,7 +46,6 @@ function noLogin_writing_btn(){
 		width: 80%;
 		margin: 0 auto;
 		padding: 0 auto;
-		text-align: center;
 		
 	}
 	#title{
@@ -76,6 +73,7 @@ function noLogin_writing_btn(){
 	font-family: 'Secular One', sans-serif;
 	}
 </style>
+
 
 
 
@@ -164,3 +162,4 @@ function noLogin_writing_btn(){
 
     </header>
 		<section id="content">
+

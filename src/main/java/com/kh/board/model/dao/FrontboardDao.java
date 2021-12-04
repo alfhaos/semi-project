@@ -61,6 +61,9 @@ public class FrontboardDao {
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
 				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
 				
 				list.add(frontboard);
 			}
@@ -222,6 +225,125 @@ public class FrontboardDao {
 		}
 		return frontboard;
 	}
+
+	public List<Frontboard> selectAllWatchBoard(Connection conn, Map<String, Integer> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllWatchBoard");
+		ResultSet rset = null;
+		List<Frontboard> watchlist = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, param.get("start"));
+			pstmt.setInt(2, param.get("end"));
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Frontboard frontboard = new Frontboard();
+				frontboard.setNo(rset.getInt("no")); // number
+				frontboard.setTitle(rset.getString("title")); // varchar2, char
+				frontboard.setWriter(rset.getString("writer"));
+				frontboard.setContent(rset.getString("content"));
+				frontboard.setReadCount(rset.getInt("read_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));
+				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
+				
+				watchlist.add(frontboard);
+			}
+			
+		} catch (SQLException e) {
+			throw new FrontboardException("게시글 목록 조회 오류!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return watchlist;
+	}
+
+	public List<Frontboard> selectAllBoardOnline(Connection conn, Map<String, Integer> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllBoardOnline");
+		ResultSet rset = null;
+		List<Frontboard> listonline = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, param.get("start"));
+			pstmt.setInt(2, param.get("end"));
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Frontboard frontboard = new Frontboard();
+				frontboard.setNo(rset.getInt("no")); // number
+				frontboard.setTitle(rset.getString("title")); // varchar2, char
+				frontboard.setWriter(rset.getString("writer"));
+				frontboard.setContent(rset.getString("content"));
+				frontboard.setReadCount(rset.getInt("read_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));
+				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
+				
+				listonline.add(frontboard);
+			}
+			
+		} catch (SQLException e) {
+			throw new FrontboardException("게시글 목록 조회 오류!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listonline;
+	}
+
+	public List<Frontboard> selectAllBoardOffline(Connection conn, Map<String, Integer> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllBoardOffline");
+		ResultSet rset = null;
+		List<Frontboard> listoffline = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, param.get("start"));
+			pstmt.setInt(2, param.get("end"));
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Frontboard frontboard = new Frontboard();
+				frontboard.setNo(rset.getInt("no")); // number
+				frontboard.setTitle(rset.getString("title")); // varchar2, char
+				frontboard.setWriter(rset.getString("writer"));
+				frontboard.setContent(rset.getString("content"));
+				frontboard.setReadCount(rset.getInt("read_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));
+				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
+				
+				listoffline.add(frontboard);
+			}
+			
+		} catch (SQLException e) {
+			throw new FrontboardException("게시글 목록 조회 오류!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listoffline;
+	}
+
+	
 				
 				
 
