@@ -59,24 +59,35 @@ function noLogin_writing_btn(){
 	font-family: 'Secular One', sans-serif;
 	}
 	#cola{
-		width: 50px;
+		width: 40px;
 		
+	}
+	#header_title{
+		font-size: 2rem;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	text-decoration-line : none;
+	}
+	#header_title span{
+	color: #eb4b3f;
+	font-family: 'Secular One', sans-serif;
 	}
 </style>
 
 
-</script>
+
 
 </head>
 <body>
 <div class="wrapper">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
  
- <a href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" /></a>
+ <a id="header_title" href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" />Kola <span id="header_title!">!</span></a>
 
 	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
+          <!-- <i class="fas fa-search"></i> -->
         
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
@@ -93,8 +104,8 @@ function noLogin_writing_btn(){
 					<!-- 로그인폼 시작 -->
 					
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-outline-danger me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
+        <button type="button" class="btn btn-danger">Sign-up</button>
       </div>
 					<form 
 						id="loginFrm" 

@@ -158,8 +158,6 @@ create table question_board(
     constraint ck_question_board_ask check(ask in ('O','X')) 
  
 );
-
-
 create sequence seq_free_board_no;
 
 select *from community_board;
@@ -167,6 +165,17 @@ select*from free_board;
 
 create sequence seq_community_board_no;
 
+
+create table free_board_like(
+    bno number,
+    check_user varchar2(15),
+    like_flag number default 1,
+    constraints fk_like_bno foreign key(bno) references free_board(no) on delete cascade,
+    constraints fk_like_check_user foreign key(check_user) references kola_member(member_id)
+);    
+update free_board set like_count = like_count+1 where (no, writer) in (select bno, check_user from free_board_like where like_flag=1);
+
+drop table free_board_like;
 
 --------------------------------------------------------------------
 -- 스터디그룹

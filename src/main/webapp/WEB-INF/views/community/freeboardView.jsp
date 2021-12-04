@@ -35,13 +35,19 @@
 				<%= freeboard.getContent() %> 
 			</td>
 		</tr>
+		<tr>
+			<th colspan="2">
+			<input type="button" value="추천" onclick="likeBoard()"/>
+			<%= freeboard.getLikeCount() %>
+			</th>
+		</tr>		
 		<% 	if(
 				loginMember != null && 
 				(
 				  loginMember.getMember_id().equals(freeboard.getWriter())
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
 				)
-			){ %>
+			){ %>	
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th colspan="2">
@@ -129,7 +135,14 @@
 		
 	</div>
 </section>
-            
+    
+<form 
+	name="boardLikeFrm"
+	action="<%= request.getContextPath() %>/community/freeboardLike"
+	method="GET">
+	<input type="hidden" name="no" value="<%= freeboard.getNo() %>" />
+</form>    
+           
 
 <form
 	name="boardDelFrm"
@@ -249,5 +262,16 @@ const deleteBoard = () => {
 const updateBoard = () => {
 	location.href = "<%= request.getContextPath() %>/community/freeboardUpdate?no=<%= freeboard.getNo() %>";
 };
+
+const likeBoard = () =>{
+<% if(loginMember == null){ %>
+	loginAlert();
+	return;
+<% } %>
+if(confirm("이 게시물을 추천하시겠습니까?")){
+	$(document.boardLikeFrm).submit();		
+   }
+};
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

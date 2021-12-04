@@ -99,16 +99,16 @@ public class FrontboardDao {
 		return totalCount;
 	}
 
-	public int insertBoard(Connection conn, Frontboard board) {
+	public int insertBoard(Connection conn, Frontboard frontboard) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertBoard");
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, board.getWriter());
-			pstmt.setString(3, board.getContent());
+			pstmt.setString(1, frontboard.getTitle());
+			pstmt.setString(2, frontboard.getWriter());
+			pstmt.setString(3, frontboard.getContent());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

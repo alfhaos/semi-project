@@ -1,5 +1,9 @@
 package com.kh.common;
 
+import com.kh.board.model.vo.Attachment;
+
+import com.oreilly.servlet.MultipartRequest;
+
 public class MvcUtils {
 	
 	/**

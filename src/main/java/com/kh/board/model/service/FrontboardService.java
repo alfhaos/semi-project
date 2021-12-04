@@ -32,17 +32,17 @@ public class FrontboardService {
 	}
 
 
-	public int insertBoard(Frontboard board) throws Exception {
+	public int insertBoard(Frontboard frontboard) throws Exception {
 		Connection conn = null;
 		int result = 0;
 		try {
 			conn = getConnection();
-			result = frontboardDao.insertBoard(conn, board);
+			result = frontboardDao.insertBoard(conn, frontboard);
 			
 			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
 			int boardNo = frontboardDao.selectLastBoardNo(conn);
 			System.out.println("[BoardService] boardNo = " + boardNo);
-			board.setNo(boardNo); // servlet에서 참조할 수 있도록한다.
+			frontboard.setNo(boardNo); // servlet에서 참조할 수 있도록한다.
 			
 			
 			commit(conn);
