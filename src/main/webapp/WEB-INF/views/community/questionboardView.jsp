@@ -1,3 +1,4 @@
+<%@page import="com.kh.community.model.vo.QuestionboardComment"%>
 <%@page import="com.kh.community.model.vo.Attachment"%>
 <%@page import="com.kh.community.model.vo.Questionboard"%>
 <%@page import="java.util.List"%>
@@ -77,7 +78,82 @@
 	
 	<hr style="margin-top:30px;" />	
     
+    <div class="comment-container">
+        <div class="comment-editor">
+            <form 
+            	action="<%=request.getContextPath()%>/community/questionboardCommentEnroll" 
+            	method="post" 
+            	name="boardCommentFrm">
+                <input type="hidden" name="boardNo" value="<%= questionboard.getNo() %>" />
+                <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMember_id() : "" %>" />
+                <input type="hidden" name="commentLevel" value="1" />
+                <input type="hidden" name="commentRef" value="0" />    
+				<textarea name="content" cols="60" rows="3"></textarea>
+                <button type="submit" id="btn-comment-enroll1">등록</button>
+            </form>
+        </div>
+		
+		<!--table#tbl-comment-->
+<% 
+	List<QuestionboardComment> commentList = (List<QuestionboardComment>) request.getAttribute("commentList"); 
+	if(commentList != null && !commentList.isEmpty()){
+%>
+		<table id="tbl-comment">
+<%
+		for(QuestionboardComment bc : commentList){
+			boolean removable = 
+					loginMember != null && 
+					(
+					  loginMember.getMember_id().equals(bc.getWriter())
+					  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
+					);
 
+			if(bc.getCommentLevel() == 1){
+%>
+			<tr class="level1">
+				<td>
+					<sub class="comment-writer"><%= bc.getWriter() %></sub>
+					<sub class="comment-date"><%= bc.getRegDate() %></sub>
+					<br />
+					<%-- 댓글내용 --%>
+					<%= bc.getContent() %>
+				</td>
+				<td>
+					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
+<% if(removable){ %>
+					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
+<% } %>
+
+				</td>
+			</tr>
+<%
+			} else {
+%>
+			<tr class="level2">
+				<td>
+					<sub class="comment-writer"><%= bc.getWriter() %></sub>
+					<sub class="comment-date"><%= bc.getRegDate() %></sub>
+					<br />
+					<%-- 대댓글내용 --%>
+					<%= bc.getContent() %>
+				</td>
+				<td>
+<% if(removable){ %>
+					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
+<% } %>
+
+				</td>
+			</tr>
+<%
+			}
+		}
+%>
+		</table>
+<%
+	}
+%>
+
+</div>
 
 
 </section>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.community.model.exception.QuestionboardException;
 import com.kh.community.model.service.QuestionboardService;
 import com.kh.community.model.vo.Questionboard;
+import com.kh.community.model.vo.QuestionboardComment;
 
 /**
  * Servlet implementation class QuestionboardViewServlet
@@ -78,11 +79,11 @@ public class QuestionboardViewServlet extends HttpServlet {
 			questionboard.setContent(content);
 
 			// 댓글 목록 조회
-//			List<QuestionboardComment> commentList = questionboardService.selectQuestionBoardCommentList(no);
-//			System.out.println("[BoardViewServlet] commentList = " + commentList);
+			List<QuestionboardComment> commentList = questionboardService.selectQuestionBoardCommentList(no);
+			System.out.println("[QuestionboardViewServlet] commentList = " + commentList);
 			
 			//3. jsp forwarding
-//			request.setAttribute("commentList", commentList);
+			request.setAttribute("commentList", commentList);
 			request.setAttribute("questionboard", questionboard);
 			request.getRequestDispatcher("/WEB-INF/views/community/questionboardView.jsp")
 				   .forward(request, response);

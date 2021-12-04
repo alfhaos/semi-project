@@ -18,6 +18,7 @@ import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.exception.QuestionboardException;
 import com.kh.community.model.vo.Attachment;
 import com.kh.community.model.vo.Questionboard;
+import com.kh.community.model.vo.QuestionboardComment;
 
 public class QuestionboardDao {
 	
@@ -197,7 +198,7 @@ private Properties prop = new Properties();
 			pstmt.setInt(1, no);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new QuestionboardException("조회수 증가 처리 오류!", e);
+			throw new QuestionboardException("조회수 증가 처리 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -216,7 +217,7 @@ private Properties prop = new Properties();
 			pstmt.setInt(1,no);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new QuestionboardException("추천수 증가 처리 오류!", e);
+			throw new QuestionboardException("추천수 증가 처리 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -225,6 +226,255 @@ private Properties prop = new Properties();
 	}
 	
 	
+	public Attachment selectOneAttachment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneAttachment");
+		ResultSet rset = null;
+		Attachment attach = null;
+		
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			throw new QuestionboardException("첨부파일 조회 오류", e);
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
+	}
+
+	public List<Attachment> selectAttachmentByBoardNo(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAttachmentByBoardNo");
+		ResultSet rset = null;
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, boardNo);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				Attachment attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+				attachments.add(attach);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attachments;
+
+	}
 	
+	
+    public int deleteQuestionBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteQuestionBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+    
+    
+    public Questionboard selectOneQuestionBoard(Connection conn, int no) {
+		Questionboard questionboard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneQuestionBoard");
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				questionboard = new Questionboard();
+				questionboard.setNo(rset.getInt("no"));
+				questionboard.setTitle(rset.getString("title"));
+				questionboard.setWriter(rset.getString("writer"));
+				questionboard.setContent(rset.getString("content"));
+				questionboard.setReadCount(rset.getInt("read_count"));
+				questionboard.setRegDate(rset.getDate("reg_date"));
+				questionboard.setAsk(rset.getString("ask"));			
+				questionboard.setLikeCount(rset.getInt("like_count"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return questionboard;
+	}
+
+    
+    
+    public int updateQuestionBoard(Connection conn, Questionboard questionboard) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateQuestionBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setString(1, questionboard.getTitle());
+			pstmt.setString(2, questionboard.getContent());
+			pstmt.setInt(3, questionboard.getNo());
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteAttachment(Connection conn, int delFileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAttachment"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, delFileNo);
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
+	public List<QuestionboardComment> selectQuestionBoardCommentList(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectQuestionBoardCommentList");
+		ResultSet rset = null;
+		List<QuestionboardComment> commentList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				QuestionboardComment bc = new QuestionboardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setWriter(rset.getString("writer"));
+				bc.setContent(rset.getString("content"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				bc.setCommentRef(rset.getInt("comment_ref"));
+				bc.setRegDate(rset.getDate("reg_date"));
+				commentList.add(bc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return commentList;
+	}
+
+	public int insertQuestionBoardComment(Connection conn, QuestionboardComment bc) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQuestionBoardComment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bc.getCommentLevel()); 	// 1, 2
+			pstmt.setString(2, bc.getWriter()); 	// memberId
+			pstmt.setString(3, bc.getContent()); 	// ..
+			pstmt.setInt(4, bc.getBoardNo());		// boardNo
+			pstmt.setObject(5, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteQuestionBoardComment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteQuestionBoardComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new QuestionboardException("댓글 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 
 }
