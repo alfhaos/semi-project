@@ -24,3 +24,38 @@ li.litest p{ font-family: 'InfinitySans-RegularA1';}
 ul.ultest1{display: flex; flex-wrap: wrap; list-style: none;}
 li.litest1{margin: 10px; }
 div.undertext{display:in-line-block; position:absolute; padding:none; text-align:center;}
+
+
+/*희연 title css */
+#title{
+	font-size: 5rem;
+	color: black;
+	font-family: 'Exo', sans-serif;
+	text-decoration-line : none;
+	}
+	#title span{
+	color: #eb4b3f;
+	font-family: 'Secular One', sans-serif;
+	font-weight: 600;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	}
+	#title2{
+    font-size: 1rem;
+    margin-bottom: 0;
+    margin-top: 20px;
+    padding-bottom: 0;
+	}
+	.title{
+	margin: 2rem;
+	padding: 1rem;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	}
+	#writing-btn {
+	margin-left: 80%;
+    margin-bottom: 2%;
+	}
+	#banner{
+	margin: 0 auto;
+	}
