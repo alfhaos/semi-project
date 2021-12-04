@@ -90,8 +90,7 @@ public class QuestionboardEnrollServlet extends HttpServlet {
 			// 3.redirect: DML은 redirect해서 url을 변경한다.
 			// location: /mvc/board/boardList
 			request.getSession().setAttribute("msg", msg);
-//			String location = request.getContextPath() + "/community/questionboardView?no=" + questionboard.getNo();
-			String location = request.getContextPath() + "/community/questionboardList";
+			String location = request.getContextPath() + "/community/questionboardView?no=" + questionboard.getNo();
 			response.sendRedirect(location);
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,224 @@
+<%@page import="com.kh.community.model.vo.Attachment"%>
+<%@page import="com.kh.community.model.vo.Questionboard"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%
+	Questionboard questionboard = (Questionboard) request.getAttribute("questionboard");
+%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<section id="board-container">
+	<h2>게시판</h2>
+	<table id="tbl-board-view">
+		<tr>
+			<th>글번호</th>
+			<td><%= questionboard.getNo() %></td>
+		</tr>
+		<tr>
+			<th>제 목</th>
+			<td><%= questionboard.getTitle() %></td>
+		</tr>
+		<tr>
+			<th>작성자</th>
+			<td><%= questionboard.getWriter() %></td>
+		</tr>
+		<tr>
+			<th>조회수</th>
+			<td><%= questionboard.getReadCount() %></td>
+		</tr>
+		
+<% 
+	List<Attachment> attachments = questionboard.getAttachments();
+	if (attachments != null && !attachments.isEmpty()) {
+		for(int i = 0; i < attachments.size(); i++){
+			Attachment attach = attachments.get(i);
+%>
+		<tr>
+			<th>첨부파일<%= i + 1 %></th>
+			<td>
+				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
+				<img alt="첨부파일" src="<%=request.getContextPath() %>/images/attachment-g5d16ffa11_640.png" width=16px height="14px">
+				<a href="<%= request.getContextPath() %>/community/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			</td>
+		</tr>
+<% 
+		}
+	} 
+%>
+		<tr>
+			<th>내 용</th>
+			<td>
+				<%= questionboard.getContent() %> 
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">
+			<input type="button" value="추천" onclick="likeBoard()"/>
+			<%= questionboard.getLikeCount() %>
+			</th>
+		</tr>
+		<% 	if(
+				loginMember != null && 
+				(
+				  loginMember.getMember_id().equals(questionboard.getWriter())
+				  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
+				)
+			){ %>
+		<tr>
+			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
+			<th colspan="2">
+				<input type="button" value="수정하기" onclick="updateBoard()">
+				<input type="button" value="삭제하기" onclick="deleteBoard()">
+			</th>
+		</tr>
+		<% 	} %>
+	</table>
+	
+	<hr style="margin-top:30px;" />	
+    
+
+
+
+</section>
+<form 
+	name="boardLikeFrm"
+	action="<%= request.getContextPath() %>/community/questionboardLike"
+	method="GET">
+	<input type="hidden" name="no" value="<%= questionboard.getNo() %>" />
+</form> 
+
+<form
+	name="boardDelFrm"
+	method="POST" 
+	action="<%= request.getContextPath() %>/community/questionboardDelete" >
+	<input type="hidden" name="no" value="<%= questionboard.getNo() %>" />
+</form>	
+<form 
+	action="<%= request.getContextPath() %>/community/questionboardCommentDelete" 
+	name="boardCommentDelFrm"
+	method="POST">
+	<input type="hidden" name="no" />
+	<input type="hidden" name="boardNo" value="<%= questionboard.getNo() %>"/>
+</form>
+
+<script>
+$(".btn-delete").click(function(){
+	if(confirm("해당 댓글을 삭제하시겠습니까?")){
+		var $frm = $(document.boardCommentDelFrm);
+		var no = $(this).val();
+		$frm.find("[name=no]").val(no);
+		$frm.submit();
+	}
+});	
+
+/**
+ * 대댓글 입력
+ * 이벤트발생객체 e.target -> button.btn-reply
+ */
+$(".btn-reply").click((e) => {
+<% if(loginMember == null){ %>
+	loginAlert();
+	return;
+<% } %>
+
+	const commentRef = $(e.target).val();
+	console.log(commentRef);
+	
+	const tr = `<tr>
+	<td colspan="2" style="text-align:left">
+		<form 
+			action="<%=request.getContextPath()%>/community/questionboardCommentEnroll" 
+			method="post">
+		    <input type="hidden" name="boardNo" value="<%= questionboard.getNo() %>" />
+		    <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMember_id() : "" %>" />
+		    <input type="hidden" name="commentLevel" value="2" />
+		    <input type="hidden" name="commentRef" value="\${commentRef}" />    
+			<textarea name="content" cols="60" rows="2"></textarea>
+		    <button type="submit" class="btn-comment-enroll2">등록</button>
+		</form>
+	</td>
+</tr>`;
+	console.log(tr);
+	
+	// e.target인 버튼태그의 부모tr을 찾고, 다음 형제요소로 추가
+	const $baseTr = $(e.target).parent().parent();
+	const $tr = $(tr);
+	
+	$tr.insertAfter($baseTr)
+		.find("form")
+		.submit((e) => {
+			const $content = $("[name=content]", e.target);
+			if(!/^(.|\n)+$/.test($content.val())){
+				alert("댓글을 작성해주세요.");
+				e.preventDefault();
+			}
+		});
+		
+	
+	// 클릭이벤트핸들러 제거!
+	$(e.target).off("click");
+	
+	
+	
+
+
+});
+
+
+
+$("[name=content]", document.boardCommentFrm).focus((e) => {
+
+<% if(loginMember == null){ %>
+	loginAlert();
+	return;
+<% } %>
+
+});
+
+$(document.boardCommentFrm).submit((e) => {
+<% if(loginMember == null){ %>
+	loginAlert();
+//	e.preventDefault();
+//	return;
+	return false;
+<% } %>
+
+	const $content = $("[name=content]", e.target);
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("댓글을 작성해주세요.");
+		e.preventDefault();
+	}
+
+});
+
+const loginAlert = () => {
+	alert("로그인후 사용가능합니다.");
+	$(memberId).focus();
+};
+
+
+const deleteBoard = () => {
+	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
+		$(document.boardDelFrm).submit();		
+	}
+};
+
+const updateBoard = () => {
+	location.href = "<%= request.getContextPath() %>/community/questionboardUpdate?no=<%= questionboard.getNo() %>";
+};
+
+const likeBoard = () =>{
+	<% if(loginMember == null){ %>
+		loginAlert();
+		return;
+	<% } %>
+	if(confirm("이 게시물을 추천하시겠습니까?")){
+		$(document.boardLikeFrm).submit();		
+	   }
+	};
+</script>
+
+
+
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

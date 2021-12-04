@@ -53,5 +53,45 @@ public class QuestionboardService {
 		}
 		return result;
 	}
+	
+	
+	public Questionboard selectOneQuestionBoardAttachements(int no) {
+		Connection conn = getConnection();
+		Questionboard questionboard = questionboardDao.selectOneQuestionBoardAttachements(conn, no);
+		close(conn);
+		return questionboard;
+	}
+
+	public int updateReadCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.updateReadCount(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int updateLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.updateLikeCount(conn,no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 
 }

@@ -135,7 +135,94 @@ private Properties prop = new Properties();
 	}
 	
 	
+	public Questionboard selectOneQuestionBoardAttachements(Connection conn, int no) {
+		Questionboard questionboard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneQuestionBoardAttachements");
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				questionboard = new Questionboard();
+				questionboard.setNo(rset.getInt("no"));
+				questionboard.setTitle(rset.getString("title"));
+				questionboard.setWriter(rset.getString("writer"));
+				questionboard.setContent(rset.getString("content"));
+				questionboard.setReadCount(rset.getInt("read_count"));
+				questionboard.setRegDate(rset.getDate("reg_date"));
+				questionboard.setAsk(rset.getString("ask"));			
+				questionboard.setLikeCount(rset.getInt("like_count"));
+				
+				int attachNo = rset.getInt("attach_no");
+				if(attachNo != 0) {
+					// 첨부파일이 있는 경우 1행 또는 2행이다.
+					List<Attachment> attachments = new ArrayList<>();
+					do {
+						Attachment attach = new Attachment();
+						attach.setNo(rset.getInt("attach_no"));
+						attach.setBoardNo(rset.getInt("board_no"));
+						attach.setOriginalFilename(rset.getString("original_filename"));
+						attach.setRenamedFilename(rset.getString("renamed_filename"));
+						attach.setRegDate(rset.getDate("reg_date"));
+						attachments.add(attach);
+					} while (rset.next());
+					questionboard.setAttachments(attachments);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return questionboard;
+	}
 	
+
+	public int updateReadCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new QuestionboardException("조회수 증가 처리 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public int updateLikeCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateLikeCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new QuestionboardException("추천수 증가 처리 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 	
 	
