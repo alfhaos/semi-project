@@ -89,6 +89,35 @@ public class FrontboardService {
 		close(conn);
 		return board;
 	}
+
+
+	public List<Frontboard> selectAllWatchBoard(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Frontboard> watchlist = frontboardDao.selectAllWatchBoard(conn, param);
+		close(conn);
+		
+		return watchlist;
+	}
+
+
+	public List<Frontboard> selectAllBoardOnline(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Frontboard> listonline = frontboardDao.selectAllBoardOnline(conn, param);
+		close(conn);
+		
+		return listonline;
+	}
+
+
+	public List<Frontboard> selectAllBoardOffline(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Frontboard> listoffline = frontboardDao.selectAllBoardOffline(conn, param);
+		close(conn);
+		
+		return listoffline;
+	}
+
+
 	
 	
 }
