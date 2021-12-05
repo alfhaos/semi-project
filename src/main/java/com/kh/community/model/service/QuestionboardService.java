@@ -11,8 +11,8 @@ import java.util.Map;
 
 import com.kh.community.model.dao.QuestionboardDao;
 import com.kh.community.model.vo.Attachment;
-import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.Questionboard;
+import com.kh.community.model.vo.QuestionboardComment;
 
 public class QuestionboardService {
 	private QuestionboardDao questionboardDao = new QuestionboardDao();
@@ -53,5 +53,167 @@ public class QuestionboardService {
 		}
 		return result;
 	}
+	
+	
+	public Questionboard selectOneQuestionBoardAttachements(int no) {
+		Connection conn = getConnection();
+		Questionboard questionboard = questionboardDao.selectOneQuestionBoardAttachements(conn, no);
+		close(conn);
+		return questionboard;
+	}
+
+	public int updateReadCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.updateReadCount(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int updateLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.updateLikeCount(conn,no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
+	public Attachment selectOneAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = questionboardDao.selectOneAttachment(conn, no);
+		close(conn);
+		return attach;
+	}
+	
+	
+	public List<Attachment> selectAttachmentByBoardNo(int no) {
+		Connection conn = getConnection();
+		List<Attachment> attachments = questionboardDao.selectAttachmentByBoardNo(conn, no);
+		close(conn);
+		return attachments;
+	}
+
+	public int deleteQuestionBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.deleteQuestionBoard(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
+	
+	public Questionboard selectOneQuestionBoard(int no) {
+		Connection conn = getConnection();
+		Questionboard questionboard = questionboardDao.selectOneQuestionBoard(conn, no);
+		List<Attachment> attachments = questionboardDao.selectAttachmentByBoardNo(conn, no);
+		questionboard.setAttachments(attachments);
+		close(conn);
+		return questionboard;
+	}
+	
+	
+	public int updateQuestionBoard(Questionboard questionboard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			// 트랙잭션처리할 코드
+			// 1. board update
+			result = questionboardDao.updateQuestionBoard(conn, questionboard);
+			
+			// 2. attachment insert
+			List<Attachment> attachments = questionboard.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = questionboardDao.insertAttachment(conn, attach); 
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteAttachment(int delFileNo) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.deleteAttachment(conn, delFileNo);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+	public List<QuestionboardComment> selectQuestionBoardCommentList(int boardNo) {
+		Connection conn = getConnection();
+		List<QuestionboardComment> commentList = questionboardDao.selectQuestionBoardCommentList(conn, boardNo);
+		close(conn);
+		return commentList;
+	}
+
+	public int insertQuestionBoardComment(QuestionboardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = questionboardDao.insertQuestionBoardComment(conn, bc);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteQuestionBoardComment(int no) {
+		Connection conn = getConnection(); 
+		int result = 0;
+		try {
+			result = questionboardDao.deleteQuestionBoardComment(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
 
 }

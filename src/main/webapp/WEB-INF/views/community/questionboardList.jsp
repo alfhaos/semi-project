@@ -17,6 +17,7 @@
 			<th>작성일</th>
 			<th>첨부파일</th><%--첨부파일이 있는 경우 /images/file.png 표시 width:16px --%>
 			<th>조회수</th>
+			<th>추천수</th>
 		</tr>
 		
 <% 
@@ -37,6 +38,7 @@
 <%	}	%>
 			</td>
 			<td><%= questionboard.getReadCount() %></td>
+			<td><%= questionboard.getLikeCount() %></td>
 		</tr>
 	
 <%			
