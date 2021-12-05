@@ -147,7 +147,7 @@ function noLogin_writing_btn(){
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
-            <li><a class="dropdown-item" href="#">내 관심글</a></li>
+            <li><a class="dropdown-item" href="<%= request.getContextPath() %>">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 
