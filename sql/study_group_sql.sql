@@ -245,11 +245,14 @@ create table study_group_board(
 );
 
 
+create sequence seq_study_group_attachment;
+select * from  kola_study_group_board;
+commit;
+insert into kola_study_group_board values(seq_study_group_board.nextval,47,'하이2','admin','ggddddgd',0,default);
 
+select * from kola_study_group_attachment;
 
-
-
-
+ select * from (select row_number() over(order by group_board_no desc) rnum, b.*,(select count(*) from kola_study_group_attachment where board_no = b.group_board_no) attach_count from kola_study_group_board b) where rnum between 1 and 5 and study_group_no = 47;
 --------------------------------------------------------------------
 -- 첨부파일
 --------------------------------------------------------------------

@@ -47,6 +47,7 @@
 	</table>
 	<input type="button" value = "공부 시작!" onclick="location.href='<%= request.getContextPath() %>/studygroup/stopwatch';" />
 	<input type="button" value = "그룹 채팅!" onclick="location.href='<%= request.getContextPath() %>/studygroup/chat';" />
+	<input type="button" value = "그룹 게시판!" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardlist';" />
 
 <%} else{ %>
 
