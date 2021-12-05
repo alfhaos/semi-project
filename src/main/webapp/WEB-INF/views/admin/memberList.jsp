@@ -1,3 +1,4 @@
+<%@page import="com.kh.board.model.vo.Frontboard"%>
 <%@page import="com.kh.admin.vo.Statistics"%>
 <%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.member.model.vo.Member"%>
@@ -11,8 +12,6 @@
 	List<Statistics> language = (List<Statistics>) request.getAttribute("language");
 	List<Statistics> enrolldate = (List<Statistics>) request.getAttribute("enrolldate");
 	
-	String searchType = request.getParameter("searchType");
-	String searchKeyword = request.getParameter("searchKeyword");
 %>
 
 <!-- 관리자용 admin.css link -->
