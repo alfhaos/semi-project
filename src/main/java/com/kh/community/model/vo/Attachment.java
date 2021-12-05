@@ -72,7 +72,7 @@ public class Attachment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Attachment [no=" + no + ", boardNo=" + boardNo + ", originalFilename=" + originalFilename
+		return "AAttachment [no=" + no + ", boardNo=" + boardNo + ", originalFilename=" + originalFilename
 				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
 	}
 	

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.common.MvcFileRenamePolicy;
-import com.kh.common.MvcUtils;
+import com.kh.community.model.vo.MvcUtils;
 import com.kh.community.model.service.QuestionboardService;
 import com.kh.community.model.vo.Attachment;
 import com.kh.community.model.vo.Questionboard;
@@ -76,7 +76,8 @@ public class QuestionboardEnrollServlet extends HttpServlet {
 					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "upFile2");
 					attachments.add(attach2);
 				}
-				questionboard.setAttachments(attachments);
+				questionboard.
+				setAttachments(attachments);
 				System.out.println("[QuestionboardEnrollServlet] attachments = " + attachments);
 			}
 			
@@ -90,8 +91,7 @@ public class QuestionboardEnrollServlet extends HttpServlet {
 			// 3.redirect: DML은 redirect해서 url을 변경한다.
 			// location: /mvc/board/boardList
 			request.getSession().setAttribute("msg", msg);
-//			String location = request.getContextPath() + "/community/questionboardView?no=" + questionboard.getNo();
-			String location = request.getContextPath() + "/community/questionboardList";
+			String location = request.getContextPath() + "/community/questionboardView?no=" + questionboard.getNo();
 			response.sendRedirect(location);
 		} catch(Exception e) {
 			e.printStackTrace();
