@@ -3,7 +3,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<% 
+	List<Questionboard> list = (List<Questionboard>) request.getAttribute("list"); 
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
+%>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
+<style>
+div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(0, 188, 212, 0.3);}
+div#search-writer {display: <%= searchType == null || "writer".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-title {display: <%= "title".equals(searchType) ? "inline-block" : "none" %>;}
+</style>
 <section id="board-container">
 	<h2>Q&A 게시판 </h2>
 <% if(loginMember != null){ %>	
@@ -21,7 +31,6 @@
 		</tr>
 		
 <% 
-	List<Questionboard> list = (List<Questionboard>) request.getAttribute("list"); 
 	for(Questionboard questionboard : list){
 %>
 		<tr>
@@ -45,5 +54,42 @@
 	}
 %>		
 	</table>
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
+	
+<div id="search-container">
+        <select id="searchType">
+            <option value="writer" <%= "writer".equals(searchType) ? "selected" : "" %>>아이디</option>		
+            <option value="title" <%= "title".equals(searchType) ? "selected" : "" %>>제목</option>
+        </select>
+        <div id="search-writer" class="search-type">
+            <form action="<%=request.getContextPath()%>/community/questionboardFinder">
+                <input type="hidden" name="searchType" value="writer"/>
+                <input type="text" name="searchKeyword" value="<%= "writer".equals(searchType) ? searchKeyword : "" %>" size="25"/>
+                <button type="submit">검색</button>			
+            </form>	
+        </div>
+        <div id="search-title" class="search-type">
+            <form action="<%=request.getContextPath()%>/community/questionboardFinder">
+                <input type="hidden" name="searchType" value="title"/>
+                <input type="text" name="searchKeyword" value="<%= "title".equals(searchType) ? searchKeyword : "" %>" size="25"/>
+                <button type="submit">검색</button>			
+            </form>	
+        </div>
+        </div>
+		
+	
 </section>
+
+
+<script>
+/**
+ * 검색 div 노출
+ */
+$(searchType).change((e) => {
+	$(".search-type").hide();
+	
+	const v = $(e.target).val();
+	$("#search-" + v).css("display", "inline-block");
+});
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

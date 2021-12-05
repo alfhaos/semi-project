@@ -7,30 +7,33 @@
 <%
 	Freeboard freeboard = (Freeboard) request.getAttribute("freeboard");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
 
 	<h2>게시판</h2>
 	<table id="tbl-board-view">
 		<tr>
-			<th>글번호</th>
+		
 			<td><%= freeboard.getNo() %></td>
 		</tr>
 		<tr>
-			<th>제 목</th>
-			<td><%= freeboard.getTitle() %></td>
+			
+			<td><h2><%= freeboard.getTitle() %></h2></td>
 		</tr>
 		<tr>
-			<th>작성자</th>
+			
 			<td><%= freeboard.getWriter() %></td>
 		</tr>
 		<tr>
-			<th>조회수</th>
+			<td><%= freeboard.getRegDate() %></td>
+		</tr>
+		<tr>
+			
 			<td><%= freeboard.getReadCount() %></td>
 		</tr>
 		
 		<tr>
-			<th>내 용</th>
+			
 			<td>
 				<%= freeboard.getContent() %> 
 			</td>

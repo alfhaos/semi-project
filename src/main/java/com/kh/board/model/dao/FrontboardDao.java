@@ -18,6 +18,7 @@ import java.util.Properties;
 
 import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.vo.Frontboard;
+import com.kh.member.model.vo.Member;
 
 
 public class FrontboardDao {
@@ -344,7 +345,5 @@ public class FrontboardDao {
 	}
 
 	
-				
-				
 
 }
