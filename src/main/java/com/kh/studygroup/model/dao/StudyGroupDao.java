@@ -25,7 +25,6 @@ public class StudyGroupDao {
 	public StudyGroupDao(){
 		// /build/classes 하위에서 파일을 조회
 		String filepath = MemberDao.class.getResource("/study-group-query.properties").getPath();
-
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {
@@ -47,6 +46,7 @@ public class StudyGroupDao {
 			pstmt.setString(3, group.getStatus());
 			pstmt.setString(4, group.getArea());
 			pstmt.setString(5, group.getLanguage());
+			
 			
 			result = pstmt.executeUpdate();
 			
