@@ -9,13 +9,13 @@
 <% 
 	
 	List<Member> list = (List<Member>) request.getAttribute("list");
-	List<Statistics> language = (List<Statistics>) request.getAttribute("language");
-	List<Statistics> enrolldate = (List<Statistics>) request.getAttribute("enrolldate");
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
 	
 %>
 
 <!-- 관리자용 admin.css link -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css" />
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <style>
@@ -38,7 +38,7 @@ $(() => {
 
 
 <section id="memberList-container">
-	<h2>관리자페이지</h2>
+	<h2 align="center">관리자페이지</h2>
 <ul class="nav nav-pills">
   <li role="presentation"><a href="<%= request.getContextPath() %>/admin/memberStatistics">관심 언어 통계</a></li>
 </ul>
@@ -77,7 +77,7 @@ $(() => {
 	
 
 	
-	<table id="tbl-member">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>아이디</th>
@@ -127,6 +127,7 @@ $(() => {
 		<%= request.getAttribute("pagebar") %>
 	</div>
 </section>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <script>
 /**
  * 검색 div 노출
