@@ -72,8 +72,6 @@ public class AdminMemberListServlet extends HttpServlet {
 		System.out.println("list@servlet = " + list);
 		List<Statistics> language = memberService.languageStatistics();
 		System.out.println("language@servlet = " + language);
-		List<Statistics> enrolldate = memberService.enrolldateStatistics();
-		System.out.println("enrolldate@servlet = " + enrolldate);
 
 		// 2-b. pagebar영역
 		int totalContent = memberService.selectTotalMemberCount();
@@ -86,7 +84,6 @@ public class AdminMemberListServlet extends HttpServlet {
 		// 3.view단처리
 		request.setAttribute("list", list);
 		request.setAttribute("language", language);
-		request.setAttribute("enrolldate", enrolldate);
 		
 		request.setAttribute("pagebar", pagebar);
 		request

@@ -118,4 +118,18 @@ public class StudyGroupService {
 		
 		return result;	}
 
+
+	public StudyGroup selectOneGroup(int groupNo) {
+		Connection conn = getConnection();
+	
+		conn = getConnection();
+		StudyGroup group = groupDao.selectOneGroup(conn,groupNo);
+					
+
+		
+		close(conn);
+		
+		return group;
+	}
+
 }

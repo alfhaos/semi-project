@@ -1,7 +1,13 @@
+<%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>  
+<%
+	
+	StudyGroup studyGroup = (StudyGroup) request.getAttribute("studyGroup");
 
+
+%>
 
 <script>
 /**
@@ -112,42 +118,25 @@ table {
 	
 	<tr>
 	<tr>
-		<th>사용언어</th>
-		<td>
-			<select name="language" id="language">
-				<option value="Javascript">Javascript</option>
-				<option value="Java">Java</option>
-				<option value="Python">Python</option>
-				<option value="Spring">Spring</option>
-				<option value="C++">C++</option>
-				<option value="C">C</option>
-			</select>
-		</td>
+		<th>그룹이름</th>
+		<td><%= studyGroup.getGroup_name() %></td>
 	</tr>
 	<tr>
-		<th>장소</th>
-		<td>
-			<select name="area" id="area">
-				<option value="On-line">On-line</option>
-				<option value="Off-line">Off-line</option>
-			</select>
-		</td>
+		<th>그룹 인원</th>
+		<td><%= studyGroup.getNow_member() %> / <%= studyGroup.getMax_member() %></td>
+	</tr>
+	<tr>
+		<th>사용언어</th>
+		<td> <%= studyGroup.getLanguage() %></td>
+	</tr>
+	<tr>
+		<th>온라인/오프라인</th>
+		<td><%= studyGroup.getOn_off() %> </td>
 	</tr>
 	<tr>
 		<th>지역</th>
 		<td>
-			<select name="location" id="location">
-				<option value="Seoul">서울</option>
-				<option value="Gyeonggi-N">경기 북부</option>
-				<option value="Gyeonggi-S">경기 남부</option>
-				<option value="Incheon">인천</option>
-				<option value="Busan">부산</option>
-				<option value="Gangwon">강원도</option>
-				<option value="Chungcheong">충청도</option>
-				<option value="Jeolla">전라도</option>
-				<option value="Gyeongsang">경상도</option>
-				<option value="Jeju">제주도</option>
-			</select>
+			<%= studyGroup.getArea() %>
 		</td>
 	</tr>
 	</table>

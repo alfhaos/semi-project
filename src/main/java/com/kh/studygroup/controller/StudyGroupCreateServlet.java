@@ -47,12 +47,13 @@ public class StudyGroupCreateServlet extends HttpServlet {
 		// 1. 사용자 입력값 처리
 		String group_name = request.getParameter("groupName");
 		int max_member = Integer.parseInt(request.getParameter("max_member"));
+		int now_member = 1;
 		String status = request.getParameter("status");
 		String on_off = request.getParameter("on/off");
 		String area = request.getParameter("area");
 		String language = request.getParameter("language");
 		
-		StudyGroup group = new StudyGroup(group_name,max_member,status,on_off,area,language);
+		StudyGroup group = new StudyGroup(group_name,max_member,1,status,on_off,area,language);
 		System.out.println("[StudyGroupCreate@Servlet] group = " + group);
 		
 		String memberId = request.getParameter("memberId");

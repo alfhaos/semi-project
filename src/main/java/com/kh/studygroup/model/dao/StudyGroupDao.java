@@ -42,10 +42,11 @@ public class StudyGroupDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, group.getGroup_name());
-			pstmt.setInt(2, group.getMax_number());
+			pstmt.setInt(2, group.getMax_member());
 			pstmt.setString(3, group.getStatus());
 			pstmt.setString(4, group.getArea());
 			pstmt.setString(5, group.getLanguage());
+			pstmt.setString(6, group.getOn_off());
 			
 			
 			result = pstmt.executeUpdate();
@@ -255,6 +256,46 @@ public class StudyGroupDao {
 		}
 		
 		return result;
+	}
+
+	public StudyGroup selectOneGroup(Connection conn, int groupNo) {
+		String sql = prop.getProperty("selectOneGroup");
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		StudyGroup studyGroup = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, groupNo);
+			pstmt.setInt(2, groupNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				studyGroup = new StudyGroup();
+				studyGroup.setGroup_number(rset.getInt("group_no"));
+				studyGroup.setGroup_name(rset.getString("group_name"));
+				studyGroup.setMax_member(rset.getInt("max_member"));
+				studyGroup.setNow_member(rset.getInt("now_member"));
+				studyGroup.setStatus(rset.getString("recruitment_status"));
+				studyGroup.setArea(rset.getString("area"));
+				studyGroup.setLanguage(rset.getString("language"));
+				studyGroup.setOn_off(rset.getString("on_off"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return studyGroup;
 	}
 
 }

@@ -30,10 +30,14 @@ $(() => {
 	alert("<%= msg %>");
 	
 	<%} %>
+	fn_alramList();
 });
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
+const logout = () => {
+	location.href="<%= request.getContextPath() %>/member/logout";
+};
 </script>
 <style>
 	header{
@@ -72,6 +76,20 @@ function noLogin_writing_btn(){
 	color: #eb4b3f;
 	font-family: 'Secular One', sans-serif;
 	}
+	.badge {
+	  display: inline-block;
+	  min-width: 10px;
+	  padding: 3px 7px;
+	  font-size: 12px;
+	  font-weight: bold;
+	  line-height: 1;
+	  color: #fff;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: baseline;
+	  background-color: #777;
+	  border-radius: 10px;
+	}
 </style>
 
 
@@ -99,7 +117,7 @@ function noLogin_writing_btn(){
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a id="gathere_study_board" class="dropdown-item" href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
             <li><a id="free_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-            <li><a id="Q&A_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/questionboardList">Q&A 게시판</a></li>
+            <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
           </ul>
         </div>
 <% if(loginMember == null){ %>
@@ -140,7 +158,12 @@ function noLogin_writing_btn(){
 					
 
 <!-- 마이페이지 드롭다운 -->
-		<span><%= loginMember.getMember_name() %>님, 열공합시다!</span>
+		<span>
+		<%= loginMember.getMember_name() %>님, 열공합시다!
+		<a href="#">
+		<span class="badge"></span>
+		</a>
+		</span>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -148,7 +171,7 @@ function noLogin_writing_btn(){
           <ul id="sub_menu" class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
-            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/MyBoardList">내 작성글</a></li>
+            <li><a class="dropdown-item" href="#" onclick="myboardlist();">내 작성글</a></li>
             <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
@@ -163,5 +186,54 @@ function noLogin_writing_btn(){
         <% } %>
 
     </header>
+
+<% if(loginMember != null){ %>
+    <form 
+    name="myboardListFrm"
+    action="<%= request.getContextPath() %>/board/MyBoardList"
+    method="GET">
+    <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
+    </form>
+<% } %>
 		<section id="content">
+<script>
+const myboardlist = () => {
+		$(document.myboardListFrm).submit();
+
+}
+
+function fn_alramList(){
+	var memberId = {
+			loginMember:"<%= (loginMember != null) ? loginMember.getMember_id() : null %>"
+	}
+	$.ajax({
+		url : "<%= request.getContextPath() %>/member/alramList.do",
+		data : memberId,
+		type : "post",
+		dataType: "json",
+		success : function(data){
+			//console.log("alramList:"+data);
+			var count = data.length;
+			//console.log(count);
+			if(count != 0)
+			$(".badge").text(count);
+
+
+		},
+		error : function(jqxhr, textStatus, errorThrown){
+			console.log("ajax 처리 실패");
+			//에러로그
+			console.log(jqxhr);
+			console.log(textStatus);
+			console.log(errorThrown);
+		}
+	});
+	
+	//3초마다 리스트 갱신
+	setTimeout(function() {
+		fn_alramList();	
+	}, 3000);
+}
+
+</script>
 

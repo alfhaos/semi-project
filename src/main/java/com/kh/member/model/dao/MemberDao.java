@@ -19,6 +19,7 @@ import com.kh.admin.vo.Statistics;
 import com.kh.member.model.exception.MemberException;
 
 import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.Alram;
 
 public class MemberDao {
 
@@ -322,22 +323,28 @@ public class MemberDao {
 	}
 
 
-	public List<Statistics> languageStatistics(Connection conn) {
+	public List<Statistics> Statistics(Connection conn, String searchType) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("languageStatistics");
 		ResultSet rset = null;
-		List<Statistics> language = new ArrayList<>();
+		List<Statistics> stat = new ArrayList<>();
+		String sql = "";
+		switch(searchType) {
+		case "language" : sql = prop.getProperty("languageStatistics"); break;
+		case "enrolldate" : sql = prop.getProperty("enrolldateStatistics"); break;
+		case "visitors" : sql = prop.getProperty("visitorStatistics"); break;
+		}
+		System.out.println("stat sql = " + sql);
+		System.out.println("visitors".equals(searchType) ? "today" : searchType);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			// 2.실행
 			rset = pstmt.executeQuery();
 			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
 			while(rset.next()) {
-				Statistics stat = new Statistics();
-				stat.setStat(rset.getString("language"));
-				stat.setCount(rset.getInt("count"));
-				stat.setRank(rset.getInt("rank"));
-				language.add(stat);
+				Statistics s = new Statistics();
+				s.setStat(rset.getString("visitors".equals(searchType) ? "today" : searchType));
+				s.setCount(rset.getInt("count"));
+				stat.add(s);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -346,27 +353,46 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return language;
+		return stat;
 	}
 
 
-
-	public List<Statistics> enrolldateStatistics(Connection conn) {
+	public int insertAlram(Connection conn, String memberId, String writer) {
+		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("enrolldateStatistics");
-		ResultSet rset = null;
-		List<Statistics> enrolldate = new ArrayList<>();
+		String query = prop.getProperty("insertAlram"); 
+
 		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, writer);
+			pstmt.setString(2, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MemberException("회원권한변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public List<Alram> selectAllAlram(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllAlram");
+		ResultSet rset = null;
+		List<Alram> alramlist = new ArrayList<>();
+		try {
+			// 1.pstmt객체생성
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
 			// 2.실행
 			rset = pstmt.executeQuery();
 			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
 			while(rset.next()) {
-				Statistics stat = new Statistics();
-				stat.setStat(rset.getString("enrolldate"));
-				stat.setCount(rset.getInt("count"));
-				stat.setRank(rset.getInt("rank"));
-				enrolldate.add(stat);
+				Alram alram = new Alram();
+				alram.setMember_id(rset.getString("member_id"));
+				alramlist.add(alram);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -375,7 +401,110 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		return enrolldate;
+		return alramlist;
+	}
+
+
+	public Statistics selectVisitor(Connection conn) {
+		String sql = prop.getProperty("selectVisitor");
+		PreparedStatement pstmt = null;
+		Statistics stat = null;
+		ResultSet rset = null;
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				stat = new Statistics();
+				
+				stat.setStat(rset.getString("today"));
+				stat.setCount(rset.getInt("count"));				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return stat;
+	}
+
+
+	public int updateVisitor(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateVisitor");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);	
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertVisitor(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertVisitor");
+		int result = 0;
+		
+		try {
+			// 1.PreapredStatement객체 준비 - sql값대입
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 3.자원반납
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public List<Statistics> languageStatistics(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Statistics> stat = new ArrayList<>();
+		String sql = prop.getProperty("languageStatistics");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// 2.실행
+			rset = pstmt.executeQuery();
+			// 3.rset처리 : 하나의 레코드 -> vo객체하나 -> list에 추가
+			while(rset.next()) {
+				Statistics s = new Statistics();
+				s.setStat(rset.getString("language"));
+				s.setCount(rset.getInt("count"));
+				stat.add(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 4.자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return stat;
 	}
 
 
