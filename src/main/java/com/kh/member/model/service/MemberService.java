@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.Alram;
 import com.kh.admin.vo.Statistics;
 import com.kh.member.model.dao.MemberDao;
 
@@ -165,19 +166,79 @@ public class MemberService {
 		}
 
 
+		public List<Statistics> Statistics(String searchType) {
+			Connection conn = getConnection();
+			List<Statistics> stat = memberDao.Statistics(conn, searchType);
+			close(conn);
+			return stat;
+		}
+		
 		public List<Statistics> languageStatistics() {
 			Connection conn = getConnection();
-			List<Statistics> language = memberDao.languageStatistics(conn);
+			List<Statistics> stat = memberDao.languageStatistics(conn);
 			close(conn);
-			return language;
+			return stat;
 		}
 
 
-		public List<Statistics> enrolldateStatistics() {
+		public int insertAlram(String memberId, String writer) {
 			Connection conn = getConnection();
-			List<Statistics> enrolldate = memberDao.enrolldateStatistics(conn);
+			int result = 0;
+			try {
+				// 1.Connection객체 생성
+				conn = getConnection();
+				// 2.Dao요청
+				result = memberDao.insertAlram(conn, memberId, writer);
+				// 3.트랜잭션처리
+				commit(conn);
+			} catch (Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				// 4.Connection 자원반납
+				close(conn);
+			}
+			return result;
+		}
+
+
+		public List<Alram> selectAllAlram(String memberId) {
+			Connection conn = getConnection();
+			List<Alram> alramlist = memberDao.selectAllAlram(conn, memberId);
 			close(conn);
-			return enrolldate;
+			return alramlist;
+		}
+
+
+		public int totalVisitor() {
+			Connection conn = getConnection();
+			int result = 0;
+			try {
+				// 1.Connection객체 생성
+				conn = getConnection();
+				// 2.Dao요청
+				System.out.println("selectVisitor");
+				Statistics stat = memberDao.selectVisitor(conn);
+				if(stat != null) {
+					result = memberDao.updateVisitor(conn);
+					System.out.println("visitor count 완료");
+				}
+				else {
+					System.out.println("updateVisitor");
+					result = memberDao.insertVisitor(conn);
+					result = memberDao.updateVisitor(conn);
+					System.out.println("visitor insert후 count 완료");
+				}
+				// 3.트랜잭션처리
+				commit(conn);
+			} catch (Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				// 4.Connection 자원반납
+				close(conn);
+			}
+			return result;
 		}
 
 }
