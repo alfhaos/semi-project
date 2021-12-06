@@ -15,7 +15,7 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>작성글보기</h1>
+	<h1 align="center">작성글보기</h1>
 	<div id="tbl-board">
 		<ul class="ultest">
 <% 
@@ -134,6 +134,8 @@
 <% } %>
 </ul>
 	</div>
+	<hr />
+	
 
 
 </body>

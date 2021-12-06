@@ -9,8 +9,8 @@
 <% 
 	
 	List<Member> list = (List<Member>) request.getAttribute("list");
-	List<Statistics> language = (List<Statistics>) request.getAttribute("language");
-	List<Statistics> enrolldate = (List<Statistics>) request.getAttribute("enrolldate");
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
 	
 %>
 

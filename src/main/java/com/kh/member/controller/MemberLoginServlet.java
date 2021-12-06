@@ -65,6 +65,11 @@ public class MemberLoginServlet extends HttpServlet {
 			// 로그인객체를 session 저장
 			session.setAttribute("loginMember", member);
 			
+			//방문자 통계
+			int result = memberService.totalVisitor();
+			System.out.println(result > 0 ? "방문자 기록 완료" : "방문자 기록 실패");
+			
+			
 		}
 		
 		else {
