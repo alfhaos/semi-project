@@ -182,6 +182,14 @@ public class FreeboardService {
 	}
 
 
+	public List<Freeboard> selectMyFreeBoard(Map<String, Integer> param, String memberId) {
+		Connection conn = getConnection();
+		List<Freeboard> list = freeboardDao.selectMyFreeBoard(conn, param, memberId);
+		close(conn);
+		return list;
+	}
+
+
 
 
 

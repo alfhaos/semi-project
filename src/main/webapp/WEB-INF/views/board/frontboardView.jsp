@@ -57,7 +57,8 @@
 	</table>
 	<br />
 <% if(loginMember == null){ %>	
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
+<!-- 로그인 안하고 글쓰기 누를시 -->
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
 <%} else { %>
 	<input type="button" value="스터디그룹 참가신청" onclick="groupApply()"/>
 <% } %>		

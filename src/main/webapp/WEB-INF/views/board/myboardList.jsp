@@ -1,3 +1,4 @@
+<%@page import="com.kh.community.model.vo.Freeboard"%>
 <%@page import="com.kh.board.model.vo.Frontboard"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kh.member.model.vo.Member"%>
@@ -10,12 +11,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/myboardList.css" />
 <title>MyBoardList</title>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1 align="center">작성글보기</h1>
+	<h1 align="center">스터디모집</h1>
 	<div id="tbl-board">
 		<ul class="ultest">
 <% 
@@ -130,12 +131,47 @@
 <% 
 	}}else{
 %>
-	<h1>ㅎㅇ</h1>
+	<h1>게시글 없으면 글쓰기 넣기</h1>
 <% } %>
 </ul>
 	</div>
 	<hr />
-	
+	<h1 align="center">자유게시판</h1>
+<% 
+	List<Freeboard> free = (List<Freeboard>) request.getAttribute("free"); 
+	if(free.size() != 0){
+	for(Freeboard freeboard : free){
+%>
+	<table id="tbl-board">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
+				<th>추천수</th>
+			</tr>
+		<tr>
+			<td><%= freeboard.getNo() %></td>
+			<td>
+				<a href="<%= request.getContextPath() %>/community/freeboardView?no=<%= freeboard.getNo() %>"><%= freeboard.getTitle() %></a>
+				<%= freeboard.getCommentCount() > 0 ? "(" + freeboard.getCommentCount() + ")" : "" %>
+			</td>
+			<td><%= freeboard.getWriter() %></td>
+			<td><%= freeboard.getRegDate() %></td>
+			<td><%= freeboard.getReadCount() %></td>
+			<td><%= freeboard.getLikeCount() %></td>
+		</tr>
+	</table>
+<% if(free.size() != 0){ %>
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>	
+<% } %>
+<% 
+	}}else{
+%>
+	<h1>ㅂㅇ</h1>
+<% } %>
+
 
 
 </body>

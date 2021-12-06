@@ -28,13 +28,15 @@ ws.onmessage = (e) => {
 	case "welcome":
 	case "bye": html = `<li class = "center"><span class = "badge">\${sender}</span>\${msg}</li>`; break;
 	case "msg": html = `<li><span class = "badge">\${sender}</span>\${msg}</li>`; break;
+	case "self" : html = `<li class = "selfli"><span class = "self">\${msg}</span></li>`; break;
 	}
 	$("#msg-container ul").append(html);
 	
 	// 스크롤 처리
 	const $msgContainer = $("#msg-container");
-	const scrollHegiht = $msgContainer.prop("scrollHeight");
-	$msgContainer.scrollTop(scrollHeight);
+	const scrollHegiht = $("#msg-container").prop("scrollHeight");
+	$msgContainer.scrollTop(scrollHegiht);
+	
 };
 ws.onerror = (e) => {
 	console.log("error",e);
@@ -50,11 +52,12 @@ $(() => {
 	*/
 	$(send).click((e) => {
 		const o = {
-				type : "msg",
+				
 				sender: "<%= loginMember.getMember_id() %>",
 				receiver: "<%= arrId %>",
 				msg : $(msg).val(),
-				time: Date.now()
+				time: Date.now(),
+				type : "msg"
 		};
 		
 		$.ajax({
@@ -78,6 +81,11 @@ $(() => {
 	
 		
 		
+	});
+	
+	$(msg).keyup((e) => {
+		if(e.key == 'Enter')
+			$(send).trigger("click");
 	});
 });
 

@@ -51,7 +51,7 @@ public class MyBoardListServlet extends HttpServlet {
 			List<Frontboard> list = frontboardService.myboardlist(memberId);
 			System.out.println("myboardList@servlet = " + list);
 			
-			List<Freeboard> free = freeboardService.selectAllFreeBoard(param);
+			List<Freeboard> free = freeboardService.selectMyFreeBoard(param,memberId);
 			System.out.println("freeboard@servlet = " + free);
 			
 			int totalContent = freeboardService.selectTotalFreeBoardCount();
