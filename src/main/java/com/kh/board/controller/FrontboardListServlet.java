@@ -42,9 +42,21 @@ public class FrontboardListServlet extends HttpServlet {
 		// 2. 업무로직
 		// 2-a. content영역 : 페이징쿼리
 		List<Frontboard> list = frontboardService.selectAllBoard(param);
+		List<Frontboard> watchlist = frontboardService.selectAllWatchBoard(param);
+		List<Frontboard> listonline = frontboardService.selectAllBoardOnline(param);
+		List<Frontboard> listoffline = frontboardService.selectAllBoardOffline(param);
+		
+		
 		System.out.println("list@servlet = " + list);
+		System.out.println("list@servlet = " + watchlist);
+		System.out.println("list@servlet = " + listonline);
+	
 		
 		request.setAttribute("list", list);
+		request.setAttribute("watchlist", watchlist);
+		request.setAttribute("listonline", listonline);
+		request.setAttribute("listoffline", listoffline);
+		
 		request
 				.getRequestDispatcher("/WEB-INF/views/board/frontboardList.jsp")
 				.forward(request, response);

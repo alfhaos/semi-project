@@ -17,7 +17,7 @@
 
 <title>Kola !</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 <!-- 타이틀 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@600&family=IBM+Plex+Sans+KR&family=Secular+One&display=swap" rel="stylesheet">
 
@@ -39,8 +39,6 @@ const logout = () => {
 	location.href="<%= request.getContextPath() %>/member/logout";
 };
 </script>
-
-<script src="https://kit.fontawesome.com/4123702f4b.js" crossorigin="anonymous"></script>
 <style>
 	header{
 		height: 30vh;
@@ -52,7 +50,6 @@ const logout = () => {
 		width: 80%;
 		margin: 0 auto;
 		padding: 0 auto;
-		text-align: center;
 		
 	}
 	#title{
@@ -79,7 +76,22 @@ const logout = () => {
 	color: #eb4b3f;
 	font-family: 'Secular One', sans-serif;
 	}
+	.badge {
+	  display: inline-block;
+	  min-width: 10px;
+	  padding: 3px 7px;
+	  font-size: 12px;
+	  font-weight: bold;
+	  line-height: 1;
+	  color: #fff;
+	  text-align: center;
+	  white-space: nowrap;
+	  vertical-align: baseline;
+	  background-color: #777;
+	  border-radius: 10px;
+	}
 </style>
+
 
 
 
@@ -172,6 +184,7 @@ const logout = () => {
         <% } %>
 
     </header>
+
 <% if(loginMember != null){ %>
     <form 
     name="myboardListFrm"
@@ -200,6 +213,7 @@ function fn_alramList(){
 			//console.log("alramList:"+data);
 			var count = data.length;
 			//console.log(count);
+			if(count != 0)
 			$(".badge").text(count);
 
 
@@ -220,3 +234,4 @@ function fn_alramList(){
 }
 
 </script>
+

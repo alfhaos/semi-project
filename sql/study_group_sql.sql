@@ -63,25 +63,48 @@ insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_da
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'파이썬 2개월 스터디 팀원구해요~','hhhhh','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','java',10,5,'O');
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'c++ 6개월 스터디 그룹원 구해용','pppp','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','javascript',10,3,'O');
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'자바 스크립트 프로젝트 팀원구해요~','ykuhk','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','javascript',10,3,'O');
+<<<<<<< HEAD
 update kola_main_board set  title='c++ 스터디 팀원 구합니다~' where content ='반갑습니다';
+=======
+update kola_main_board set  area=null where no='35';
+
+select * from kola_main_board;
+
+commit;
+>>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
 
 create sequence kola_seq_main_board_no;
 
-commit;
-select * from kola_main_board;
+
 
 select 
     *
 from (
     select 
-        row_number() over(order by no desc) rnum,
+        row_number() over(order by reg_date desc) rnum,
         b.*,
         (select count(*) from kola_board_comment where board_no = b.no) comment_count
     from 
         kola_main_board b
 )
 where
-    rnum between 1 and 12;
+    rnum between 1 and 100;
+    
+    
+select 
+    *
+from (
+    select 
+        row_number() over(order by read_count desc) rnum,
+        b.*,
+        (select count(*) from kola_board_comment where reg_date = b.reg_date) comment_count
+    from 
+        kola_main_board b
+    where
+        area is  null
+)
+where
+    rnum between 1 and 100;
 
 --------------------------------------------------------------------
 -- 게시판 댓글
@@ -234,11 +257,14 @@ create table study_group_board(
 );
 
 
+create sequence seq_study_group_attachment;
+select * from  kola_study_group_board;
+commit;
+insert into kola_study_group_board values(seq_study_group_board.nextval,47,'하이2','admin','ggddddgd',0,default);
 
+select * from kola_study_group_attachment;
 
-
-
-
+ select * from (select row_number() over(order by group_board_no desc) rnum, b.*,(select count(*) from kola_study_group_attachment where board_no = b.group_board_no) attach_count from kola_study_group_board b) where rnum between 1 and 5 and study_group_no = 47;
 --------------------------------------------------------------------
 -- 첨부파일
 --------------------------------------------------------------------
