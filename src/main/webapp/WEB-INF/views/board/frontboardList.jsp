@@ -171,7 +171,6 @@ $(function(){
 
 
 
-
 </script>
 <section id="board-container">
 <div class="title">

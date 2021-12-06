@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.kh.board.model.vo.Frontboard;
 import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.FreeboardComment;
@@ -70,6 +71,29 @@ public class FreeboardDao {
 		}
 		return list;
 	}
+	
+	
+	public int selectTotalFreeBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalFreeBoardCount");
+		ResultSet rset = null;
+		int totalContent = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalContent;
+	}
+
 
 
 
@@ -93,7 +117,8 @@ public class FreeboardDao {
 		
 		return result;
 	}
-
+	
+	
 
 
 	public Freeboard selectAllFreeBoard(Connection conn, int no) {
@@ -293,6 +318,52 @@ public class FreeboardDao {
 		
 		return result;
 	}
+
+
+
+	public List<Freeboard> searchMember(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMember");
+		ResultSet rset = null;
+		List<Freeboard> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "writer": sql += " writer like '%" + searchKeyword + "%'"; break;
+		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+//		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
+//		case "rank": sql = " gender = '" + searchKeyword + "'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Freeboard freeboard = new Freeboard();
+				freeboard.setNo(rset.getInt("no"));
+				freeboard.setTitle(rset.getString("title")); 
+				freeboard.setWriter(rset.getString("writer"));
+				freeboard.setContent(rset.getString("content"));
+				freeboard.setReadCount(rset.getInt("read_count"));
+				freeboard.setRegDate(rset.getDate("reg_date"));
+				freeboard.setLikeCount(rset.getInt("like_count"));
+				
+				list.add(freeboard);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+				
 
 
 

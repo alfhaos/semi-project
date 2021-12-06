@@ -17,6 +17,7 @@ import java.util.Properties;
 import com.kh.community.model.exception.FreeboardException;
 import com.kh.community.model.exception.QuestionboardException;
 import com.kh.community.model.vo.Attachment;
+import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.Questionboard;
 import com.kh.community.model.vo.QuestionboardComment;
 
@@ -474,6 +475,73 @@ private Properties prop = new Properties();
 		}
 		return result;
 	}
+
+
+	public int selectTotalQuestionBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalQuestionBoardCount");
+		ResultSet rset = null;
+		int totalContent = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContent = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalContent;
+	}
+	
+	
+	public List<Questionboard> searchMember(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMember");
+		ResultSet rset = null;
+		List<Questionboard> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "writer": sql += " writer like '%" + searchKeyword + "%'"; break;
+		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+//		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
+//		case "rank": sql = " gender = '" + searchKeyword + "'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Questionboard questionboard = new Questionboard();
+				questionboard.setNo(rset.getInt("no"));
+				questionboard.setTitle(rset.getString("title")); 
+				questionboard.setWriter(rset.getString("writer"));
+				questionboard.setContent(rset.getString("content"));
+				questionboard.setReadCount(rset.getInt("read_count"));
+				questionboard.setRegDate(rset.getDate("reg_date"));
+				questionboard.setLikeCount(rset.getInt("like_count"));
+				
+				list.add(questionboard);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+				
 
 
 

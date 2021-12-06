@@ -57,8 +57,14 @@
 	</table>
 	<br />
 <% if(loginMember == null){ %>	
+<<<<<<< HEAD
 	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
 	<input type="button" value="스터디그룹 찜하기" id="dibs-btn" onclick=""/>
+=======
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> 
+
+<!-- 로그인 안하고 글쓰기 누를시 -->
+>>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
 <%} else { %>
 	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
 	<input type="button" value="스터디그룹 찜하기" id="dibs-btn" onclick=""/>

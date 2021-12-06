@@ -88,6 +88,8 @@ function noLogin_writing_btn(){
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
           <!-- <i class="fas fa-search"></i> -->
+            
+          
         
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">

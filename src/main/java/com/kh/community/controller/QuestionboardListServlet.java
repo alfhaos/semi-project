@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.community.model.service.QuestionboardService;
+import com.kh.community.model.vo.MvcUtils;
 import com.kh.community.model.vo.Questionboard;
 
 
@@ -45,8 +46,14 @@ public class QuestionboardListServlet extends HttpServlet {
 			List<Questionboard> list = questionboardService.selectAllQuestionBoard(param);
 			System.out.println("list@servlet = " + list);
 			
+			int totalContent = questionboardService.selectTotalQuestionBoardCount();
+			String url = request.getRequestURI(); 
+			String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
+			System.out.println("pagebar@servlet = " + pagebar);
+			
 			// 3. view단 처리
 			request.setAttribute("list", list);
+			request.setAttribute("pagebar", pagebar);
 			request
 				.getRequestDispatcher("/WEB-INF/views/community/questionboardList.jsp")
 				.forward(request, response);

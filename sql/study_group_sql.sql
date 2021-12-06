@@ -188,12 +188,17 @@ create table kola_study_group(
     max_member number,                      -- 최대 인원
     now_member number,                      -- 현재인원
     recruitment_status char(1) default 'O', -- 모집상태
+    on_off varchar2(50) not null,           -- 온라인 오프라인 선택
     area varchar2(200),
     language varchar2(100) not null,  -- 언어 선택
     
     constraint pk_kola_study_group primary key (group_no)
 
 );
+commit;
+select count(*) from kola_study_group_member where group_member_no = 21;
+select k.*,(select count(*) from kola_study_group_member where group_member_no = 21) now_member from kola_study_group k where group_no = 21;
+
 
 --drop table kola_study_group;
 --drop sequence seq_kola_study_group_no;
