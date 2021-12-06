@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.kh.community.model.dao.QuestionboardDao;
 import com.kh.community.model.vo.Attachment;
+import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.Questionboard;
 import com.kh.community.model.vo.QuestionboardComment;
 
@@ -213,6 +214,21 @@ public class QuestionboardService {
 			throw e;
 		}
 		return result;
+	}
+
+	public int selectTotalQuestionBoardCount() {
+		Connection conn = getConnection();
+		int totalContent = questionboardDao.selectTotalQuestionBoardCount(conn);
+		close(conn);
+		return totalContent;
+	}
+	
+	
+	public List<Questionboard> searchMember(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Questionboard> list = questionboardDao.searchMember(conn, param);
+		close(conn);
+		return list;
 	}
 
 

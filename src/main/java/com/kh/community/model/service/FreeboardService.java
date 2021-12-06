@@ -9,10 +9,10 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.board.model.vo.Frontboard;
 import com.kh.community.model.dao.FreeboardDao;
 import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.FreeboardComment;
-import com.kh.community.model.vo.FreeboardLike;
 
 
 public class FreeboardService {
@@ -24,6 +24,14 @@ public class FreeboardService {
 		List<Freeboard> list = freeboardDao.selectAllFreeBoard(conn, param);
 		close(conn);
 		return list;
+	}
+	
+	
+	public int selectTotalFreeBoardCount() {
+		Connection conn = getConnection();
+		int totalContent = freeboardDao.selectTotalFreeBoardCount(conn);
+		close(conn);
+		return totalContent;
 	}
 	
 
@@ -43,6 +51,8 @@ public class FreeboardService {
 		}
 		return result;
 	}
+	
+	
 
 
 	public Freeboard selectOneFreeBoard(int no) {
@@ -159,6 +169,16 @@ public class FreeboardService {
 			close(conn);
 		}
 		return result;
+	}
+
+
+
+
+	public List<Freeboard> searchMember(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Freeboard> list = freeboardDao.searchMember(conn, param);
+		close(conn);
+		return list;
 	}
 
 

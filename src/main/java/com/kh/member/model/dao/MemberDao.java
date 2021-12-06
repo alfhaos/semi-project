@@ -223,6 +223,7 @@ public class MemberDao {
 				member.setMember_name(rset.getString("member_name"));
 				member.setMember_role(rset.getString("member_role"));
 				member.setGender(rset.getString("gender"));
+				
 				member.setEmail(rset.getString("email"));
 				member.setPhone(rset.getString("phone"));
 				member.setAddress(rset.getString("address"));

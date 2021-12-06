@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.board.model.vo.Frontboard;
 import com.kh.community.model.service.FreeboardService;
 import com.kh.community.model.vo.Freeboard;
+import com.kh.community.model.vo.MvcUtils;
 
 /**
  * Servlet implementation class FreeboardListServlet
@@ -27,7 +28,7 @@ public class FreeboardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final int numPerPage = 5;
+		final int numPerPage = 10;
 		int cPage = 1;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
@@ -38,11 +39,19 @@ public class FreeboardListServlet extends HttpServlet {
 		param.put("start", start);
 		param.put("end", end);
 		
-		// 2. 업무로직
+		
 		List<Freeboard> list = freeboardService.selectAllFreeBoard(param);
 		System.out.println("list@servlet = " + list);
 		
+		
+		int totalContent = freeboardService.selectTotalFreeBoardCount();
+		String url = request.getRequestURI(); 
+		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
+		System.out.println("pagebar@servlet = " + pagebar);
+		
+		
 		request.setAttribute("list", list);
+		request.setAttribute("pagebar", pagebar);
 		request
 				.getRequestDispatcher("/WEB-INF/views/community/freeboardList.jsp")
 				.forward(request, response);
