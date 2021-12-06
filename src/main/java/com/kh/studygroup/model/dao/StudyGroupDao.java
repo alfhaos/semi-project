@@ -286,8 +286,7 @@ public class StudyGroupDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new GroupException("스터디 그룹 가져오기 오류!",e);
 		}
 		finally {
 			close(rset);
@@ -296,6 +295,139 @@ public class StudyGroupDao {
 		
 		
 		return studyGroup;
+	}
+
+	public List<Member> applicantList(Connection conn, String leaderId) {
+		String sql = prop.getProperty("applicantList");
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Member> list = new ArrayList<>();
+		Member member = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, leaderId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				member = new Member();
+				member.setMember_id(rset.getString("member_id"));
+				member.setPassword(rset.getString("password"));
+				member.setMember_name(rset.getString("member_name"));
+				member.setMember_role(rset.getString("member_role"));
+				member.setGender(rset.getString("gender"));
+				member.setLanguage(rset.getString("language"));
+				member.setEmail(rset.getString("email"));
+				member.setPhone(rset.getString("phone"));
+				member.setAddress(rset.getString("address"));
+				member.setEnroll_date(rset.getDate("enroll_date"));
+				member.setStudy_group(rset.getInt("study_group"));
+				
+				list.add(member);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			throw new GroupException("신청자 목록 가져오기 오류!",e);
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public int deleteApplicant(Connection conn, String leader, String memberId) {
+		String sql = prop.getProperty("deleteApplicant");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, leader);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			throw new GroupException("신청자 목록 삭제 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectOneMember(Connection conn, String memberId) {
+		String sql = prop.getProperty("selectOneMember");
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member member = null;
+		
+		try {
+			pstmt= conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				member = new Member();
+				
+				member.setMember_name(rset.getString("member_id"));
+				member.setMember_id(rset.getString("member_name"));
+				
+			}
+			
+		}  catch (SQLException e) {
+			throw new GroupException("회원 한명 정보 가져오기 오류!",e);
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return member;
+	}
+
+	public int updateApplicant(Connection conn, int studyGroup, Member member) {
+		String sql = prop.getProperty("updateApplicant");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, studyGroup);
+			pstmt.setString(2, member.getMember_id());
+			pstmt.setString(3, member.getMember_name());
+			pstmt.setString(4, "U");
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			throw new GroupException("신청자 목록 삭제 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
