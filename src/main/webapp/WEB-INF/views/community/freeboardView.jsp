@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
 
-	<h2>게시판</h2>
+	<h4>자유게시판</h4>
 	<table id="tbl-board-view">
 		<tr>
 		
@@ -22,19 +22,11 @@
 		</tr>
 		<tr>
 			
-			<td><%= freeboard.getWriter() %></td>
-		</tr>
-		<tr>
-			<td><%= freeboard.getRegDate() %></td>
-		</tr>
-		<tr>
-			
-			<td><%= freeboard.getReadCount() %></td>
+			<td><%= freeboard.getWriter() %> &nbsp; &nbsp;<%= freeboard.getRegDate() %><td style="text-align=rignt;">조회 <%= freeboard.getReadCount() %></td>
 		</tr>
 		
-		<tr>
-			
-			<td>
+		<tr style="border-top:1px solid grey;" >
+			<td style="padding:15px 0 25px 15px;">
 				<%= freeboard.getContent() %> 
 			</td>
 		</tr>

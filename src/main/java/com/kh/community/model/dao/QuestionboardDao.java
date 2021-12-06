@@ -64,7 +64,7 @@ private Properties prop = new Properties();
 			}
 			
 		} catch (SQLException e) {
-			throw new FreeboardException("게시글 목록 조회 오류", e);
+			throw new QuestionboardException("게시글 목록 조회 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -510,6 +510,7 @@ private Properties prop = new Properties();
 		switch(searchType) {
 		case "writer": sql += " writer like '%" + searchKeyword + "%'"; break;
 		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+		case "content": sql += " content like '%" + searchKeyword + "%'"; break;
 //		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
 //		case "rank": sql = " gender = '" + searchKeyword + "'"; break;
 		}

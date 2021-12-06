@@ -8,24 +8,22 @@
 <%
 	Questionboard questionboard = (Questionboard) request.getAttribute("questionboard");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
 	<h2>게시판</h2>
 	<table id="tbl-board-view">
 		<tr>
-			<th>글번호</th>
 			<td><%= questionboard.getNo() %></td>
 		</tr>
 		<tr>
-			<th>제 목</th>
+		
 			<td><%= questionboard.getTitle() %></td>
 		</tr>
 		<tr>
-			<th>작성자</th>
-			<td><%= questionboard.getWriter() %></td>
+			
+			<td><%= questionboard.getWriter() %> &nbsp; &nbsp;<%= questionboard.getRegDate() %><td style="text-align=rignt;">조회 <%= questionboard.getReadCount() %></td>
 		</tr>
 		<tr>
-			<th>조회수</th>
 			<td><%= questionboard.getReadCount() %></td>
 		</tr>
 		
@@ -47,9 +45,8 @@
 		}
 	} 
 %>
-		<tr>
-			<th>내 용</th>
-			<td>
+		<tr style="border-top:1px solid grey;" >
+			<td style="padding:15px 0 25px 15px;">
 				<%= questionboard.getContent() %> 
 			</td>
 		</tr>

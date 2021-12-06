@@ -14,7 +14,7 @@ section#board-container h2{margin:10px 0;}
 table#tbl-board{width:100%; margin:0 auto; border-top:2px solid; border-collapse:collapse; clear:both }
 table#tbl-board th {
 					height:40px;
-					border-top:2px solid #09C;
+					border-top:2px solid #dc3545;
 					border-bottom:1px solid #CCC;
 					font-weight: bold;
 					font-size: 17px;}
@@ -23,7 +23,11 @@ table#tbl-board td {
 					text-align:center;
 					padding:10px 0;
 					border-bottom:1px solid #CCC; height:20px;
-					font-size: 14px;} 
+					font-size: 14px;
+					} 
+table#tbl-board td a{
+					color:black;
+}					
 
 /*글쓰기버튼*/
 input#btn-add{float:right; margin: 0 0 15px;}
@@ -43,7 +47,7 @@ table#tbl-board-view {
 
 table#tbl-board-view td {
 	
-	padding: 5px 0 5px 15px; 
+	padding: 10px 0 15px 15px; 
 	text-align:left;
 }
 
@@ -66,8 +70,8 @@ span#fname{
 }
 #del_file+label{font-size:.8em; position:relative; top:-3px;}
 
-/*댓글등록버튼*/
-div.comment-container button#btn-comment-enroll1 {width:60px; height:50px; color:white; background:#3300ff; position:relative; top:-20px;}
+/*댓글등록버튼*/ 
+div.comment-container button#btn-comment-enroll1 {width:60px; height:50px; color:white; background:#dc3545; position:relative; top:-20px;}
 
 /*댓글테이블*/
 table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse;} 

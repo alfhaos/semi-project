@@ -3,33 +3,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>    
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 
-<script>
-/**
-* boardEnrollFrm 유효성 검사
-*/
-function boardValidate(){
-	const $title = $("[name=title]");
-	const $content = $("[name=content]");
-	
-	//제목을 작성하지 않은 경우 폼제출할 수 없음.
-	if(!/^.+$/.test($title.val())){
-		alert("제목을 입력하세요.");
-		return false;
-	}
-					   
-	//내용을 작성하지 않은 경우 폼제출할 수 없음.
-	// \n는 .에 포함되지 않는다.
-	if(!/^(.|\n)+$/.test($title.val())){
-		alert("내용을 입력하세요.");
-		return false;
-	}
-	
-	return true;
-}
-
-$(document.boardEnrollFrm).submit(boardValidate);
-
-</script>
 <section id="board-container">
 <h2>게시판 작성</h2>
 <form
@@ -68,4 +41,32 @@ $(document.boardEnrollFrm).submit(boardValidate);
 </table>
 </form>
 </section>
+
+<script>
+/**
+* boardEnrollFrm 유효성 검사
+*/
+function boardValidate(){
+	const $title = $("[name=title]");
+	const $content = $("[name=content]");
+	
+	//제목을 작성하지 않은 경우 폼제출할 수 없음.
+	if(!/^.+$/.test($title.val())){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+					   
+	//내용을 작성하지 않은 경우 폼제출할 수 없음.
+	// \n는 .에 포함되지 않는다.
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	
+	return true;
+}
+
+$(document.boardEnrollFrm).submit(boardValidate);
+
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -10,9 +10,10 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <style>
-div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(0, 188, 212, 0.3);}
-div#search-writer {display: <%= searchType == null || "writer".equals(searchType) ? "inline-block" : "none" %>;}
-div#search-title {display: <%= "title".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-container {margin:0 0 10px 0; padding:3px;}
+div#search-writer {display: <%= "writer".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-title {display: <%= searchType == null || "title".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-content {display: <%= "content".equals(searchType) ? "inline-block" : "none" %>;}
 </style>
 
 <section id="board-container">
@@ -51,9 +52,10 @@ div#search-title {display: <%= "title".equals(searchType) ? "inline-block" : "no
 	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 	
 	<div id="search-container">
-        <select id="searchType">
-            <option value="writer" <%= "writer".equals(searchType) ? "selected" : "" %>>아이디</option>		
+        <select id="searchType">		
             <option value="title" <%= "title".equals(searchType) ? "selected" : "" %>>제목</option>
+            <option value="content" <%= "content".equals(searchType) ? "selected" : "" %>>내용</option>
+            <option value="writer" <%= "writer".equals(searchType) ? "selected" : "" %>>작성자</option>	
         </select>
         <div id="search-writer" class="search-type">
             <form action="<%=request.getContextPath()%>/community/freeboardFinder">
@@ -66,6 +68,13 @@ div#search-title {display: <%= "title".equals(searchType) ? "inline-block" : "no
             <form action="<%=request.getContextPath()%>/community/freeboardFinder">
                 <input type="hidden" name="searchType" value="title"/>
                 <input type="text" name="searchKeyword" value="<%= "title".equals(searchType) ? searchKeyword : "" %>" size="25"/>
+                <button type="submit">검색</button>			
+            </form>	
+        </div>
+        <div id="search-content" class="search-type">
+            <form action="<%=request.getContextPath()%>/community/freeboardFinder">
+                <input type="hidden" name="searchType" value="content"/>
+                <input type="text" name="searchKeyword" value="<%= "content".equals(searchType) ? searchKeyword : "" %>" size="25"/>
                 <button type="submit">검색</button>			
             </form>	
         </div>
