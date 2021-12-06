@@ -66,30 +66,57 @@ public class HelloWebSocket {
 	@OnMessage
 	public void onMessage(String msg, Session session) {
 		System.out.println("[message]");
+		
+		String[] arr = msg.split(",");
+		int lastIndex = arr.length-1;
 		System.out.println(msg);
 		
-		
+		if(arr[lastIndex].contains("welcome") || arr[lastIndex].contains("bye")) {
+			synchronized(clients) {
+				// 클라이언트에서 세션 목록들을 가져옴
+				Collection<Session> sessionList = clients.values();
+				for(Session sess : sessionList) {
+						Basic basic = sess.getBasicRemote();
+						try {
+							basic.sendText(msg);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					
+				}
+				
+			}
+		}
+		else {
+			msg = msg.replaceAll("msg", "self");
+			
+			msg = msg.replaceFirst("self", "msg");
+			System.out.println("else문의 msg 값: " + msg);
+			synchronized(clients) {
+				// 클라이언트에서 세션 목록들을 가져옴
+				Collection<Session> sessionList = clients.values();
+				for(Session sess : sessionList) {
+					if(clients.get(memberId).equals(sess)) {
+						Basic basic = sess.getBasicRemote();
+						try {
+							basic.sendText(msg);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				
+			}
+			
+		}
+
 		/**
 		 * 
 		 * Session 관련 처리를 하는중 clients 맵에 변경이 일어나서는 안되므로,
 		 * 멀티쓰레드에 대한 동기화처리해야 한다.
 		 */
 		
-		synchronized(clients) {
-			// 클라이언트에서 세션 목록들을 가져옴
-			Collection<Session> sessionList = clients.values();
-			for(Session sess : sessionList) {
-				if(clients.get(memberId).equals(sess)) {
-					Basic basic = sess.getBasicRemote();
-					try {
-						basic.sendText(msg);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			
-		}
+
 	}
 	
 	@OnError
