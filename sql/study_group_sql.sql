@@ -221,7 +221,7 @@ create table free_board_like(
 update free_board set like_count = like_count+1 where (no, writer) in (select bno, check_user from free_board_like where like_flag=1);
 
 drop table free_board_like;
->>>>>>> branch 'master' of https://github.com/alfhaos/semi-project.git
+
 
 --------------------------------------------------------------------
 -- 스터디그룹
@@ -294,7 +294,7 @@ create table study_group_board(
     constraint fk_group_no foreign key(group_no) references study_group(group_no) on delete set null 
 
 );
-
+select * from kola_alram;
 
 create sequence seq_study_group_attachment;
 select * from  kola_study_group_board;
@@ -336,43 +336,7 @@ update kola_member set email ='aaaaa@naver.com' where email = 'null';
 select * from kola_member where member_id = 'honggd';
 select * from free_board;
 select*from kola_study_group;
-select * from member;
 
-create table kola_alram(
-    group_leader_id varchar2(100),
-    member_id varchar2(100)
-);
-create table kola_visitors(
-    today varchar2(100) default to_char(sysdate, 'yy/mm/dd'),
-    count number default '0'
-);
-select*from kola_visitors;
-insert into kola_visitors values(default,default);
-insert into kola_alram values(ykuhk,honggd);
-select * from kola_alram;
-delete from kola_alram where member_id = 'honggd';
--- drop table kola_visitors;
- 
-select*from kola_visitors where today= to_char(sysdate, 'yy/mm/dd');
-select row_number() over (order by today) "rownum", today, count from kola_visitors where rownum between 1 and 10;
-select row_number() over (order by today) "rownum", today, count from kola_visitors where rownum between 1 and 10;
-insert into kola_visitors values(default,default);
-insert into kola_visitors values(to_char(to_date(20211203), 'yy/mm/dd'),11);
-insert into kola_visitors values(to_char(to_date(20211204), 'yy/mm/dd'),13);
-insert into kola_visitors values(to_char(to_date(20211205), 'yy/mm/dd'),15);
-delete from kola_visitors where today= to_char(sysdate, 'yy/mm/dd');
-update kola_visitors set count=count+1 where today=to_char(sysdate, 'yy/mm/dd');
-delete from kola_visitors where today= to_char(sysdate, 'yy/mm/dd');
-select * from kola_visitors;
-ALTER TABLE kola_visitors MODIFY today varchar2(100);
-commit;
-
-insert into kola_visitors values(case when today is null then default,case when today is not null then case = case+1);
-select to_char(enroll_date, 'yy/mm/dd') 가입일,count(*) 가입수, row_number() over (order by count(to_char(enroll_date, 'yy/mm/dd')) desc) 순위 from kola_member group by to_char(enroll_date, 'yy/mm/dd');
-select to_char(enroll_date, 'yy/mm/dd') enrolldate,count(*) count, row_number() over (order by count(to_char(enroll_date, 'yy/mm/dd')) desc) rank from kola_visitors;
-
-
-
-
-
+select * from kola_member k join kola_alram a on k.member_id = a.member_id where a.group_leader_id = 'ykuhk';
+select * from kola_alram; 
 

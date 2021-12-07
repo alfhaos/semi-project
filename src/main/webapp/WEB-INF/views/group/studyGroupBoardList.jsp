@@ -22,8 +22,9 @@
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
-			<th>첨부파일</th><%--첨부파일이 있는 경우 /images/file.png 표시 width:16px --%>
+			<th>첨부파일</th>
 			<th>조회수</th>
+			<th>여부</th>
 		</tr>
 		
 		
@@ -46,8 +47,9 @@
 			<% } %>
 			</td>
 			<td><%= board.getRead_count() %></td>
+			<td>수락</td>
 		</tr>
-			
+
 		<%} %>
 	</table>
 
