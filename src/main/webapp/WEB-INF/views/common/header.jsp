@@ -8,6 +8,7 @@
 	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	
 %>   
 <!DOCTYPE html>
 <html>
@@ -126,34 +127,8 @@ const logout = () => {
 					
       <div class="col-md-3 text-end">
         <button type="button" class="btn btn-outline-danger me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
-        <button type="button" class="btn btn-danger">Sign-up</button>
+        <button type="button" class="btn btn-danger" value="회원가입" onclick="location.href='<%= request.getContextPath() %>/member/memberEnroll';">Sign-up</button>
       </div>
-					<form 
-						id="loginFrm" 
-						action="<%= request.getContextPath() %>/member/login"
-						method="GET">
-						<table>
-							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
-								<td><input type="submit" value="로그인" tabindex="3"></td>
-							</tr>
-							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = ""></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="checkbox" name="saveId" id="saveId" />
-									<label for="saveId">아이디저장</label>
-									<input 
-										type="button" 
-										value="회원가입" 
-										onclick="location.href='<%= request.getContextPath() %>/member/memberEnroll';">
-								</td>
-							</tr>
-						</table>
-					</form>
-					<!-- 로그인폼 끝-->
 					
 <%} else { %>
 					
@@ -161,7 +136,7 @@ const logout = () => {
 <!-- 마이페이지 드롭다운 -->
 		<span>
 		<%= loginMember.getMember_name() %>님, 열공합시다!
-		<a href="#">
+		<a href="<%= request.getContextPath() %>/studygroup/applicant">
 		<span class="badge"></span>
 		</a>
 		</span>
@@ -173,7 +148,6 @@ const logout = () => {
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
             <li><a class="dropdown-item" href="#" onclick="myboardlist();">내 작성글</a></li>
-            <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 
@@ -217,7 +191,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".badge").text(count);
+			$(".badge").text(count)
 
 
 		},

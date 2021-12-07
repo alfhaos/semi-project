@@ -4,7 +4,7 @@
 <%@page import="com.kh.studygroup.board.model.vo.StudyGroupBoard"%> 
 <%@ page import = "java.util.List" %>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 
 <%
 	List<StudyGroupBoard> list = (List<StudyGroupBoard>) request.getAttribute("list");
@@ -12,7 +12,7 @@
 %>
 
 <section id="board-container">
-	<h2>게시판 </h2>
+	<h2>그룹게시판 </h2>
 		<% if(loginMember != null) { %>
 	<input type="button" value="글쓰기" id = "btn-add" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardForm';"/>
 	<%} %>

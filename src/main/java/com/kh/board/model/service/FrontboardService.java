@@ -53,9 +53,9 @@ public class FrontboardService {
 	}
 
 
-	public List<Frontboard> myboardlist(String memberId) {
+	public List<Frontboard> myboardlist(Map<String, Integer> param, String memberId) {
 		Connection conn = getConnection();
-		List<Frontboard> list = frontboardDao.myboardlist(conn, memberId);
+		List<Frontboard> list = frontboardDao.myboardlist(conn,param, memberId);
 		close(conn);
 		return list;
 	}

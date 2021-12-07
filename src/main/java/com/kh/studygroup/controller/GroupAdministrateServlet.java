@@ -15,14 +15,13 @@ import com.kh.studygroup.model.service.StudyGroupService;
 import com.kh.studygroup.model.vo.StudyGroupMember;
 
 /**
- * Servlet implementation class StudyGroupView
+ * Servlet implementation class GroupAdministrateServlet
  */
-@WebServlet("/studygroup/view")
-public class StudyGroupViewServlet extends HttpServlet {
+@WebServlet("/studygroup/administrate")
+public class GroupAdministrateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudyGroupService groupService = new StudyGroupService();
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 0. 인코딩 처리    필터 만들면 지우기!!!!!
 		request.setCharacterEncoding("utf-8");
@@ -39,22 +38,36 @@ public class StudyGroupViewServlet extends HttpServlet {
 				
 		Member loginMember = (Member) session.getAttribute("loginMember");	
 		int studyGroup = loginMember.getStudy_group();
-		String memberId = loginMember.getMember_id();
-		// 2. 업무로직
-		if(studyGroup != 0) {
-			List<StudyGroupMember> MemberList = groupService.selectAllGroupMember(studyGroup);
-			String memberRole = groupService.selectMemberRole(memberId);
-			request.setAttribute("MemberList", MemberList);
-			request.setAttribute("memberRole", memberRole);
-			
-		}
-		// 3. view단
+		
+		
+		// 2. 업무 로직
+		List<StudyGroupMember> MemberList = groupService.selectAllGroupMember(studyGroup);
+		request.setAttribute("MemberList", MemberList);
+		
+		
+		
 		request
-			.getRequestDispatcher("/WEB-INF/views/group/studyGroupMain.jsp")
+			.getRequestDispatcher("/WEB-INF/views/group/groupAdministrate.jsp")
 			.forward(request, response);
 		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		// 0. 인코딩 처리    필터 만들면 지우기!!!!!
+		request.setCharacterEncoding("utf-8");
+		
+		
+		
+		String memberId = request.getParameter("memberId");
+		int studyGroup = Integer.parseInt(request.getParameter("studyGroup"));
+		
+		System.out.println("스터디 그룹 : " + studyGroup + " 멤버 아이디 : " + memberId);
+		int result = groupService.deleteGroupMember(studyGroup,memberId);
+		
+		
+		String location = request.getContextPath() + "/studygroup/administrate";
+		response.sendRedirect(location);
 		
 	}
 

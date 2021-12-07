@@ -2,71 +2,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>  
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 
-<section id=enroll-container>
-	<h2>회원 정보</h2>
-	<form id="memberUpdateFrm" method="post">
-		<table>
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="memberId" id="memberId" value="<%= loginMember.getMember_id() %>" readonly>
-				</td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td>	
-				<input type="text"  name="memberName" id="memberName" value="<%= loginMember.getMember_name() %>"  required><br>
-				</td>
-			</tr>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Checkout example · Bootstrap v5.1</title>
 
-			<tr>
-				<th>이메일</th>
-				<td>	
-					<input type="email" placeholder="abc@xyz.com" name="email" id="email" value="<%= loginMember.getEmail() %>"><br>
-				</td>
-			</tr>
-			<tr>
-				<th>휴대폰</th>
-				<td>	
-					<input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" value="<%= loginMember.getPhone() %>" required><br>
-				</td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td>	
-					<input type="text" placeholder="" name="address" id="address" value="<%= loginMember.getAddress() %>"><br>
-				</td>
-			</tr>
-			<tr>
-				<th>성별 </th>
-				<td>
-		       		<input type="radio" name="gender" id="gender0" value="M" <%= "M".equals(loginMember.getGender()) ? "checked" : "" %>>
-					<label for="gender0">남</label>
-					<input type="radio" name="gender" id="gender1" value="F" <%= "F".equals(loginMember.getGender()) ? "checked" : "" %>>
-					<label for="gender1">여</label>
-				</td>
-			</tr>
-			<tr>
-				<th>언어 </th>
-				<td>
-									
-					<input type="radio" name="language" id="language0" value="c" <%= loginMember.getLanguage().contains("c") ? "checked" : "" %>><label for="language0">C</label>
-					<input type="radio" name="language" id="language1" value="c++" <%= loginMember.getLanguage().contains("c++") ? "checked" : "" %>><label for="language1">C++</label>
-					<input type="radio" name="language" id="language2" value="java" <%= loginMember.getLanguage().contains("java") ? "checked" : "" %>><label for="language2">Java</label><br />
-					<input type="radio" name="language" id="language3" value="javaScript" <%= loginMember.getLanguage().contains("javaScript") ? "checked" : "" %>><label for="language3">JavaScript</label>
-					<input type="radio" name="language" id="language4" value="Spring" <%= loginMember.getLanguage().contains("Spring") ? "checked" : "" %>><label for="language4">Spring</label><br />
-					<input type="radio" name="language" id="language5" value="Python" <%= loginMember.getLanguage().contains("Python") ? "checked" : "" %>><label for="language5">Python</label><br />
-				</td>
-			</tr>
-		</table>
-        <input type="button" onclick="updateMember();" value="정보수정"/>
-        <input type="button" onclick="updatePassword();" value="비밀번호변경"/>
-        <input type="button" onclick="deleteMember();" value="탈퇴"/>
-	</form>
-</section>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .container{
+      margin-left: 230px;
+      }
+      .div-container{
+      margin-left: 200px;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div class="py-5 text-center">
+      <h2>마이페이지</h2>
+    </div>
+<div class="container">
+
+    
+
+      <div class="col-md-7 col-lg-8">
+        <form class="needs-validation" id="memberUpdateFrm" method="post" novalidate>
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="username" class="form-label">아이디</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" name="memberId" value="<%= loginMember.getMember_id() %>" readonly>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="username" class="form-label">이름</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="username" name="memberName" value="<%= loginMember.getMember_name() %>" required>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">이메일</label>
+              <input type="email" class="form-control" id="email" name="email" value="<%= loginMember.getEmail() %>">
+            </div>
+
+            <div class="col-12">
+              <label for="address" class="form-label">핸드폰</label>
+              <input type="text" class="form-control" name="phone" id="phone" maxlength="11" value="<%= loginMember.getPhone() %>"required>
+            </div>
+            
+            <div class="col-12">
+              <label for="address" class="form-label">주소</label>
+              <input type="text" class="form-control" id="address" name="address" value="<%= loginMember.getAddress() %>" required>
+            </div>
+
+          <h4 class="mb-3">성별</h4>
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="gender" type="radio" class="form-check-input" value="M" <%= "M".equals(loginMember.getGender()) ? "checked" : "" %>>
+              <label class="form-check-label">남</label>
+            </div>
+            <div class="form-check">
+              <input id="credit" type="radio" class="form-check-input" name="gender" value="F" <%= "F".equals(loginMember.getGender()) ? "checked" : "" %>>
+              <label class="form-check-label">여</label>
+            </div>
+          </div>
+          
+                    <h4 class="mb-3">선호 언어</h4>
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" type="radio" class="form-check-input" name="language" value="c" <%= loginMember.getLanguage().contains("c") ? "checked" : "" %>>
+              <label class="form-check-label" for="credit">C</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" type="radio" class="form-check-input" name="language" value="c++" <%= loginMember.getLanguage().contains("c++") ? "checked" : "" %>>
+              <label class="form-check-label" for="debit">C++</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" type="radio" class="form-check-input" name="language" value="java" <%= loginMember.getLanguage().contains("java") ? "checked" : "" %>>
+              <label class="form-check-label" for="paypal">Java</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" type="radio" class="form-check-input" name="language" value="javaScript" <%= loginMember.getLanguage().contains("javaScript") ? "checked" : "" %>>
+              <label class="form-check-label" for="paypal">JavaScript</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" type="radio" class="form-check-input" name="language" value="Spring" <%= loginMember.getLanguage().contains("Spring") ? "checked" : "" %>>
+              <label class="form-check-label" for="paypal">Spring</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" type="radio" class="form-check-input" name="language" value="Python" <%= loginMember.getLanguage().contains("Python") ? "checked" : "" %>>
+              <label class="form-check-label" for="paypal">Python</label>
+            </div>
+          </div>
+
+      
+          </div>
+          <hr class="my-4">
+<div class="div-container">
+          <input class="w-40 btn btn-primary btn-lg" type="button" onclick="updateMember();" value="정보수정"/>
+          <input class="w-40 btn btn-primary btn-lg" type="button" onclick="updatePassword();" value="비밀번호변경"/>
+          <input class="w-40 btn btn-primary btn-lg" type="button" onclick="deleteMember();" value="탈퇴"/>
+</div>
+        </form>
+      </div>
+    </div>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="form-validation.js"></script>
+  </body>
+</html>
+
+
 <!-- 회원탈퇴폼 : POST /member/memberDelete 전송을 위해 시각화되지 않는 폼태그 이용 -->
 <form name="memberDelFrm" action="<%= request.getContextPath() %>/member/memberDelete" method="POST">
 	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />

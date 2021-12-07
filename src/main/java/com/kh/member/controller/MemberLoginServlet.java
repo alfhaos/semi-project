@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.admin.controller.AdminMemberListServlet;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
@@ -30,7 +31,9 @@ public class MemberLoginServlet extends HttpServlet {
 		// 1. 사용자 입력값 처리
 		String memberId = request.getParameter("memberId");
 		String password = request.getParameter("password");
+		String saveId = request.getParameter("saveId");
 		String msg;
+		String location;
 		
 		System.out.println("[MemberLogin@Servlet] memberId = " + memberId + ", password = " + password );
 		
@@ -59,11 +62,24 @@ public class MemberLoginServlet extends HttpServlet {
 			// 로그인 성공
 			session.setAttribute("msg", "로그인 성공!");
 			session.setAttribute("loginMember", member);
-			System.out.println(session.getId());
+			System.out.println("session.getId() = "+session.getId());
+			location = request.getContextPath()+"/board/boardList";
+//			location = request.getHeader("Referer");
 			
-			
-			// 로그인객체를 session 저장
-			session.setAttribute("loginMember", member);
+			// 아이디저장 체크박스 처리
+			// 브라우져 호환성을 고려해 도메인당 쿠키개수 50개, 하나의 value값은 4kb를 넘지 않도록 한다.
+			Cookie cookie = new Cookie("saveId", memberId);
+			cookie.setPath(request.getContextPath());
+				
+			if(saveId != null) {
+				cookie.setMaxAge(7 * 24 * 60 * 60); // 7일
+				// persistent(영속)쿠키 : 초단위로 시간을 입력
+				// session 쿠키 : setMaxAge설정 안한 경우				
+			}
+			else {
+				cookie.setMaxAge(0); // 즉시 삭제
+			}
+			response.addCookie(cookie);
 			
 			//방문자 통계
 			int result = memberService.totalVisitor();
@@ -75,17 +91,18 @@ public class MemberLoginServlet extends HttpServlet {
 		else {
 			// 로그인 실패
 			session.setAttribute("msg", "로그인 실패!");
+			location = request.getHeader("Referer");
 		}
 		
 		
-		
 		// 3. view단 제공
-		String location = request.getHeader("Referer");
+//		String location = request.getHeader("Referer");
 		System.out.println("location = "+ location);
 		response.sendRedirect(location);
 		
 		
 	}
+
 
 
 

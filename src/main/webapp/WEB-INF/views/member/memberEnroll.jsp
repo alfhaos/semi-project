@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/memberEnroll.css" />
+<script>
+
+$(() => {
+	<% if(msg != null){ %>
+	alert("<%= msg %>");
+	
+	<%} %>
+});
+
+</script>
 <section id=enroll-container>
-	<h2>회원 가입 정보 입력</h2>
+	<h2>회원 가입</h2>
 	<form name="memberEnrollFrm" action="" method="POST">
-		<table>
+		<table id="tbl-enroll-form">
 			<tr>
 				<th>아이디<sup>*</sup></th>
 				<td>
@@ -63,7 +74,7 @@
 			<tr>
 				<th>관심 언어</th>
 				<td>
-					<input type="radio" name="language" id="c" value="c"><label for="c">c</label>
+					<input type="radio" name="language" id="c" value="c" checked><label for="c">c</label>
 					<input type="radio" name="language" id="c++" value="c++"><label for="c++">c++</label>
 					<input type="radio" name="language" id="java" value="java"><label for="java">java</label><br />
 					<input type="radio" name="language" id="javaScript" value="javaScript"><label for="javaScript">javaScript</label>
@@ -72,8 +83,8 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="가입" >
-		<input type="reset" value="취소">
+		<input type="submit" id="enroll-submit-button" value="가입" >
+		<input type="reset" id="enroll-reset-button" value="취소">
 	</form>
 </section>
 <form 
