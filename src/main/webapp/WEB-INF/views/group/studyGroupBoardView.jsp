@@ -10,7 +10,7 @@
 	StudyGroupBoard board = (StudyGroupBoard) request.getAttribute("board");
 %>
 <section id="board-container">
-	<h4><a href="<%= request.getContextPath() %>/group/studyGroupBoardList">그룹게시판</a></h4>
+	<h4><a href="<%= request.getContextPath() %>/studygroup/boardlist">그룹게시판</a></h4>
 	<table id="tbl-board-view">
 		<tr>
 			<td><h2><%= board.getTitle() %></h2></td>
