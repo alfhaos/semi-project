@@ -7,7 +7,7 @@
     font-style: normal;
 }
 
-section#board-container{width:100%; margin:0 auto; text-align:center; background:  #f8f9fa;}
+section#board-container{width:100%; margin:0 auto; text-align:center; background:  #f8f9fa; border-radius: 5%;}
 section#board-container h2{margin:10px 0;}
 
 div#banner{display:block;}
@@ -58,10 +58,11 @@ div.undertext{display:in-line-block; position:absolute; padding:none; text-align
 	padding-bottom: 0;
 	}
 	#title2{
-    font-size: 1rem;
+    font-size: 1.6rem;
     margin-bottom: 0;
     margin-top: 20px;
     padding-bottom: 0;
+    font-family: 'InfinitySans-RegularA1';
 	}
 	.title{
 	margin: 2rem;
@@ -72,6 +73,7 @@ div.undertext{display:in-line-block; position:absolute; padding:none; text-align
 	#writing-btn {
 	margin-left: 80%;
     margin-bottom: 2%;
+     font-family: 'InfinitySans-RegularA1';
 	}
 	#banner{
 	margin: 0 auto;

@@ -88,7 +88,13 @@
 	action="<%= request.getContextPath() %>/board/frontboardDelete" >
 	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
 </form>
-      
+     <form 
+	action="<%= request.getContextPath() %>/board/frontboardCommentDelete" 
+	name="boardCommentDelFrm"
+	method="POST">
+	<input type="hidden" name="no" />
+	<input type="hidden" name="boardNo" value="<%= frontboard.getNo() %>"/>
+</form>
       	<div class="comment-container">
         <div class="comment-editor">
             <form 

@@ -51,7 +51,6 @@ $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor/ckeditor.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <style>
 #location {
 	display: none;
@@ -65,10 +64,6 @@ body{
 }
 form{
 	padding: 10px;
-}
-.justify-content-md-center {
-    width: 60%;
-    margin: 0 auto;
 }
 
 .input-group{
@@ -86,43 +81,23 @@ form{
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/board/boardEnroll" 
-	method="post"
-	enctype="multipart/form-data">      
-		
-		<div class="row justify-content-md-center">
-            <div class=" col-sm-5">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text">제 목</label>
-                  </div>            
-                  <input type="text" name="title" class="form-control">              
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <label class="input-group-text">작성자</label>
-                  </div>            
-                  <input readonly type="text" class="form-control" name="writer" value="<%= loginMember.getMember_name() %>">              
-                </div>
-            </div>
-            
+	method="post">
+	<table id="tbl-board-view">
+	<tr>
+		<th ><label class="input-group-text">제 목</label></th>
+		<td><input type="text" name="title" class="form-control" required></td>
+	</tr>
+	<tr>
+		<th><label class="input-group-text">작성자</label></th>
+		<td >
+			<input type="text" name="writer" class="form-control"value="<%= loginMember.getMember_name() %> " readonly/>
 			
-
-		<br />
-		<br />
-                  <textarea name="content" class="form-control" id="p_content"></textarea>
-                  <script type="text/javascript">
-                  CKEDITOR.replace('p_content'
-                                                  , {height: 500                                             
-                                                  });
-                  </script>
-		</div>
-		<br />
-		<br />
+		</td>
+	</tr>
+	<tr>
+		<th colspan="2" >
 		<div class="row justify-content-md-center">
-				<div class="col-sm-5">
+				<div class="col-sm-12">
             <div class="card">
   			<div class="card-header "><%= studyGroup.getGroup_name() %></div>
  			 <div class="card-body">스터디 언어 : <%= studyGroup.getLanguage() %>
@@ -137,13 +112,31 @@ form{
  			 </div>
 			</div>
 		</div>
-		<div class="row justify-content-md-center">
-        <button type="submit" class="btn btn-outline-danger" style="width: 20%; font-weight: bold; margin-top: 30px;">
+		</div>
+		</th>
+		<td>		</td>
+	</tr>
+	<tr>
+		<th colspan="2" ><textarea name="content" class="form-control" id="p_content"></textarea>
+                  <script type="text/javascript">
+                  CKEDITOR.replace('p_content'
+                                                  , {height: 500                                             
+                                                  });
+                  </script></th>
+                  
+	</tr>
+	<tr>
+		<th colspan="2">
+			<button type="submit" class="btn btn-outline-danger" style="width: 20%; font-weight: bold; margin-top: 30px;">
              등   록          
             </button>
-        </div>
-        </div>
-        </form>
+		</th>
+	</tr>
+</table>
+</form>
+
+
+
 	
 </section>
       

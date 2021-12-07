@@ -41,13 +41,18 @@ const logout = () => {
 	location.href="<%= request.getContextPath() %>/member/logout";
 };
 </script>
+
+
 <style>
 	header{
+		font-family: 'InfinitySans-RegularA1';
 		height: 30vh;
 		text-align: center;
 		margin: 0 auto;
 		padding: 0 auto;
+		font-size: x-large;
 	}
+	
 	.wrapper{
 		width: 80%;
 		margin: 0 auto;
@@ -69,7 +74,7 @@ const logout = () => {
 		
 	}
 	#header_title{
-		font-size: 2rem;
+		font-size: 3rem;
 	color: black;
 	font-family: 'Exo', sans-serif;
 	text-decoration-line : none;
@@ -92,10 +97,8 @@ const logout = () => {
 	  background-color: #777;
 	  border-radius: 10px;
 	}
+	
 </style>
-
-
-
 
 </head>
 <body>
@@ -142,7 +145,8 @@ const logout = () => {
 		</span>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            
+            <img src="<%=request.getContextPath() %>/images/spy.png" width="50">
           </a>
           <ul id="sub_menu" class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>

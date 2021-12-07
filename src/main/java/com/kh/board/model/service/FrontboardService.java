@@ -154,5 +154,22 @@ public class FrontboardService {
 		return result;
 	}
 
+
+	public int deleteFrontBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = freeboardDao.deleteFreeBoard(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 	
 }
