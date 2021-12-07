@@ -31,9 +31,9 @@
 			<tr>
 				<th>온/오프라인</th>
 				<td>
-					<input type="radio" name="on/off" id="on/off0" value="offline" checked>
+					<input type="radio" name="offline" id="offline" value="offline">
 					<label for="on/off0">오프라인 스터디</label>
-					<input type="radio" name="on/off" id="on/off1" value="online">
+					<input type="radio" name="online" id="online" value="online">
 					<label for="on/off1">온라인 스터디</label>
 				</td>
 			</tr>
@@ -66,7 +66,8 @@
 		<input type="hidden" name = "memberName" value = "<%= loginMember.getMember_name()%>"/>
 	</form>
 </section>    
-    
+
+
     
     
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

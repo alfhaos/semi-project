@@ -101,7 +101,7 @@ $(() => {
 		
 		<div id="msg-editor" class="editor">
 			<textarea name="" id="msg" cols="30" rows="2"></textarea>
-			<button type="button" id="send">Send</button>
+			<button type="button" class="btn btn-warning" id = "send">전송</button>
 		</div>
 		
 		<hr style="margin:20px 0" />
