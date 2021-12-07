@@ -14,6 +14,8 @@ import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.service.FrontboardService;
 import com.kh.board.model.vo.Frontboard;
 import com.kh.board.model.vo.FrontboardComment;
+import com.kh.studygroup.model.service.StudyGroupService;
+import com.kh.studygroup.model.vo.StudyGroup;
 
 /**
  * Servlet implementation class FreeboardViewServlet
@@ -22,6 +24,7 @@ import com.kh.board.model.vo.FrontboardComment;
 public class FrontboardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FrontboardService frontboardService = new FrontboardService();
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -63,6 +66,7 @@ public class FrontboardViewServlet extends HttpServlet {
 		
 		Frontboard frontboard = frontboardService.selectOneBoard(no);
 		System.out.println("[FrontboardViewServlet] frontboard = " + frontboard);
+	
 		//게시글 가져오기에 실패한경우
 		if(frontboard == null) {
 			throw new FrontboardException("해당 게시글이 존재하지 않습니다.");

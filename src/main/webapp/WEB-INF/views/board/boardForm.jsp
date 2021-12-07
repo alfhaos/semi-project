@@ -90,6 +90,41 @@ table {
 	</tr>
 </table>
 </form>
+
+<table>
+	<tr>
+			<th>그룹번호</th>
+			<td><%= studyGroup.getGroup_number() %></td>
+		</tr>
+		<tr>
+			<th>스터디 이름</th>
+			<td><%= studyGroup.getGroup_name() %></td>
+		</tr>
+		<tr>
+			<th>인원 현황</th>
+			<td><%= studyGroup.getNow_member() / studyGroup.getMax_member() %></td>
+		</tr>
+		<tr>
+			<th>지역</th>
+			<td><%= studyGroup.getArea() %></td>
+		</tr>
+		
+		<tr>
+			<th>스터디 언어</th>
+			<td>
+				<%= studyGroup.getLanguage() %> 
+			</td>
+		</tr>
+		<tr>
+			<th>온/오프라인</th>
+			<td><%= studyGroup.getOn_off() %></td>
+		</tr>
+		<tr>
+			<th>모집 상태</th>
+			<td><%= studyGroup.getStatus() %></td>
+		</tr>
+
+</table>
 </section>
       
 <br />

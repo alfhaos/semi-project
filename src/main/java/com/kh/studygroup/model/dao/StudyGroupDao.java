@@ -268,7 +268,7 @@ public class StudyGroupDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, groupNo);
-			pstmt.setInt(2, groupNo);
+	
 			
 			rset = pstmt.executeQuery();
 			
