@@ -140,7 +140,7 @@
 	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 	  <span class="sr-only">스터디그룹</span>
 	  게시글이 없습니다
-	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='#'"/>
+	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
 	</div>
 <% } %>
 <% 
