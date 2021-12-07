@@ -13,17 +13,14 @@
 	String searchKeyword = request.getParameter("searchKeyword");
 	
 %>
-
-<!-- 관리자용 admin.css link -->
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <style>
-div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(0, 188, 212, 0.3);}
+div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(211, 211, 211, 0.6); text-align: center;}
 div#search-memberId {display: <%= searchType == null || "memberId".equals(searchType) ? "inline-block" : "none" %>;}
 div#search-memberName{display: <%= "memberName".equals(searchType) ? "inline-block" : "none" %>;}
 div#search-gender{display: <%= "gender".equals(searchType) ? "inline-block" : "none" %>;}
+.nav nav-pills{text-align: right;}
 </style>
 <script>
 $(() => {
@@ -41,7 +38,7 @@ $(() => {
 <section id="memberList-container">
 	<h2 align="center">관리자페이지</h2>
 <ul class="nav nav-pills">
-  <li role="presentation"><a href="<%= request.getContextPath() %>/admin/memberStatistics">통계 확인</a></li>
+  <li role="presentation" class="active"><a class="statview" href="<%= request.getContextPath() %>/admin/memberStatistics">통계 확인</a></li>
 </ul>
 
 	<div id="search-container">
@@ -52,6 +49,7 @@ $(() => {
             <option value="gender" <%= "gender".equals(searchType) ? "selected" : "" %>>성별</option>
 
         </select>
+       
         <div id="search-memberId" class="search-type">
             <form action="<%=request.getContextPath()%>/admin/memberFinder">
                 <input type="hidden" name="searchType" value="memberId"/>
@@ -59,6 +57,7 @@ $(() => {
                 <button type="submit">검색</button>			
             </form>	
         </div>
+
         <div id="search-memberName" class="search-type">
             <form action="<%=request.getContextPath()%>/admin/memberFinder">
                 <input type="hidden" name="searchType" value="memberName"/>
@@ -124,9 +123,12 @@ $(() => {
 %>	
 		</tbody>
 	</table>
-	<div id="pageBar">
-		<%= request.getAttribute("pagebar") %>
-	</div>
+<nav>
+  <ul class="pager" >
+  	<li><%= request.getAttribute("pagebar") %></li>
+  </ul>
+</nav>
+
 </section>
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <script>

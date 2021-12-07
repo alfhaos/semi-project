@@ -12,6 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myboardList.css" />
 <title>MyBoardList</title>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
@@ -245,6 +246,7 @@
 	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/community/questionboardForm'"/>
 	</div>
 <% } %>
+
 </section>
 
 

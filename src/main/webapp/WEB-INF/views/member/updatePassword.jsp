@@ -35,10 +35,10 @@
         }
       }
       .container{
-      margin-left: 280px;
+      margin-left: 300px;
       }
       .div-container{
-      margin-left: 80px;
+      text-align: center;
       }
     </style>
 
@@ -57,8 +57,7 @@
 
       <div class="col-md-7 col-lg-8">
         <form 
-        	name="updatePwdFrm" 
-			action="<%=request.getContextPath()%>/member/updatePassword" 
+        	name="updatePwdFrm"
 			method="post">
           <div class="row g-3">
             <div class="col-12">
@@ -71,21 +70,21 @@
             <div class="col-12">
               <label for="username" class="form-label">변경할 비밀번호</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control"  name="newPassword" id="newPassword" required>
+                <input type="password" class="form-control"  name="newPassword" id="newPassword" required>
               </div>
             </div>
             
             <div class="col-12">
               <label for="username" class="form-label">비밀번호 확인</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="newPasswordCheck" required>
+                <input type="password" class="form-control" id="newPasswordCheck" required>
               </div>
             </div>
       
           </div>
           <hr class="my-4">
 <div class="div-container">
-          <input class="w-100 btn btn-primary btn-lg" type="button" onclick="updateMember();" value="변경"/>
+          <input class="w-50 btn btn-primary btn-lg" type="button" onclick="updateMember();" value="변경"/>
 </div>
         </form>
       </div>
@@ -99,6 +98,13 @@
   </body>
 </html>
 <script>
+const updateMember = () => {
+	// 폼의 action값을 할당후 제출!
+	$("[name=updatePwdFrm]")
+		.attr("action", "<%=request.getContextPath()%>/member/updatePassword")
+		.submit();
+};
+
 /**
  * 폼제출 유효성검사
  */ 
