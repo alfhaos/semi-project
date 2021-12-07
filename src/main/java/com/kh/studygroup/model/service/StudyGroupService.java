@@ -132,4 +132,65 @@ public class StudyGroupService {
 		return group;
 	}
 
+
+	public List<Member> applicantList(String leaderId) {
+		Connection conn = getConnection();
+		
+		conn = getConnection();
+		List<Member> list = groupDao.applicantList(conn,leaderId);
+					
+
+		
+		close(conn);
+		
+		return list;
+	}
+
+
+	public int deleteApplicant(String leader, String memberId) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = groupDao.deleteApplicant(conn,leader,memberId);
+			
+			commit(conn);
+		}	catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		return result;
+	}
+
+
+	public Member selectOneMember(String memberId) {
+		Connection conn = getConnection();
+		Member member = groupDao.selectOneMember(conn,memberId);
+		
+		close(conn);
+		return member;
+	}
+
+
+	public int updateApplicant(int studyGroup, Member member) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = groupDao.updateApplicant(conn,studyGroup,member);
+			
+			commit(conn);
+		}	catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		return result;
+	}
+
 }

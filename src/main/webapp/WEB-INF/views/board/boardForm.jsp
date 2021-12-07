@@ -66,80 +66,31 @@ table {
 <h2>게시판 작성</h2>
 <form
 	name="boardEnrollFrm"
-	action="<%=request.getContextPath() %>/board/frontboardEnroll" 
-	method="post"
-	enctype="multipart/form-data">      
-		<div class="row justify-content-md-center">
-            <div class="col-sm-5">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text">제 목</label>
-                  </div>            
-                  <input type="text" class="form-control">              
-                </div>
-            </div>
-            <div class="col-sm-4">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text">작성자</label>
-                  </div>            
-                  <input readonly type="text" class="form-control" value="<%= loginMember.getMember_name() %>">              
-                </div>
-            </div>
-            
-            <div class="col-sm-1">
-                <div class="input-group mb-1">
-                    <select class="custom-select" id="inputGroupSelect03">
-                    <option selected>분류</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>  
-                </div>            
-                </div>
-		<div>
-                  <textarea class="form-control" id="p_content"></textarea>
-                  <script type="text/javascript">
-                  CKEDITOR.replace('p_content'
-                                                  , {height: 500                                             
-                                                  });
-                  </script>
-		</div>        
-		<br />
-		
-		<div class="row justify-content-md-center">
-        <button type="submit" class="btn btn-outline-secondary" style="width: 20%; font-weight: bold">
-             등   록          
-            </button>
-        </div>
-        </div>
-        </form>
+	action="<%=request.getContextPath() %>/board/boardEnroll" 
+	method="post">
 	<table id="tbl-board-view">
-	
 	<tr>
-	<tr>
-		<th>그룹이름</th>
-		<td><%= studyGroup.getGroup_name() %></td>
+		<th>제 목</th>
+		<td><input type="text" name="title" required></td>
 	</tr>
 	<tr>
-		<th>그룹 인원</th>
-		<td><%= studyGroup.getNow_member() %> / <%= studyGroup.getMax_member() %></td>
-	</tr>
-	<tr>
-		<th>사용언어</th>
-		<td> <%= studyGroup.getLanguage() %></td>
-	</tr>
-	<tr>
-		<th>온라인/오프라인</th>
-		<td><%= studyGroup.getOn_off() %> </td>
-	</tr>
-	<tr>
-		<th>지역</th>
+		<th>작성자</th>
 		<td>
-			<%= studyGroup.getArea() %>
+			<input type="text" name="writer" value="<%= loginMember.getMember_id() %>" readonly/>
 		</td>
 	</tr>
-	</table>
+	<tr>
+		<th>내 용</th>
+		<td><textarea rows="5" cols="40" name="content"></textarea></td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<input type="submit" value="등록하기">
+		</th>
+	</tr>
+</table>
+</form>
+</section>
       
 <br />
 <br />

@@ -18,6 +18,9 @@ import java.util.Properties;
 
 import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.vo.Frontboard;
+import com.kh.board.model.vo.FrontboardComment;
+import com.kh.community.model.exception.FreeboardException;
+import com.kh.community.model.vo.FreeboardComment;
 import com.kh.member.model.vo.Member;
 
 
@@ -61,11 +64,6 @@ public class FrontboardDao {
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
-				frontboard.setLanguage(rset.getString("language"));
-				frontboard.setArea(rset.getString("area"));
-				frontboard.setMax_member(rset.getInt("Max_member"));
-				frontboard.setNow_member(rset.getInt("Now_member"));
-				
 				list.add(frontboard);
 			}
 			
@@ -163,7 +161,6 @@ public class FrontboardDao {
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
-				frontboard.setLanguage(rset.getString("language"));
 				list.add(frontboard);
 			}
 			
@@ -249,10 +246,6 @@ public class FrontboardDao {
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
-				frontboard.setLanguage(rset.getString("language"));
-				frontboard.setArea(rset.getString("area"));
-				frontboard.setMax_member(rset.getInt("Max_member"));
-				frontboard.setNow_member(rset.getInt("Now_member"));
 				
 				watchlist.add(frontboard);
 			}
@@ -288,11 +281,6 @@ public class FrontboardDao {
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
-				frontboard.setLanguage(rset.getString("language"));
-				frontboard.setArea(rset.getString("area"));
-				frontboard.setMax_member(rset.getInt("Max_member"));
-				frontboard.setNow_member(rset.getInt("Now_member"));
-				
 				listonline.add(frontboard);
 			}
 			
@@ -327,11 +315,6 @@ public class FrontboardDao {
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
 				frontboard.setCommentCount(rset.getInt("comment_count"));
-				frontboard.setLanguage(rset.getString("language"));
-				frontboard.setArea(rset.getString("area"));
-				frontboard.setMax_member(rset.getInt("Max_member"));
-				frontboard.setNow_member(rset.getInt("Now_member"));
-				
 				listoffline.add(frontboard);
 			}
 			
@@ -344,6 +327,76 @@ public class FrontboardDao {
 		return listoffline;
 	}
 
+	public List<FrontboardComment> selectFrontBoardCommentList(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBoardCommentList");
+		ResultSet rset = null;
+		List<FrontboardComment> commentList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FrontboardComment bc = new FrontboardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setWriter(rset.getString("writer"));
+				bc.setContent(rset.getString("content"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				bc.setCommentRef(rset.getInt("comment_ref")); // 댓글인 경우 null이고, 이는 0으로 치환된다.
+				bc.setRegDate(rset.getDate("reg_date"));
+				commentList.add(bc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return commentList;
+	}
+
+	public int insertFrontBoardComment(Connection conn, FrontboardComment bc) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardComment");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bc.getCommentLevel()); 	// 1, 2
+			pstmt.setString(2, bc.getWriter()); 	// memberId
+			pstmt.setString(3, bc.getContent()); 	// ..
+			pstmt.setInt(4, bc.getBoardNo());		// boardNo
+//			pstmt.setInt(5, bc.getCommentRef());	// 0
+//			pstmt.setInt(5, bc.getCommentRef() == 0 ? null : bc.getCommentRef());	// NullPointerException
+			pstmt.setObject(5, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteFrontBoardComment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteBoardComment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new FrontboardException("댓글 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 
 }
