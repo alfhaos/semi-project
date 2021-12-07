@@ -332,6 +332,7 @@ public class FreeboardDao {
 		switch(searchType) {
 		case "writer": sql += " writer like '%" + searchKeyword + "%'"; break;
 		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+		case "content": sql += " content like '%" + searchKeyword + "%'"; break;
 //		case "gender": sql += " gender = '" + searchKeyword + "'"; break;
 //		case "rank": sql = " gender = '" + searchKeyword + "'"; break;
 		}
