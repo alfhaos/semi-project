@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <section id=enroll-container>
 	<h2>스터드 그룹 정보 입력</h2>
 	<form name="groupCreateFrm" action="" method="POST">
@@ -68,6 +67,7 @@
 		<input type="hidden" name = "memberId" value = "<%= loginMember.getMember_id()%>"/>
 		<input type="hidden" name = "memberName" value = "<%= loginMember.getMember_name()%>"/>
 	</form>
+
 </section>
 <script>
 const val = $("[name=area]").val();
@@ -84,7 +84,7 @@ $("#offline").click(function(){
  
  
 </script>
-    
+
     
     
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
