@@ -25,19 +25,19 @@ public class StudyGroupService {
 		int result = 0;
 		try {
 			
-			result += groupDao.InsertGroup(group,conn);
+			result = groupDao.InsertGroup(group,conn);
+			
+			System.out.println("[studyGroup@Service] result1 = " + result);
 			int groupNum = groupDao.selectLastGroupNo(group,conn);
 			
 			member.setStudy_group(groupNum); // servlet에서 참조할 수 있도록 한다.
 			
 			
-			result += groupDao.InsertGroupMember(conn,member, ADMIN_ROLE,groupNum);
-			result += groupDao.UpdateMemberStudyGroup(conn,groupNum,member);
+			groupDao.InsertGroupMember(conn,member, ADMIN_ROLE,groupNum);
+			groupDao.UpdateMemberStudyGroup(conn,groupNum,member);
 
 			
-			if(result != 3 ) {
-				result = 0;
-			}
+		
 			commit(conn);
 			
 		}
@@ -184,6 +184,33 @@ public class StudyGroupService {
 			
 			commit(conn);
 		}	catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		return result;
+	}
+
+
+
+	public String selectMemberRole(String memberId) {
+		Connection conn = getConnection();
+		String memberRole = groupDao.selectMemberRole(conn,memberId);
+		close(conn);
+		return memberRole;
+	}
+
+
+	public int deleteGroupMember(int studyGroup, String memberId) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = groupDao.deleteGroupMember(conn,studyGroup,memberId);
+			result = groupDao.deleteMemberGroupNo(conn,memberId);
+			commit(conn);
+		}catch(Exception e) {
 			rollback(conn);
 		}
 		finally {

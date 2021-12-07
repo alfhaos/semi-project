@@ -242,9 +242,9 @@ create table kola_study_group(
 
 );
 commit;
-select count(*) from kola_study_group_member where group_member_no = 21;
+select * from kola_study_group;
 select k.*,(select count(*) from kola_study_group_member where group_member_no = 21) now_member from kola_study_group k where group_no = 21;
-
+ALTER TABLE kola_study_group ADD now_member number default 0;
 
 --drop table kola_study_group;
 --drop sequence seq_kola_study_group_no;
