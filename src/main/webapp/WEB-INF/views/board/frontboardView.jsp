@@ -58,10 +58,20 @@
 	</table>
 	<br />
 <% if(loginMember == null){ %>	
-<!-- 로그인 안하고 글쓰기 누를시 -->
+
+
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
+	
+
 	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
+
 <%} else { %>
+
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
+
+
 	<input type="button" value="스터디그룹 참가신청" onclick="groupApply()"/>
+
 <% } %>		
 
 	
@@ -157,6 +167,36 @@
 %>
 </div>
 <script>
+
+$("[name=content]", document.boardCommentFrm).focus((e) => {
+
+	<% if(loginMember == null){ %>
+		loginAlert();
+		return;
+	<% } %>
+
+	});
+
+$(document.boardCommentFrm).submit((e) => {
+	<% if(loginMember == null){ %>
+		loginAlert();
+//		e.preventDefault();
+//		return;
+		return false;
+	<% } %>
+
+		const $content = $("[name=content]", e.target);
+		if(!/^(.|\n)+$/.test($content.val())){
+			alert("댓글을 작성해주세요.");
+			e.preventDefault();
+		}
+
+	});
+	
+const loginAlert = () => {
+	alert("로그인후 사용가능합니다.");
+	$(memberId).focus();
+};
 
 function groupApply() {
 	if(confirm("지원하시겠습니까?")){
