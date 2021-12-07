@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.admin.controller.AdminMemberListServlet;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
@@ -32,6 +33,7 @@ public class MemberLoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String saveId = request.getParameter("saveId");
 		String msg;
+		String location;
 		
 		System.out.println("[MemberLogin@Servlet] memberId = " + memberId + ", password = " + password );
 		
@@ -60,7 +62,9 @@ public class MemberLoginServlet extends HttpServlet {
 			// 로그인 성공
 			session.setAttribute("msg", "로그인 성공!");
 			session.setAttribute("loginMember", member);
-			System.out.println(session.getId());
+			System.out.println("session.getId() = "+session.getId());
+			location = request.getContextPath()+"/board/boardList";
+//			location = request.getHeader("Referer");
 			
 			// 아이디저장 체크박스 처리
 			// 브라우져 호환성을 고려해 도메인당 쿠키개수 50개, 하나의 value값은 4kb를 넘지 않도록 한다.
@@ -87,17 +91,18 @@ public class MemberLoginServlet extends HttpServlet {
 		else {
 			// 로그인 실패
 			session.setAttribute("msg", "로그인 실패!");
+			location = request.getHeader("Referer");
 		}
 		
 		
-		
 		// 3. view단 제공
-		String location = request.getHeader("Referer");
+//		String location = request.getHeader("Referer");
 		System.out.println("location = "+ location);
 		response.sendRedirect(location);
 		
 		
 	}
+
 
 
 
