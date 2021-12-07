@@ -7,11 +7,11 @@
 <%
 	
 	List<StudyGroupMember> list = (List<StudyGroupMember>) request.getAttribute("MemberList");
-
+	String memberRole = (String) request.getAttribute("memberRole");
 %>
 
 <% if(loginMember.getStudy_group() != 0) {%>
-	<h1><%= loginMember.getStudy_group() %>번 스터디 입니다.</h1>
+	<h1><%= memberRole %>번 스터디 입니다.</h1>
 	<hr />
 	<ul>
 	
@@ -48,8 +48,10 @@
 	<input type="button" value = "공부 시작!" onclick="location.href='<%= request.getContextPath() %>/studygroup/stopwatch';" />
 	<input type="button" value = "그룹 채팅!" onclick="location.href='<%= request.getContextPath() %>/studygroup/chat';" />
 	<input type="button" value = "그룹 게시판!" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardlist';" />
-	<input type="button" value = "신청자 현황" onclick="location.href='<%= request.getContextPath() %>/studygroup/applicant';" />
-
+	<% if(memberRole.equals("A")){ %>
+		<input type="button" value = "신청자 현황" onclick="location.href='<%= request.getContextPath() %>/studygroup/applicant';" />
+		<input type="button" value = "스터디 멤버 관리" onclick="location.href='<%= request.getContextPath() %>/studygroup/administrate';" />
+	<% } %>
 <%} else{ %>
 
 

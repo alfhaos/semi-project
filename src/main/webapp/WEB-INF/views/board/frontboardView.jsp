@@ -60,17 +60,12 @@
 <% if(loginMember == null){ %>	
 
 
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
-	
-
 	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
 
 <%} else { %>
 
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
 
-
-	<input type="button" value="스터디그룹 참가신청" onclick="groupApply()"/>
+	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="groupApply()"/>
 
 <% } %>		
 
@@ -200,7 +195,13 @@ const loginAlert = () => {
 
 function groupApply() {
 	if(confirm("지원하시겠습니까?")){
-		$(document.groupApplyFrm).submit();		
+		if(<%= loginMember.getStudy_group() %> != null){
+			alert("이미 소속된 스터디 그룹이 존재합니다.");
+			return;
+		}
+		else{
+			$(document.groupApplyFrm).submit();		
+		}
 	}
 };
 
