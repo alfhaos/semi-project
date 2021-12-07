@@ -10,7 +10,7 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
-	<h4>Q&A게시판</h4>
+	<h4><a href="<%= request.getContextPath() %>/community/questionboardList">Q&A게시판</a></h4>
 	<table id="tbl-board-view">
 	
 	<% 	if(

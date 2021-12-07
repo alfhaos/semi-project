@@ -5,7 +5,7 @@
 
 
 <section id="board-container">
-<h2>글작성</h2>
+<h2>글 작성</h2>
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/community/freeboardEnroll" 
@@ -13,7 +13,7 @@
 	<table id="tbl-board-view">
 	<tr>
 		<th>제 목</th>
-		<td><input type="text" name="title" required style="border-color:#e9ecef; width:100%; height:35px; box-shadow:none;"></td>
+		<td><input type="text" name="title" required style="border-color:#e9ecef; width:100%; height:35px;"></td>
 	</tr>
 	<tr style="border-top:1px solid #e9ecef; border-bottom:1px solid #e9ecef;">
 		<th>작성자</th>
