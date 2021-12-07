@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <section id=enroll-container>
 	<h2>스터드 그룹 정보 입력</h2>
 	<form name="groupCreateFrm" action="" method="POST">
@@ -31,21 +32,23 @@
 			<tr>
 				<th>온/오프라인</th>
 				<td>
-					<input type="radio" name="on/off" id="on/off0" value="offline" checked>
+					<input type="radio" name="on/off" id="offline" value="offline" checked>
 					<label for="on/off0">오프라인 스터디</label>
-					<input type="radio" name="on/off" id="on/off1" value="online">
+					<input type="radio" name="on/off" id="online" value="online">
 					<label for="on/off1">온라인 스터디</label>
 				</td>
 			</tr>
 			<tr>
 				<th>지역선택</th>
 				<td>
-					<select name="area" id="area">
+			<div id="local-select">
+				<select name="area" id="area">
 					<option value="gyeonggido">경기도</option>
 					<option value="daejeon">대전</option>
 					<option value="busan">부산</option>
 					<option value="seoul">서울</option>
-					</select>
+				</select>
+			</div>
 				</td>
 			</tr>
 			<tr>
@@ -65,7 +68,22 @@
 		<input type="hidden" name = "memberId" value = "<%= loginMember.getMember_id()%>"/>
 		<input type="hidden" name = "memberName" value = "<%= loginMember.getMember_name()%>"/>
 	</form>
-</section>    
+</section>
+<script>
+const val = $("[name=area]").val();
+$("#online").click(function(){
+	$("#local-select").hide();
+	$("[name=area]").val("");
+});
+$("#offline").click(function(){
+	$("#area").val(val);
+	$("#local-select").show();
+});
+
+
+ 
+ 
+</script>
     
     
     
