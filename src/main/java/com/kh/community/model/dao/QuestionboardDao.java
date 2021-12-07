@@ -542,6 +542,45 @@ private Properties prop = new Properties();
 		
 		return list;
 	}
+
+
+	public List<Questionboard> selectMyQuestionBoard(Connection conn, Map<String, Integer> param, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMyQuestionBoard");
+		ResultSet rset = null;
+		List<Questionboard> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, param.get("start"));
+			pstmt.setInt(3, param.get("end"));
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Questionboard board = new Questionboard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title")); 
+				board.setWriter(rset.getString("writer"));
+				board.setContent(rset.getString("content"));
+				board.setReadCount(rset.getInt("read_count"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setAsk(rset.getString("ask"));			
+				board.setLikeCount(rset.getInt("like_count"));
+				//board.setCommentCount(rset.getInt("comment_count"));
+				board.setAttachCount(rset.getInt("attach_count"));
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			throw new FreeboardException("게시글 목록 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 				
 
 

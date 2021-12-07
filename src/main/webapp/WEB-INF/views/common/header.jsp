@@ -8,6 +8,21 @@
 	String msg = (String) session.getAttribute("msg");
 	if(msg != null) session.removeAttribute("msg");
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	
+	//쿠키처리
+	Cookie[] cookies = request.getCookies();
+	String saveMemberId = null;
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			String name = cookie.getName();
+			String value = cookie.getValue();
+			System.out.println(name + " = " + value);
+			if("saveId".equals(name)){
+				saveMemberId = value;
+			}
+		}
+	}
+	System.out.println("saveMemberId@header.jsp = " + saveMemberId);
 %>   
 <!DOCTYPE html>
 <html>
@@ -134,7 +149,7 @@ const logout = () => {
 						method="GET">
 						<table>
 							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value=""></td>
+								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="<%= saveMemberId != null ? saveMemberId : "" %>"></td>
 								<td><input type="submit" value="로그인" tabindex="3"></td>
 							</tr>
 							<tr>
@@ -143,7 +158,7 @@ const logout = () => {
 							</tr>
 							<tr>
 								<td colspan="2">
-									<input type="checkbox" name="saveId" id="saveId" />
+									<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %> />
 									<label for="saveId">아이디저장</label>
 									<input 
 										type="button" 
@@ -161,7 +176,7 @@ const logout = () => {
 <!-- 마이페이지 드롭다운 -->
 		<span>
 		<%= loginMember.getMember_name() %>님, 열공합시다!
-		<a href="#">
+		<a href="<%= request.getContextPath() %>/studygroup/applicant">
 		<span class="badge"></span>
 		</a>
 		</span>
@@ -173,7 +188,6 @@ const logout = () => {
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/member/memberView">마이페이지</a></li>
             <li><a class="dropdown-item" href="<%= request.getContextPath() %>/studygroup/view">내 스터디그룹</a></li>
             <li><a class="dropdown-item" href="#" onclick="myboardlist();">내 작성글</a></li>
-            <li><a class="dropdown-item" href="#">내 관심글</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" onclick="location.href='<%= request.getContextPath() %>/member/logout'">로그아웃</a></li>
 
@@ -217,7 +231,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".badge").text(count);
+			$(".badge").text(count)
 
 
 		},
