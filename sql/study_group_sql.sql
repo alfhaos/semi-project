@@ -65,8 +65,8 @@ insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_da
 insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_date,area,language,max_member,now_member, recruitment_status) values (kola_seq_main_board_no.nextval,'자바 스크립트 프로젝트 팀원구해요~','ykuhk','반갑습니다',0,0,to_date('18/02/10','RR/MM/DD'),'서울','javascript',10,3,'O');
 
 update kola_main_board set  title='c++ 스터디 팀원 구합니다~' where content ='반갑습니다';
-=======
-update kola_main_board set  area=null where no='35';
+
+update kola_main_boardthis set  area=null where no='35';
 
 select * from kola_main_board;
 
@@ -90,14 +90,16 @@ from (
 where
     rnum between 1 and 100;
     
-    
+
+select * from  kola_study_group;
+
 select 
     *
 from (
     select 
         row_number() over(order by read_count desc) rnum,
         b.*,
-        (select count(*) from kola_board_comment where reg_date = b.reg_date) comment_count
+        (select count(*) from kola_board_comment where  board_no = b.no) comment_count
     from 
         kola_main_board b
     where
@@ -105,6 +107,39 @@ from (
 )
 where
     rnum between 1 and 100;
+    
+    select 
+    *
+from (
+    select 
+        row_number() over(order by read_count desc) rnum,
+        b.*,
+        (select count(*) from kola_board_comment where  board_no = b.no) comment_count
+    from 
+          ( select 
+                * 
+                from 
+                kola_main_boardthis a join kola_study_group b
+                on 
+                a.group_no = b.group_no) b
+
+)
+where
+    rnum between 1 and 100;
+    
+
+    
+    select count(*) from kola_study_group_member where group_member_no ;
+    select 
+    * 
+    from 
+    kola_main_boardthis a join kola_study_group b
+    on 
+    a.group_no = b.group_no;
+    
+        select 
+    * 
+    from kola_study_group;
 
 --------------------------------------------------------------------
 -- 게시판 댓글
@@ -239,7 +274,7 @@ create table kola_study_group_member(
 commit;
 
 --drop table kola_study_group_member;
-
+select * from kola_study_group_member;
 
 select * from kola_study_group_member where group_member_no = 21 order by group_member_study_time desc;
 --update kola_study_group_member set group_member_study_time = '00:40:03' where group_member_id = 'aaaafsd';

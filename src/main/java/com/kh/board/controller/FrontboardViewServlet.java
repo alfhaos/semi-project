@@ -18,7 +18,7 @@ import com.kh.board.model.vo.FrontboardComment;
 /**
  * Servlet implementation class FreeboardViewServlet
  */
-@WebServlet("/board/boardView")
+@WebServlet("/board/frontboardView")
 public class FrontboardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FrontboardService frontboardService = new FrontboardService();
@@ -88,5 +88,7 @@ public class FrontboardViewServlet extends HttpServlet {
 
 		
 	}
+	
+		
 
 }

@@ -29,7 +29,7 @@
 			<td><%= board.getNo() %></td>
 			<td>
 				<a href="<%= request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
-				<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
+				
 			</td>
 			<td><%= board.getWriter() %></td>
 			<td><%= board.getRegDate() %></td>
