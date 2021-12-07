@@ -53,7 +53,7 @@ public class StudyGroupCreateServlet extends HttpServlet {
 		String area = request.getParameter("area");
 		String language = request.getParameter("language");
 		
-		StudyGroup group = new StudyGroup(group_name,max_member,1,status,on_off,area,language);
+		StudyGroup group = new StudyGroup(group_name,max_member,1,status,area,language,on_off);
 		System.out.println("[StudyGroupCreate@Servlet] group = " + group);
 		
 		String memberId = request.getParameter("memberId");
