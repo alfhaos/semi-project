@@ -11,6 +11,8 @@ import java.util.Map;
 
 import com.kh.board.model.dao.FrontboardDao;
 import com.kh.board.model.vo.Frontboard;
+import com.kh.board.model.vo.FrontboardComment;
+import com.kh.community.model.vo.FreeboardComment;
 
 
 public class FrontboardService {
@@ -33,18 +35,12 @@ public class FrontboardService {
 	}
 
 
-	public int insertBoard(Frontboard frontboard) throws Exception {
+	public int insertBoard(Frontboard frontboard) {
 		Connection conn = null;
 		int result = 0;
 		try {
 			conn = getConnection();
 			result = frontboardDao.insertBoard(conn, frontboard);
-			
-			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
-			int boardNo = frontboardDao.selectLastBoardNo(conn);
-			System.out.println("[BoardService] boardNo = " + boardNo);
-			frontboard.setNo(boardNo); // servlet에서 참조할 수 있도록한다.
-			
 			
 			commit(conn);
 		} catch (Exception e) {
@@ -119,6 +115,43 @@ public class FrontboardService {
 	}
 
 
-	
+
+	public List<FrontboardComment> selectFrontBoardCommentList(int boardNo) {
+		Connection conn = getConnection();
+		List<FrontboardComment> commentList = frontboardDao.selectFrontBoardCommentList(conn, boardNo);
+		close(conn);
+		return commentList;
+	}
+
+
+	public int insertFrontBoardComment(FrontboardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = frontboardDao.insertFrontBoardComment(conn, bc);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+	public int deleteFrontBoardComment(int no) {
+		Connection conn = getConnection(); 
+		int result = 0;
+		try {
+			result = frontboardDao.deleteFrontBoardComment(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
 	
 }

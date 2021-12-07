@@ -21,6 +21,7 @@
 <!-- 타이틀 폰트 -->
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@600&family=IBM+Plex+Sans+KR&family=Secular+One&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/header.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
@@ -115,9 +116,9 @@ const logout = () => {
             커뮤니티
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a id="gathere_study_board" class="dropdown-item" href="<%= request.getContextPath() %>/board/frontboardList">스터디그룹 모집</a></li>
+            <li><a id="gathere_study_board" class="dropdown-item" href="<%= request.getContextPath() %>/board/boardList">스터디그룹 모집</a></li>
             <li><a id="free_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/freeboardList">자유 게시판</a></li>
-            <li><a id="Q&A_board" class="dropdown-item" href="#">Q&A 게시판</a></li>
+            <li><a id="Q&A_board" class="dropdown-item" href="<%= request.getContextPath() %>/community/questionboardList"">Q&A 게시판</a></li>
           </ul>
         </div>
 <% if(loginMember == null){ %>
