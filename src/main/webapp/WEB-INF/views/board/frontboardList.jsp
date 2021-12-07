@@ -313,14 +313,14 @@ $(function(){
 					%>    
 					
 							<section class="toptext">
-							
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getNow_member() %>명&nbsp;/&nbsp;</p>
 							<p style= "font-family: 'InfinitySans-RegularA1';"> <%= frontboard.getMax_member() %>명</p>
 							</section>
 							<section class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getReadCount() %></p>	
 							&#128172;
-							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_Count() %></p>
+								<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_count() %></p>
 							
 							</section>
 							</li>
@@ -424,14 +424,14 @@ $(function(){
 					%>    
 					
 							<section class="toptext">
-							
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getNow_member() %>명&nbsp;/&nbsp;</p>
 							<p style= "font-family: 'InfinitySans-RegularA1';"> <%= frontboard.getMax_member() %>명</p>
 							</section>
 							<section class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getReadCount() %></p>	
 							&#128172;
-							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_Count() %></p>
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_count() %></p>
 							
 							</section>
 							</li>
@@ -535,14 +535,14 @@ $(function(){
 					%>    
 					
 							<section class="toptext">
-							
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getNow_member() %>명&nbsp;/&nbsp;</p>
 							<p style= "font-family: 'InfinitySans-RegularA1';"> <%= frontboard.getMax_member() %>명</p>
 							</section>
 							<section class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getReadCount() %></p>	
 							&#128172;
-							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_Count() %></p>
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_count() %></p>
 						
 							</section>
 							</li>
@@ -646,14 +646,14 @@ $(function(){
 					%>    
 					
 							<section class="toptext">
-								
+							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getNow_member() %>명&nbsp;/&nbsp;</p>	
 							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getMax_member() %>명</p>
 							</section>
 							<section class="undertext">
 							&#128064;
 							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getReadCount() %></p>	
 							&#128172;
-							<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_Count() %></p>
+								<p style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getComment_count() %></p>
 						
 							</section>
 							</li>

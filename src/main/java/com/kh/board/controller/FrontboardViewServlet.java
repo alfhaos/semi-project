@@ -1,6 +1,7 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.service.FrontboardService;
 import com.kh.board.model.vo.Frontboard;
+import com.kh.board.model.vo.FrontboardComment;
 
 /**
  * Servlet implementation class FreeboardViewServlet
@@ -49,7 +51,7 @@ public class FrontboardViewServlet extends HttpServlet {
 			int result = frontboardService.updateReadCount(no);
 			
 			Cookie cookie = new Cookie("frontboardCookie", frontboardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/frontboardView");
+			cookie.setPath(request.getContextPath() + "/board/boardView");
 			cookie.setMaxAge(1 * 24 * 60 * 60);
 			response.addCookie(cookie);
 			
@@ -73,13 +75,20 @@ public class FrontboardViewServlet extends HttpServlet {
 		content = content.replaceAll("\n", "<br/>");
 		frontboard.setContent(content);
 		
+		// 댓글 목록 조회
+		List<FrontboardComment> commentList = frontboardService.selectFrontBoardCommentList(no);
+		System.out.println("[FreeboardViewServlet] commentList = " + commentList);
+					
+					
 		//3. jsp forwarding
-//		request.setAttribute("commentList", commentList);
+		request.setAttribute("commentList", commentList);
 		request.setAttribute("frontboard", frontboard);
 		request.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")
 			   .forward(request, response);
 
 		
 	}
+	
+		
 
 }

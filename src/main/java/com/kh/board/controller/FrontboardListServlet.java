@@ -18,7 +18,7 @@ import com.kh.board.model.vo.Frontboard;
 /**
  * Servlet implementation class FrontboardListServlet
  */
-@WebServlet("/board/frontboardList")
+@WebServlet("/board/boardList")
 public class FrontboardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FrontboardService frontboardService = new FrontboardService();

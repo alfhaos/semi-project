@@ -5,10 +5,6 @@ import java.sql.Date;
 import java.util.List;
 
 
-
-
-
-
 public class Frontboard extends FrontboardEntity implements Serializable{
 	
 	private int group_no;
@@ -17,29 +13,30 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	private String language;
 	private String area;
 	private int max_member;
+	private int now_member;
 	private String recruitment_status;
 	private int group_no_1;
 	private String group_name;
 	private String on_off;
-	
 	public Frontboard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Frontboard(int no, String title, String writer, String content, int readCount, Date regDate) {
-		super(no, title, writer, content, readCount, regDate);
+	public Frontboard(int no, String title, String writer, String content, int readCount, Date regDate, int group_no) {
+		super(no, title, writer, content, readCount, regDate, group_no);
 		// TODO Auto-generated constructor stub
 	}
-	public Frontboard(int group_no, List<Attachment> attachments, String language, 
-			String area, int max_member, String recruitment_status, int group_no_1, String group_name, String on_off, int comment_count) {
+	public Frontboard(int group_no, int comment_count, List<Attachment> attachments, String language, String area,
+			int max_member, int now_member, String recruitment_status, int group_no_1, String group_name,
+			String on_off) {
 		super();
 		this.group_no = group_no;
 		this.comment_count = comment_count;
 		this.attachments = attachments;
 		this.language = language;
-		
 		this.area = area;
 		this.max_member = max_member;
+		this.now_member = now_member;
 		this.recruitment_status = recruitment_status;
 		this.group_no_1 = group_no_1;
 		this.group_name = group_name;
@@ -51,11 +48,11 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	public void setGroup_no(int group_no) {
 		this.group_no = group_no;
 	}
-	public int getComment_Count() {
+	public int getComment_count() {
 		return comment_count;
 	}
-	public void setComment_Count(int commentCount) {
-		this.comment_count = commentCount;
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
 	public List<Attachment> getAttachments() {
 		return attachments;
@@ -69,7 +66,6 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-
 	public String getArea() {
 		return area;
 	}
@@ -81,6 +77,12 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	}
 	public void setMax_member(int max_member) {
 		this.max_member = max_member;
+	}
+	public int getNow_member() {
+		return now_member;
+	}
+	public void setNow_member(int now_member) {
+		this.now_member = now_member;
 	}
 	public String getRecruitment_status() {
 		return recruitment_status;
@@ -109,19 +111,37 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	@Override
 	public String toString() {
 		return "Frontboard [group_no=" + group_no + ", comment_count=" + comment_count + ", attachments=" + attachments
-				+ ", language=" + language +  ", area=" + area + ", max_member="
-				+ max_member + ", recruitment_status=" + recruitment_status + ", group_no_1=" + group_no_1
+				+ ", language=" + language + ", area=" + area + ", max_member=" + max_member + ", now_member="
+				+ now_member + ", recruitment_status=" + recruitment_status + ", group_no_1=" + group_no_1
 				+ ", group_name=" + group_name + ", on_off=" + on_off + "]";
 	}
-
-
-	
-
-
-
-
 	
 	
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
