@@ -8,12 +8,21 @@
 	Frontboard frontboard = (Frontboard) request.getAttribute("frontboard");
 
 %>
+<style>
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+    margin: 1rem;
+    margin-left: 42.3rem;
+}
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+
+</style>
+<link rel="stylesheet" href="bootstrap.css" />
 <section id="board-container">
-	<h2>게시판</h2>
-	<table id="tbl-board-view">
-		<tr>
+	<h2 class="text-primary text-center">게시판</h2>
+	<table id="tbl-board-view" class="table table-striped">
+		<tr class="table-warning">
 			<th>글번호</th>
 			<td><%= frontboard.getNo() %></td>
 		</tr>
@@ -21,7 +30,7 @@
 			<th>제 목</th>
 			<td><%= frontboard.getTitle() %></td>
 		</tr>
-		<tr>
+		<tr class="table-warning">
 			<th>작성자</th>
 			<td><%= frontboard.getWriter() %></td>
 		</tr>
@@ -30,18 +39,14 @@
 			<td><%= frontboard.getReadCount() %></td>
 		</tr>
 		
-		<tr>
+		<tr class="table-warning">
 			<th>내 용</th>
 			<td>
 				<%= frontboard.getContent() %> 
 			</td>
 		</tr>
-		<tr>
-			<th>스터디그룹 정보</th>
-			<td>
-				어쩌구
-			</td>
-		</tr>
+		
+	
 		<% 	if(
 				loginMember != null && 
 				(
@@ -62,24 +67,20 @@
 <% if(loginMember == null){ %>	
 
 
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/> <!-- 로그인 안하고 글쓰기 누를시 -->
-	
-
-
 <!-- 로그인 안하고 글쓰기 누를시 -->
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
+	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
 
 <%} else { %>
 
-	<input type="button" value="스터디그룹 참가신청" id="writing-btn" onclick=""/>
 
-
-	<input type="button" value="스터디그룹 참가신청" onclick="groupApply()"/>
+	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" onclick="groupApply()"/>
 
 <% } %>		
 
 	
 	</section>
+	<section>
+	<h5 class="text-primary">댓글</h5>
 <% if(loginMember != null){ %>
 <form 
 	name = "groupApplyFrm"
@@ -109,7 +110,7 @@
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />    
 				<textarea name="content" cols="60" rows="3"></textarea>
-                <button type="submit" id="btn-comment-enroll1">등록</button>
+                <button type="submit" id="btn-comment-enroll1" class="btn btn-outline-danger">등록</button>
             </form>
 <% 
 	List<FrontboardComment> commentList = (List<FrontboardComment>) request.getAttribute("commentList"); 
@@ -170,6 +171,7 @@
 	}
 %>
 </div>
+</section>
 <script>
 
 $("[name=content]", document.boardCommentFrm).focus((e) => {
@@ -223,4 +225,7 @@ const updateBoard = () => {
 	location.href = "<%= request.getContextPath() %>/board/frontboardUpdate?no=<%= frontboard.getNo() %>";
 };
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
