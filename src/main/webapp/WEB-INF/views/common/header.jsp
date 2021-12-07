@@ -176,7 +176,7 @@ const logout = () => {
 <!-- 마이페이지 드롭다운 -->
 		<span>
 		<%= loginMember.getMember_name() %>님, 열공합시다!
-		<a href="#">
+		<a href="<%= request.getContextPath() %>/studygroup/applicant">
 		<span class="badge"></span>
 		</a>
 		</span>
@@ -231,7 +231,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".badge").text(count);
+			$(".badge").text(count)
 
 
 		},
