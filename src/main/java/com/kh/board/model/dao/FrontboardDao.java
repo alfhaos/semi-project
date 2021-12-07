@@ -144,7 +144,7 @@ public class FrontboardDao {
 		return boardNo;
 	}
 
-	public List<Frontboard> myboardlist(Connection conn, String memberId) {
+	public List<Frontboard> myboardlist(Connection conn, Map<String, Integer> param, String memberId) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("myboardlist");
 		ResultSet rset = null;
@@ -155,6 +155,8 @@ public class FrontboardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
+			pstmt.setInt(2, param.get("start"));
+			pstmt.setInt(3, param.get("end"));
 
 			rset = pstmt.executeQuery();
 

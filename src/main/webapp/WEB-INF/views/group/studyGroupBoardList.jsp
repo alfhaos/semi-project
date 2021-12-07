@@ -4,7 +4,7 @@
 <%@page import="com.kh.studygroup.board.model.vo.StudyGroupBoard"%> 
 <%@ page import = "java.util.List" %>
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 
 <%
 	List<StudyGroupBoard> list = (List<StudyGroupBoard>) request.getAttribute("list");
