@@ -14,6 +14,8 @@ import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.service.FrontboardService;
 import com.kh.board.model.vo.Frontboard;
 import com.kh.board.model.vo.FrontboardComment;
+import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.StudyGroup;
 
 /**
  * Servlet implementation class FreeboardViewServlet
@@ -89,6 +91,7 @@ public class FrontboardViewServlet extends HttpServlet {
 		
 	}
 	
+
 		
 
 }
