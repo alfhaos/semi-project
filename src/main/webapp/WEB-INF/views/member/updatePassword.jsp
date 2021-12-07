@@ -1,54 +1,103 @@
 ﻿<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
-
-	Member loginMember = (Member) session.getAttribute("loginMember");
-
-%>   
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<%@ include file="/WEB-INF/views/common/header.jsp" %>   
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-<script>
-$(() => {
-	<% if(msg != null){ %>
-	alert("<%= msg %>");
-	
-	<%} %>
-});
-</script>
-	<section id=enroll-container>
-		<h2>회원 가입 정보 입력</h2>
-		<form 
-			name="updatePwdFrm" 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Checkout example · Bootstrap v5.1</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/checkout/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .container{
+      margin-left: 280px;
+      }
+      .div-container{
+      margin-left: 80px;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div class="py-5 text-center">
+      <h2>비밀번호 변경</h2>
+    </div>
+<div class="container">
+
+    
+
+      <div class="col-md-7 col-lg-8">
+        <form 
+        	name="updatePwdFrm" 
 			action="<%=request.getContextPath()%>/member/updatePassword" 
-			method="post" >
-			<table>
-				<tr>
-					<th>현재 비밀번호</th>
-					<td><input type="password" name="oldPassword" id="oldPassword" required></td>
-				</tr>
-				<tr>
-					<th>변경할 비밀번호</th>
-					<td>
-						<input type="password" name="newPassword" id="newPassword" required>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td>	
-						<input type="password" id="newPasswordCheck" required><br>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
-						<input type="submit"  value="변경" />
-					</td>
-				</tr>
-			</table>
-		</form>
-	</section>
+			method="post">
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="username" class="form-label">현재 비밀번호</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" name="oldPassword" id="oldPassword" required>
+              </div>
+            </div>
+            
+            <div class="col-12">
+              <label for="username" class="form-label">변경할 비밀번호</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control"  name="newPassword" id="newPassword" required>
+              </div>
+            </div>
+            
+            <div class="col-12">
+              <label for="username" class="form-label">비밀번호 확인</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control" id="newPasswordCheck" required>
+              </div>
+            </div>
+      
+          </div>
+          <hr class="my-4">
+<div class="div-container">
+          <input class="w-100 btn btn-primary btn-lg" type="button" onclick="updateMember();" value="변경"/>
+</div>
+        </form>
+      </div>
+    </div>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="form-validation.js"></script>
+  </body>
+</html>
 <script>
 /**
  * 폼제출 유효성검사

@@ -1,3 +1,4 @@
+<%@page import="com.kh.community.model.vo.Questionboard"%>
 <%@page import="com.kh.community.model.vo.Freeboard"%>
 <%@page import="com.kh.board.model.vo.Frontboard"%>
 <%@page import="java.util.List"%>
@@ -16,11 +17,17 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1 align="center">스터디모집</h1>
-	<div id="tbl-board">
-		<ul class="ultest">
+	<h1 align="center">내 작성글 보기</h1>
+	<hr />
+	<h3 align="center">스터디모집</h3>
 <% 
 	List<Frontboard> list = (List<Frontboard>) request.getAttribute("list");
+	if(list.size() != 0){ 
+%>
+	<div id="tbl-board">
+		<ul class="ultest">
+<% } %>
+<% 
 	if(list.size() != 0){
 	for(Frontboard frontboard : list){
 %>   
@@ -131,17 +138,26 @@
 <% 
 	}}else{
 %>
-	<h1>게시글 없으면 글쓰기 넣기</h1>
+	<div class="alert alert-danger" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">스터디그룹</span>
+	  게시글이 없습니다
+	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='#'"/>
+	</div>
 <% } %>
+<% 
+	if(list.size() != 0){ 
+%>
 </ul>
 	</div>
-	<hr />
-	<h1 align="center">자유게시판</h1>
+<% } %>
+	<br /><br />
+	<h3 align="center">자유게시판</h3>
 <% 
 	List<Freeboard> free = (List<Freeboard>) request.getAttribute("free"); 
-	if(free.size() != 0){
-	for(Freeboard freeboard : free){
+	if(free.size() != 0){ 
 %>
+<section id="board-container">
 	<table id="tbl-board">
 			<tr>
 				<th>번호</th>
@@ -151,6 +167,11 @@
 				<th>조회수</th>
 				<th>추천수</th>
 			</tr>
+<%	}	%>
+<% 
+	if(free.size() != 0){
+	for(Freeboard freeboard : free){
+%>
 		<tr>
 			<td><%= freeboard.getNo() %></td>
 			<td>
@@ -162,18 +183,75 @@
 			<td><%= freeboard.getReadCount() %></td>
 			<td><%= freeboard.getLikeCount() %></td>
 		</tr>
+<%	}	%>
 	</table>
-<% if(free.size() != 0){ %>
-	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>	
+
+<% 
+	}else{
+%>
+	<div class="alert alert-danger" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">자유</span>
+	  게시글이 없습니다
+	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/community/freeboardForm'"/>
+	</div>
+<% } %>
+</section>
+<br /><br /><br /><br />
+<h3 align="center">QnA게시판</h3>
+<%
+	List<Questionboard> QnA = (List<Questionboard>) request.getAttribute("QnA");
+	if(QnA.size() != 0){
+%>
+	<section id="board-container">
+		<table id="tbl-board">
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>첨부파일</th><%--첨부파일이 있는 경우 /images/file.png 표시 width:16px --%>
+				<th>조회수</th>
+				<th>추천수</th>
+			</tr>
 <% } %>
 <% 
-	}}else{
+	if(QnA.size() != 0){
+	for(Questionboard questionboard : QnA){
 %>
-	<h1>ㅂㅇ</h1>
+		<tr>
+			<td><%= questionboard.getNo() %></td>
+			<td>
+				<a href="<%= request.getContextPath() %>/community/questionboardView?no=<%= questionboard.getNo() %>"><%= questionboard.getTitle() %></a>
+				<%= questionboard.getCommentCount() > 0 ? "(" + questionboard.getCommentCount() + ")" : "" %>
+			</td>
+			<td><%= questionboard.getWriter() %></td>
+			<td><%= questionboard.getRegDate() %></td>
+			<td>
+<% 	if(questionboard.getAttachCount() > 0){ %>
+				<img alt="" src="<%= request.getContextPath() %>/images/attachment-g5d16ffa11_640.png" width="16px" height="14px">	
+<%	}	%>
+			</td>
+			<td><%= questionboard.getReadCount() %></td>
+			<td><%= questionboard.getLikeCount() %></td>
+		</tr>
+<%	}	%>
+	</table>
+	
+<%			
+	}else{
+%>	
+	<div class="alert alert-danger" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">QnA</span>
+	  게시글이 없습니다
+	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/community/questionboardForm'"/>
+	</div>
 <% } %>
+</section>
 
 
-
+<br /><br /><br /><br /><br /><br />
 </body>
 </html>
 

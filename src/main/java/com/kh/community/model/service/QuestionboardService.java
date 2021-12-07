@@ -231,5 +231,12 @@ public class QuestionboardService {
 		return list;
 	}
 
+	public List<Questionboard> selectMyQuestionBoard(Map<String, Integer> param, String memberId) {
+		Connection conn = getConnection();
+		List<Questionboard> list = questionboardDao.selectMyQuestionBoard(conn, param, memberId);
+		close(conn);
+		return list;
+	}
+
 
 }

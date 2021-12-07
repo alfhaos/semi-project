@@ -17,6 +17,7 @@
 <!-- 관리자용 admin.css link -->
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/admin.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <style>
 div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(0, 188, 212, 0.3);}
@@ -40,7 +41,7 @@ $(() => {
 <section id="memberList-container">
 	<h2 align="center">관리자페이지</h2>
 <ul class="nav nav-pills">
-  <li role="presentation"><a href="<%= request.getContextPath() %>/admin/memberStatistics">관심 언어 통계</a></li>
+  <li role="presentation"><a href="<%= request.getContextPath() %>/admin/memberStatistics">통계 확인</a></li>
 </ul>
 
 	<div id="search-container">
