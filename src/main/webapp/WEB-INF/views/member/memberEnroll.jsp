@@ -2,6 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/memberEnroll.css" />
+<script>
+
+$(() => {
+	<% if(msg != null){ %>
+	alert("<%= msg %>");
+	
+	<%} %>
+});
+
+</script>
 <section id=enroll-container>
 	<h2>회원 가입</h2>
 	<form name="memberEnrollFrm" action="" method="POST">
@@ -64,7 +74,7 @@
 			<tr>
 				<th>관심 언어</th>
 				<td>
-					<input type="radio" name="language" id="c" value="c"><label for="c">c</label>
+					<input type="radio" name="language" id="c" value="c" checked><label for="c">c</label>
 					<input type="radio" name="language" id="c++" value="c++"><label for="c++">c++</label>
 					<input type="radio" name="language" id="java" value="java"><label for="java">java</label><br />
 					<input type="radio" name="language" id="javaScript" value="javaScript"><label for="javaScript">javaScript</label>
