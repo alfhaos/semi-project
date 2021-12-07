@@ -32,7 +32,7 @@
 			<td><h2><%= freeboard.getTitle() %></h2></td>
 		</tr>
 		<tr style="border-top:1px solid #e9ecef; border-bottom:1px solid #e9ecef;">
-			<td><%= freeboard.getWriter() %> &nbsp; &nbsp;<%= freeboard.getRegDate() %><td style="text-align=rignt;">조회 <%= freeboard.getReadCount() %></td>
+			<td style="border:0;"><%= freeboard.getWriter() %> &nbsp; &nbsp;<%= freeboard.getRegDate() %><td style="text-align=rignt;">조회 <%= freeboard.getReadCount() %></td>
 		</tr>
 		
 		<tr style="border-top:1px solid #e9ecef;" >
