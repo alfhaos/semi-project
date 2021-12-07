@@ -50,6 +50,7 @@ public class FrontboardListServlet extends HttpServlet {
 		System.out.println("list@servlet = " + list);
 		System.out.println("list@servlet = " + watchlist);
 		System.out.println("list@servlet = " + listonline);
+		System.out.println("list@servlet = " + listoffline);
 	
 		
 		request.setAttribute("list", list);
@@ -58,7 +59,7 @@ public class FrontboardListServlet extends HttpServlet {
 		request.setAttribute("listoffline", listoffline);
 		
 		request
-				.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp")
+				.getRequestDispatcher("/WEB-INF/views/board/frontboardList.jsp")
 				.forward(request, response);
 	}
 

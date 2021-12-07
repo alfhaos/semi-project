@@ -63,7 +63,13 @@ public class FrontboardDao {
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
-				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setGroup_no(rset.getInt("group_no"));
+				frontboard.setComment_count(rset.getInt("comment_count"));
+			
+
 				list.add(frontboard);
 			}
 			
@@ -160,7 +166,9 @@ public class FrontboardDao {
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
-				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+
+
 				list.add(frontboard);
 			}
 			
@@ -245,7 +253,12 @@ public class FrontboardDao {
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
-				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setGroup_no(rset.getInt("group_no"));
+				frontboard.setComment_count(rset.getInt("comment_count"));
+
 				
 				watchlist.add(frontboard);
 			}
@@ -279,8 +292,13 @@ public class FrontboardDao {
 				frontboard.setWriter(rset.getString("writer"));
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
-				frontboard.setRegDate(rset.getDate("reg_date"));
-				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setRegDate(rset.getDate("reg_date"));	
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setGroup_no(rset.getInt("group_no"));
+				frontboard.setComment_count(rset.getInt("comment_count"));
+				
 				listonline.add(frontboard);
 			}
 			
@@ -314,7 +332,14 @@ public class FrontboardDao {
 				frontboard.setContent(rset.getString("content"));
 				frontboard.setReadCount(rset.getInt("read_count"));
 				frontboard.setRegDate(rset.getDate("reg_date"));
-				frontboard.setCommentCount(rset.getInt("comment_count"));
+				frontboard.setComment_count(rset.getInt("comment_count"));
+				frontboard.setLanguage(rset.getString("language"));
+				frontboard.setArea(rset.getString("area"));
+				frontboard.setMax_member(rset.getInt("Max_member"));
+				frontboard.setGroup_no(rset.getInt("group_no"));
+				
+				
+
 				listoffline.add(frontboard);
 			}
 			
