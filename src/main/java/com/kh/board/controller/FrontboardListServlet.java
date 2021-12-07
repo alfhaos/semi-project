@@ -50,6 +50,7 @@ public class FrontboardListServlet extends HttpServlet {
 		System.out.println("list@servlet = " + list);
 		System.out.println("list@servlet = " + watchlist);
 		System.out.println("list@servlet = " + listonline);
+		System.out.println("list@servlet = " + listoffline);
 	
 		
 		request.setAttribute("list", list);
