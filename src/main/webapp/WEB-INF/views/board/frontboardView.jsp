@@ -6,7 +6,9 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	Frontboard frontboard = (Frontboard) request.getAttribute("frontboard");
+
 %>
+
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <section id="board-container">
 	<h2>게시판</h2>

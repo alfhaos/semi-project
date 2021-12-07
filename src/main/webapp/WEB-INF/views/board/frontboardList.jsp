@@ -1,9 +1,16 @@
 <%@page import="com.kh.board.model.vo.Frontboard"%>
+<%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
+<%
+	
+	StudyGroup studyGroup = (StudyGroup) request.getAttribute("studyGroup");
+
+
+%>
 
 <script>
 $(function(){
@@ -83,12 +90,12 @@ $(function(){
 	$('.libanner6').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.nodejs').hide();
+		  $('.c').hide();
 		  
 		 
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.nodejs').show();
+		  $('.c').show();
 		}
 		++clicks;
 	});
@@ -171,6 +178,8 @@ $(function(){
 
 
 
+
+
 </script>
 <section id="board-container">
 <div class="title">
@@ -182,8 +191,13 @@ $(function(){
 <% if(loginMember == null){ %>	
 	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark"onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
 <%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
-<% } %>		
+
+		<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+			
+	
+		
+	<% } %>	
+	
 
 
 <div id="banner">
@@ -194,7 +208,7 @@ $(function(){
 		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
 		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
 		<li class="libanner5" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
-		<li class="libanner6" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/nodejs.png" width=100rem; height=100rem;></li>
+		<li class="libanner6" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c.png" width=110rem; height=110rem;></li>
 	</li>
 	</ul>
 </div>
@@ -300,7 +314,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("nodejs"))
+						if(frontboard.getLanguage().equals("c"))
 						{
 							%>  
 							<li class="litest1">

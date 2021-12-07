@@ -44,7 +44,8 @@ public class FrontboardEnrollServlet extends HttpServlet {
 				String title = request.getParameter("title");
 				String writer = request.getParameter("writer");
 				String content = request.getParameter("content");
-				Frontboard frontboard = new Frontboard(0, title, writer, content, 0, null, 0);
+				int group_no = Integer.parseInt(request.getParameter("group_no"));
+				Frontboard frontboard = new Frontboard(0, title, writer, content, 0, null, group_no);
 				System.out.println("[FreeBoardEnrollServlet] frontboard = " + frontboard);
 				
 				int result = frontboardService.insertBoard(frontboard);

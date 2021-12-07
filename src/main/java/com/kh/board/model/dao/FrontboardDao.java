@@ -114,7 +114,7 @@ public class FrontboardDao {
 			pstmt.setString(1, frontboard.getTitle());
 			pstmt.setString(2, frontboard.getWriter());
 			pstmt.setString(3, frontboard.getContent());
-			
+			pstmt.setInt(4, frontboard.getGroup_no());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new FrontboardException("게시물 등록 오류!", e);
