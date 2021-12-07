@@ -58,7 +58,7 @@ private Properties prop = new Properties();
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setAsk(rset.getString("ask"));			
 				board.setLikeCount(rset.getInt("like_count"));
-				//board.setCommentCount(rset.getInt("comment_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 				board.setAttachCount(rset.getInt("attach_count"));
 				list.add(board);
 			}

@@ -10,21 +10,32 @@
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
-	<h2>게시판</h2>
+	<h4>Q&A게시판</h4>
 	<table id="tbl-board-view">
+	
+	<% 	if(
+				loginMember != null && 
+				(
+				  loginMember.getMember_id().equals(questionboard.getWriter())
+				  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
+				)
+			){ %>
 		<tr>
-			<td><%= questionboard.getNo() %></td>
+			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
+			<th colspan="2">
+				<input type="button" value="수정하기" onclick="updateBoard()" style="float: right;">
+				<input type="button" value="삭제하기" onclick="deleteBoard()" style="float: right;">
+			</th>
 		</tr>
+		<% 	} %>
+	
 		<tr>
 		
-			<td><%= questionboard.getTitle() %></td>
+			<td><h2><%= questionboard.getTitle() %></h2></td>
 		</tr>
-		<tr>
+		<tr style="border-top:1px solid #e9ecef; border-bottom:1px solid #e9ecef;">
 			
 			<td><%= questionboard.getWriter() %> &nbsp; &nbsp;<%= questionboard.getRegDate() %><td style="text-align=rignt;">조회 <%= questionboard.getReadCount() %></td>
-		</tr>
-		<tr>
-			<td><%= questionboard.getReadCount() %></td>
 		</tr>
 		
 <% 
@@ -34,8 +45,8 @@
 			Attachment attach = attachments.get(i);
 %>
 		<tr>
-			<th>첨부파일<%= i + 1 %></th>
-			<td>
+			
+			<td style="padding-top:3px">
 				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
 				<img alt="첨부파일" src="<%=request.getContextPath() %>/images/attachment-g5d16ffa11_640.png" width=16px height="14px">
 				<a href="<%= request.getContextPath() %>/community/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
@@ -45,7 +56,7 @@
 		}
 	} 
 %>
-		<tr style="border-top:1px solid grey;" >
+		<tr style="border-top:1px solid #e9ecef;" >
 			<td style="padding:15px 0 25px 15px;">
 				<%= questionboard.getContent() %> 
 			</td>
@@ -56,21 +67,7 @@
 			<%= questionboard.getLikeCount() %>
 			</th>
 		</tr>
-		<% 	if(
-				loginMember != null && 
-				(
-				  loginMember.getMember_id().equals(questionboard.getWriter())
-				  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
-				)
-			){ %>
-		<tr>
-			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
-			<th colspan="2">
-				<input type="button" value="수정하기" onclick="updateBoard()">
-				<input type="button" value="삭제하기" onclick="deleteBoard()">
-			</th>
-		</tr>
-		<% 	} %>
+		
 	</table>
 	
 	<hr style="margin-top:30px;" />	
@@ -114,13 +111,11 @@
 					<br />
 					<%-- 댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
 				</td>
 			</tr>
 <%
@@ -133,12 +128,11 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
+					
 				</td>
 			</tr>
 <%
