@@ -43,7 +43,7 @@
 	method = "POST" 
 	action="<%= request.getContextPath() %>/studygroup/applicantCheck">
 	<input type="hidden" name = "temp" value = "1" />
-	</form>
+</form>
 <form
 	name = "applicantRefuseFrm"
 	method = "POST" 
