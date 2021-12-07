@@ -53,7 +53,7 @@ public class MyBoardListServlet extends HttpServlet {
 			String memberId = request.getParameter("memberId");
 			System.out.println("memberId = " + memberId);
 			
-			List<Frontboard> list = frontboardService.myboardlist(memberId);
+			List<Frontboard> list = frontboardService.myboardlist(param,memberId);
 			System.out.println("myboardList@servlet = " + list);
 			
 			List<Freeboard> free = freeboardService.selectMyFreeBoard(param,memberId);
