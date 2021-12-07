@@ -13,13 +13,15 @@ private static final long serialVersionUID = 1L;
 	private String content;
 	private int readCount;
 	private Date regDate;
+	private int group_no;
 	
 	public FrontboardEntity() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FrontboardEntity(int no, String title, String writer, String content, int readCount, Date regDate) {
+	public FrontboardEntity(int no, String title, String writer, String content, int readCount, Date regDate,
+			int group_no) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -27,6 +29,7 @@ private static final long serialVersionUID = 1L;
 		this.content = content;
 		this.readCount = readCount;
 		this.regDate = regDate;
+		this.group_no = group_no;
 	}
 
 	public int getNo() {
@@ -77,11 +80,19 @@ private static final long serialVersionUID = 1L;
 		this.regDate = regDate;
 	}
 
+	public int getGroup_no() {
+		return group_no;
+	}
+
+	public void setGroup_no(int group_no) {
+		this.group_no = group_no;
+	}
+
 	@Override
 	public String toString() {
-		return "BoardEntity [no=" + no + ", title=" + title + ", writer=" + writer + ", content=" + content
-				+ ", readCount=" + readCount + ", regDate=" + regDate + "]";
+		return "FrontboardEntity [no=" + no + ", title=" + title + ", writer=" + writer + ", content=" + content
+				+ ", readCount=" + readCount + ", regDate=" + regDate + ", group_no=" + group_no + "]";
 	}
-	
+
 
 }

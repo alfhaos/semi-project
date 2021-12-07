@@ -10,41 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 <section id="board-container">
 
-	<h2>게시판</h2>
+	<h4>자유게시판</h4>
 	<table id="tbl-board-view">
-		<tr>
-		
-			<td><%= freeboard.getNo() %></td>
-		</tr>
-		<tr>
-			
-			<td><h2><%= freeboard.getTitle() %></h2></td>
-		</tr>
-		<tr>
-			
-			<td><%= freeboard.getWriter() %></td>
-		</tr>
-		<tr>
-			<td><%= freeboard.getRegDate() %></td>
-		</tr>
-		<tr>
-			
-			<td><%= freeboard.getReadCount() %></td>
-		</tr>
-		
-		<tr>
-			
-			<td>
-				<%= freeboard.getContent() %> 
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-			<input type="button" value="추천" onclick="likeBoard()"/>
-			<%= freeboard.getLikeCount() %>
-			</th>
-		</tr>		
-		<% 	if(
+	<% 	if(
 				loginMember != null && 
 				(
 				  loginMember.getMember_id().equals(freeboard.getWriter())
@@ -54,11 +22,31 @@
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th colspan="2">
-				<input type="button" value="수정하기" onclick="updateBoard()">
-				<input type="button" value="삭제하기" onclick="deleteBoard()">
+				<input type="button" value="수정하기" onclick="updateBoard()" style="float: right;">
+				<input type="button" value="삭제하기" onclick="deleteBoard()" style="float: right;">
 			</th>
 		</tr>
 		<% 	} %>
+		<tr>
+			
+			<td><h2><%= freeboard.getTitle() %></h2></td>
+		</tr>
+		<tr style="border-top:1px solid #e9ecef; border-bottom:1px solid #e9ecef;">
+			<td><%= freeboard.getWriter() %> &nbsp; &nbsp;<%= freeboard.getRegDate() %><td style="text-align=rignt;">조회 <%= freeboard.getReadCount() %></td>
+		</tr>
+		
+		<tr style="border-top:1px solid #e9ecef;" >
+			<td style="padding:15px 0 25px 15px;">
+				<%= freeboard.getContent() %> 
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">
+			<input type="button" value="추천" onclick="likeBoard()"/>
+			<%= freeboard.getLikeCount() %>
+			</th>
+		</tr>		
+		
 	</table>
 	<hr style="margin-top:30px;" />	
     
@@ -100,14 +88,13 @@
 					<br />
 					<%-- 댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
 				</td>
+			
 			</tr>
 <%
 			} else {
@@ -119,13 +106,12 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
 				</td>
+		
 			</tr>
 <%
 			}
