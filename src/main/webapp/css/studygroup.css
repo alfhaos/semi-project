@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+h1#groupTitle {
+	text-align: center;
+}
+
+ul#memberList {
+	text-align : center;
+	list-style-type: none;
+}
+ul#memberList li {
+	display: inline-block;
+	font-size: 35px;
+	margin : auto 10px;
+	
+}
+
+table#rankingTable {
+	text-align: center;
+	border: 1px solid black;
+}

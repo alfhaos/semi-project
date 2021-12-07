@@ -87,8 +87,9 @@ public class FrontboardViewServlet extends HttpServlet {
 		//3. jsp forwarding
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("frontboard", frontboard);
-		request.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")
-			   .forward(request, response);
+		request
+			.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")
+			.forward(request, response);
 
 		
 	}

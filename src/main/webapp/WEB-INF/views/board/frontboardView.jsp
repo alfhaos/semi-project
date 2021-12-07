@@ -6,6 +6,8 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	Frontboard frontboard = (Frontboard) request.getAttribute("frontboard");
+		
+
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <section id="board-container">
@@ -79,6 +81,7 @@
 	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
 	<input type="hidden" name="writer" value="<%= frontboard.getWriter() %>" />
 	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
+	<input type="hidden" id = "group" name = "group" value = "<%= loginMember.getStudy_group() %>" />
 </form>
 <% } %>
 
@@ -194,8 +197,9 @@ const loginAlert = () => {
 };
 
 function groupApply() {
+	var studygroup = $("#group").val();
 	if(confirm("지원하시겠습니까?")){
-		if(<%= loginMember.getStudy_group() %> != null){
+		if( studygroup != null){
 			alert("이미 소속된 스터디 그룹이 존재합니다.");
 			return;
 		}
