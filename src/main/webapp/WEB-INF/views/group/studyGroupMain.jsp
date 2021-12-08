@@ -1,29 +1,36 @@
+<%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%@page import="com.kh.studygroup.model.vo.StudyGroupMember"%> 
 <%@ page import = "java.util.List" %>
+
 <%
 	
 	List<StudyGroupMember> list = (List<StudyGroupMember>) request.getAttribute("MemberList");
 	String memberRole = (String) request.getAttribute("memberRole");
+	StudyGroup group = (StudyGroup) request.getAttribute("group");
 %>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/studygroup.css" />
+
 
 <% if(loginMember.getStudy_group() != 0) {%>
-	<h1><%= memberRole %>번 스터디 입니다.</h1>
+	<h1 id = "groupTitle"><%= group.getGroup_name() %></h1>
 	<hr />
-	<ul>
+	<ul id = "memberList">
 	
 		<% for(StudyGroupMember member : list){ %>
-			<li><%= member.getGroupMemberName() %></li>
+			<li><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16">
+  <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+</svg> <%= member.getGroupMemberName() %></li>
 		<%} %>		
 
 	</ul>
 	
 	<hr />
 	
-	<table>
+	<table id = "rankingTable">
 		<thead>
 			<tr>
 				<th>랭킹</th>
@@ -51,6 +58,9 @@
 	<% if(memberRole.equals("A")){ %>
 		<input type="button" value = "신청자 현황" onclick="location.href='<%= request.getContextPath() %>/studygroup/applicant';" />
 		<input type="button" value = "스터디 멤버 관리" onclick="location.href='<%= request.getContextPath() %>/studygroup/administrate';" />
+		
+		
+		
 	<% } %>
 <%} else{ %>
 

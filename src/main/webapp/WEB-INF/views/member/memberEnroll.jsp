@@ -47,19 +47,19 @@ $(() => {
 				<th>이메일</th>
 				<td>
 				<input type="text" name="email01" id="email01" style="width:100px"> @
-				<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail"> <option value="1">직접입력</option> <option value="naver.com" selected>naver.com</option> <option value="hanmail.net">hanmail.net</option> <option value="hotmail.com">hotmail.com</option> <option value="nate.com">nate.com</option> <option value="yahoo.co.kr">yahoo.co.kr</option> <option value="empas.com">empas.com</option> <option value="dreamwiz.com">dreamwiz.com</option> <option value="freechal.com">freechal.com</option> <option value="lycos.co.kr">lycos.co.kr</option> <option value="korea.com">korea.com</option> <option value="gmail.com">gmail.com</option> <option value="hanmir.com">hanmir.com</option> <option value="paran.com">paran.com</option> </select>
+				<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail"> <option value="@gmail.com">gmail.com</option> <option value="@naver.com" selected>naver.com</option> <option value="@hanmail.net">hanmail.net</option> <option value="@hotmail.com">hotmail.com</option> <option value="@nate.com">nate.com</option> <option value="@yahoo.co.kr">yahoo.co.kr</option> <option value="@empas.com">empas.com</option> <option value="@dreamwiz.com">dreamwiz.com</option> <option value="@freechal.com">freechal.com</option> <option value="@lycos.co.kr">lycos.co.kr</option> <option value="@korea.com">korea.com</option> <option value="@hanmir.com">hanmir.com</option> <option value="@paran.com">paran.com</option> </select>
 				</td>
 			</tr>
 			<tr>
 				<th>휴대폰<sup>*</sup></th>
 				<td>	
-					<input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" value="01012341234" required><br>
+					<input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" required><br>
 				</td>
 			</tr>
 			<tr>
 				<th>주소</th>
 				<td>	
-					<input type="text" placeholder="" name="address" id="address" value="서울시 강남구 테헤란로"><br>
+					<input type="text" placeholder="" name="address" id="address"><br>
 				</td>
 			</tr>
 			<tr>
