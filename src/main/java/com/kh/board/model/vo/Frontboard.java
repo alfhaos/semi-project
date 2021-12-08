@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Frontboard extends FrontboardEntity implements Serializable{
 	
-	private int group_no;
+
 	private int comment_count;
 	private List<Attachment> attachments;
 	private String language;
@@ -26,11 +26,9 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 		super(no, title, writer, content, readCount, regDate, group_no);
 		// TODO Auto-generated constructor stub
 	}
-	public Frontboard(int group_no, int comment_count, List<Attachment> attachments, String language, String area,
-			int max_member, int now_member, String recruitment_status, int group_no_1, String group_name,
-			String on_off) {
+	public Frontboard(int comment_count, List<Attachment> attachments, String language, String area, int max_member,
+			int now_member, String recruitment_status, int group_no_1, String group_name, String on_off) {
 		super();
-		this.group_no = group_no;
 		this.comment_count = comment_count;
 		this.attachments = attachments;
 		this.language = language;
@@ -41,12 +39,6 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 		this.group_no_1 = group_no_1;
 		this.group_name = group_name;
 		this.on_off = on_off;
-	}
-	public int getGroup_no() {
-		return group_no;
-	}
-	public void setGroup_no(int group_no) {
-		this.group_no = group_no;
 	}
 	public int getComment_count() {
 		return comment_count;
@@ -110,30 +102,11 @@ public class Frontboard extends FrontboardEntity implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Frontboard [group_no=" + group_no + ", comment_count=" + comment_count + ", attachments=" + attachments
-				+ ", language=" + language + ", area=" + area + ", max_member=" + max_member + ", now_member="
-				+ now_member + ", recruitment_status=" + recruitment_status + ", group_no_1=" + group_no_1
-				+ ", group_name=" + group_name + ", on_off=" + on_off + "]";
+		return "Frontboard [comment_count=" + comment_count + ", attachments=" + attachments + ", language=" + language
+				+ ", area=" + area + ", max_member=" + max_member + ", now_member=" + now_member
+				+ ", recruitment_status=" + recruitment_status + ", group_no=" + group_no_1 + ", group_name="
+				+ group_name + ", on_off=" + on_off + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

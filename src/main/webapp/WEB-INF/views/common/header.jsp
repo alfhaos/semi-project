@@ -37,6 +37,9 @@ $(() => {
 function noLogin_writing_btn(){
 	alert('로그인 후 이용해주세요.'); 
 }
+function nogroup_writing_btn(){
+	alert('스터디그룹 생성 후 이용해주세요.'); 
+}
 const logout = () => {
 	location.href="<%= request.getContextPath() %>/member/logout";
 };
