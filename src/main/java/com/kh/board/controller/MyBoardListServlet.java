@@ -19,6 +19,8 @@ import com.kh.community.model.vo.Freeboard;
 import com.kh.community.model.vo.MvcUtils;
 import com.kh.community.model.vo.Questionboard;
 import com.kh.member.model.vo.Member;
+import com.kh.studygroup.board.model.service.StudyGroupBoardService;
+import com.kh.studygroup.board.model.vo.StudyGroupBoard;
 
 /**
  * Servlet implementation class MyBoardListServlet
@@ -29,7 +31,7 @@ public class MyBoardListServlet extends HttpServlet {
 	private FrontboardService frontboardService = new FrontboardService();
 	private FreeboardService freeboardService = new FreeboardService();
 	private QuestionboardService questionboardService = new QuestionboardService();
-
+	private StudyGroupBoardService service = new StudyGroupBoardService();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -53,6 +55,9 @@ public class MyBoardListServlet extends HttpServlet {
 			String memberId = request.getParameter("memberId");
 			System.out.println("memberId = " + memberId);
 			
+			int studyNo = Integer.parseInt(request.getParameter("studyNo"));
+			System.out.println("studyNo = " + studyNo);
+			
 			List<Frontboard> list = frontboardService.myboardlist(param,memberId);
 			System.out.println("myboardList@servlet = " + list);
 			
@@ -62,6 +67,9 @@ public class MyBoardListServlet extends HttpServlet {
 			List<Questionboard> QnA = questionboardService.selectMyQuestionBoard(param,memberId);
 			System.out.println("QnA@servlet = " + QnA);
 			
+			List<StudyGroupBoard> studyboard = service.selectMyboardList(param,studyNo,memberId);
+			System.out.println("studyboard@servlet = " + studyboard);
+			
 //			int totalContent = freeboardService.selectTotalFreeBoardCount();
 //			String url = request.getRequestURI(); 
 //			String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContent, url);
@@ -70,6 +78,7 @@ public class MyBoardListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("free", free);
 			request.setAttribute("QnA", QnA);
+			request.setAttribute("studyboard", studyboard);
 //			request.setAttribute("pagebar", pagebar);
 			
 			request
