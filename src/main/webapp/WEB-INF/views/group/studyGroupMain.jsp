@@ -52,12 +52,19 @@
 			
 		</tbody>
 	</table>
-	<input type="button" value = "공부 시작!" onclick="location.href='<%= request.getContextPath() %>/studygroup/stopwatch';" />
-	<input type="button" value = "그룹 채팅!" onclick="location.href='<%= request.getContextPath() %>/studygroup/chat';" />
-	<input type="button" value = "그룹 게시판!" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardlist';" />
-	<% if(memberRole.equals("A")){ %>
-		<input type="button" value = "신청자 현황" onclick="location.href='<%= request.getContextPath() %>/studygroup/applicant';" />
-		<input type="button" value = "스터디 멤버 관리" onclick="location.href='<%= request.getContextPath() %>/studygroup/administrate';" />
+	<br />
+	<div id = "act-btn">
+		<button type="button" value = "공부 시작!" onclick="location.href='<%= request.getContextPath() %>/studygroup/stopwatch'" class="btn btn-primary">공부 시작</button>
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/studygroup/chat'" class="btn btn-primary">그룹 채팅</button>
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardlist'" class="btn btn-primary">그룹 게시판</button>
+		
+		<% if(memberRole.equals("A")){ %>
+		
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/studygroup/applicant'" class="btn btn-primary">신청자 현황</button>
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/studygroup/administrate'" class="btn btn-primary">스터디 멤버 관리</button>
+		
+	
+	</div>
 		
 		
 		

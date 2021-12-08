@@ -17,5 +17,22 @@ ul#memberList li {
 
 table#rankingTable {
 	text-align: center;
-	border: 1px solid black;
+	border-bottom: 3px solid #D3D3D3;
+	border-top: 3px solid #D3D3D3;
+	margin : auto;
+}
+
+table#rankingTable th {
+	width : 200px;
+	height : 50px;
+	border-bottom: 1px solid #D3D3D3;
+	background-color: 	#F3F3F3;
+}
+
+table#rankingTable td{
+	height : 40px;
+	border-bottom: 1px solid #D3D3D3;
+}
+div#act-btn {
+	text-align: center;
 }
