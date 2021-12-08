@@ -181,14 +181,15 @@ public class MemberService {
 		}
 
 
-		public int insertAlram(String memberId, String writer) {
+		public int insertAlram(String memberId, String leader) {
 			Connection conn = getConnection();
 			int result = 0;
 			try {
 				// 1.Connection객체 생성
 				conn = getConnection();
 				// 2.Dao요청
-				result = memberDao.insertAlram(conn, memberId, writer);
+				
+				result = memberDao.insertAlram(conn, memberId, leader);
 				// 3.트랜잭션처리
 				commit(conn);
 			} catch (Exception e) {

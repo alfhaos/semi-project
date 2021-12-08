@@ -305,6 +305,7 @@ public class StudyGroupDao {
 		ResultSet rset = null;
 		List<Member> list = new ArrayList<>();
 		Member member = null;
+
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -344,7 +345,7 @@ public class StudyGroupDao {
 		return list;
 	}
 
-	public int deleteApplicant(Connection conn, String leader, String memberId) {
+	public int deleteApplicant(Connection conn, String leaderId, String memberId) {
 		String sql = prop.getProperty("deleteApplicant");
 
 		PreparedStatement pstmt = null;
@@ -353,7 +354,7 @@ public class StudyGroupDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, leader);
+			pstmt.setString(1, leaderId);
 			pstmt.setString(2, memberId);
 			
 			result = pstmt.executeUpdate();
@@ -386,8 +387,8 @@ public class StudyGroupDao {
 			while(rset.next()) {
 				member = new Member();
 				
-				member.setMember_name(rset.getString("member_id"));
-				member.setMember_id(rset.getString("member_name"));
+				member.setMember_id(rset.getString("member_id"));
+				member.setMember_name(rset.getString("member_name"));
 				
 			}
 			
@@ -558,6 +559,34 @@ public class StudyGroupDao {
 			
 		} catch (SQLException e) {
 			throw new GroupException("now 멤버 삭제 카운트 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
+	public int updateKolaMember(Connection conn, Member member) {
+		String sql = prop.getProperty("updateKolaMember");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, member.getStudy_group());
+			pstmt.setString(2, member.getMember_id());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new GroupException("코라 멤버 업데이트 오류!",e);
 		}
 		finally {
 			close(pstmt);

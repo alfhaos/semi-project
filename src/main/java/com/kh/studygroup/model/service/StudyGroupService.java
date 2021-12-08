@@ -148,12 +148,12 @@ public class StudyGroupService {
 	}
 
 
-	public int deleteApplicant(String leader, String memberId) {
+	public int deleteApplicant(String leaderId, String memberId) {
 		Connection conn = getConnection();
 		int result = 0;
 		try {
 			conn = getConnection();
-			result = groupDao.deleteApplicant(conn,leader,memberId);
+			result = groupDao.deleteApplicant(conn,leaderId,memberId);
 			
 			commit(conn);
 		}	catch(Exception e) {
@@ -182,7 +182,8 @@ public class StudyGroupService {
 		try {
 			conn = getConnection();
 			result = groupDao.updateApplicant(conn,studyGroup,member);
-			
+			member.setStudy_group(studyGroup);
+			result = groupDao.updateKolaMember(conn,member);
 			commit(conn);
 		}	catch(Exception e) {
 			rollback(conn);

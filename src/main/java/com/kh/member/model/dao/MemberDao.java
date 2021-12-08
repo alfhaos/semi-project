@@ -357,14 +357,14 @@ public class MemberDao {
 	}
 
 
-	public int insertAlram(Connection conn, String memberId, String writer) {
+	public int insertAlram(Connection conn, String memberId, String leader) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertAlram"); 
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, writer);
+			pstmt.setString(1, leader);
 			pstmt.setString(2, memberId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -506,6 +506,9 @@ public class MemberDao {
 		}
 		return stat;
 	}
+
+
+	
 
 
 }
