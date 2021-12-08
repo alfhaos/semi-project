@@ -263,3 +263,11 @@ if(confirm("이 게시물을 추천하시겠습니까?")){
 
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

@@ -289,3 +289,11 @@ const likeBoard = () =>{
 
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

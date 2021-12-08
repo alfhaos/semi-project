@@ -422,3 +422,7 @@ from (
 )
 where
     rnum between 1 and 100;
+
+select * from kola_study_group_member where group_member_no = 47 and group_member_study_time is not null order by group_member_study_time desc;
+update kola_study_group_member set group_member_study_time = null where group_member_id = 'honggd';
+commit;

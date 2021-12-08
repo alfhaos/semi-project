@@ -419,4 +419,51 @@ public class StudyGroupBoardDao {
 		
 		return result;
 	}
+
+
+	public List<StudyGroupBoard> selectMyboardList(Connection conn, Map<String, Integer> param, int studyNo, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMyboardList");
+		ResultSet rset = null;
+		
+		List<StudyGroupBoard> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, studyNo);
+			pstmt.setString(2, memberId);
+			pstmt.setInt(3, param.get("start"));
+			pstmt.setInt(4, param.get("end"));
+
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				StudyGroupBoard board = new StudyGroupBoard();
+				board.setBoardNo(rset.getInt("group_board_no"));
+				board.setStudy_Group_No(rset.getInt("study_group_no"));
+				board.setTitle(rset.getString("title"));
+				board.setWriter(rset.getString("writer"));
+				board.setContent(rset.getString("content"));
+				board.setRead_count(rset.getInt("read_count"));
+				board.setReg_Date(rset.getDate("reg_date"));
+				
+				board.setAttachCount(rset.getInt("attach_count"));
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+		
+
+		
+		
 }

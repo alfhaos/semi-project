@@ -85,7 +85,7 @@ const logout = () => {
 	color: #eb4b3f;
 	font-family: 'Secular One', sans-serif;
 	}
-	.badge {
+	.headbadge {
 	  display: inline-block;
 	  min-width: 10px;
 	  padding: 3px 7px;
@@ -109,12 +109,7 @@ const logout = () => {
  
  <a id="header_title" href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" />Kola <span id="header_title!">!</span></a>
 
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-          <!-- <i class="fas fa-search"></i> -->
-            
-          
+	
         
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
@@ -142,7 +137,7 @@ const logout = () => {
 		<span>
 		<%= loginMember.getMember_name() %>님, 열공합시다!
 		<a href="<%= request.getContextPath() %>/studygroup/applicant">
-		<span class="badge"></span>
+		<span class="headbadge"></span>
 		</a>
 		</span>
         <div class="dropdown text-end">
@@ -174,6 +169,7 @@ const logout = () => {
     action="<%= request.getContextPath() %>/board/MyBoardList"
     method="GET">
     <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
+    <input type="hidden" name="studyNo" value="<%= loginMember.getStudy_group() %>" />
     </form>
 <% } %>
 		<section id="content">
@@ -197,7 +193,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".badge").text(count)
+				$(".headbadge").text(count)
 
 
 		},
