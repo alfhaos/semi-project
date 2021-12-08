@@ -1,9 +1,19 @@
 @charset "UTF-8";
-	header{
+
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+header{
+		font-family: 'InfinitySans-RegularA1';
 		height: 30vh;
 		text-align: center;
 		margin: 0 auto;
 		padding: 0 auto;
+		font-size: x-large;
 	}
 	.wrapper{
 		width: 80%;
@@ -26,7 +36,7 @@
 		
 	}
 	#header_title{
-		font-size: 2rem;
+		font-size: 3rem;
 	color: black;
 	font-family: 'Exo', sans-serif;
 	text-decoration-line : none;

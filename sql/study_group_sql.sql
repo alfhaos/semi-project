@@ -27,8 +27,9 @@ insert into kola_member values('admin','1234','관리자','A','M','c',null,'0101
 
 select * from kola_member;
 
+desc  kola_board_comment;
 
-
+update kola_member set study_group = 47 where member_id = 'honggd';
 
 
 --------------------------------------------------------------------
@@ -331,6 +332,7 @@ create table kola_study_group_member(
 );
 --alter table kola_study_group_member modify(group_member_study_time varchar2(100));
 commit;
+update kola_study_group_member set group_member_id = 'honggd' where group_member_name = '고길동';
 
 --drop table kola_study_group_member;
 select * from kola_study_group_member;
@@ -400,3 +402,23 @@ select*from kola_study_group;
 select * from kola_member k join kola_alram a on k.member_id = a.member_id where a.group_leader_id = 'ykuhk';
 select * from kola_alram; 
 
+
+select * from Kola_main_boardthis;
+select 
+    *
+from (
+    select 
+        row_number() over(order by read_count desc) rnum,
+        b.*,
+        (select count(*) from kola_board_comment where  board_no = b.no) comment_count
+    from 
+          ( select 
+                * 
+                from 
+                kola_main_boardthis a join kola_study_group b
+                on 
+                a.group_no = b.group_no) b
+
+)
+where
+    rnum between 1 and 100;

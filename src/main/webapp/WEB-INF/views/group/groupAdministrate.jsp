@@ -3,11 +3,16 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%@page import="com.kh.studygroup.model.vo.StudyGroupMember"%> 
 <%@ page import = "java.util.List" %>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/leader.css" />
+
 <%
 	
 	List<StudyGroupMember> list = (List<StudyGroupMember>) request.getAttribute("MemberList");
 %>
-	<table>
+
+<div id = "board-container">
+<h2>그룹 관리</h2>
+	<table id="tbl-board">
 	
 		<thead>
 			<tr>
@@ -24,7 +29,8 @@
 				<tr>
 					<td><%= member.getGroupMemberId() %></td>
 					<td><%= member.getGroupMemberName() %></td>
-					<td><button type ="button" value = "<%= member.getGroupMemberId() %>" class="btn-accept">내보내기</button></td>
+					
+					<td><button type="button" value = "<%= member.getGroupMemberId() %>" class="btn btn-danger" id = "btn-accept">그룹 탈퇴</button></td>
 				</tr>	
 			<%} %>	
 		
@@ -33,6 +39,7 @@
 
 	
 	</table>
+</div>
 <form
 	name = "AdministrateFrm"
 	method = "POST" 
@@ -42,7 +49,9 @@
 
 <script>
 
-$(".btn-accept").click((e) => {
+$("#btn-accept").click((e) => {
+	console.log("추방");
+	
 	 const memberId = $(e.target).val();
 	 const inputId = `<input type="hidden" name="memberId" value="\${memberId}" />`;
 	 var returnValue = confirm("정말로 추방하시겠습니까?");
@@ -57,6 +66,7 @@ $(".btn-accept").click((e) => {
 	 else{
 		 return;
 	 }
+	 
 });
 </script>
 

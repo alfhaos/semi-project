@@ -141,6 +141,7 @@ public class FrontboardService {
 	}
 
 
+	
 	public int deleteFrontBoardComment(int no) {
 		Connection conn = getConnection(); 
 		int result = 0;
@@ -153,5 +154,43 @@ public class FrontboardService {
 		}
 		return result;
 	}
+	
+	public int deleteFrontBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = frontboardDao.deleteFrontBoard(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateFrontBoard(Frontboard frontboard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+	
+			result = frontboardDao.updateFrontBoard(conn, frontboard);
+			
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+	
+
 	
 }
