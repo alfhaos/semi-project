@@ -39,7 +39,9 @@ public class GroupApplicantCheckServlet extends HttpServlet {
 			result = groupService.deleteApplicant(leader,memberId);
 			Member member = groupService.selectOneMember(memberId);
 			result = groupService.updateApplicant(studyGroup,member);
-			
+			if(result > 0) {
+				result = groupService.updateNowMember(studyGroup);
+			}
 			String msg = result > 0 ? "스터디 그룹 멤버 등록 성공" : "스터디 그룹 멤버 등록 실패";
 			session.setAttribute("msg", msg);
 			

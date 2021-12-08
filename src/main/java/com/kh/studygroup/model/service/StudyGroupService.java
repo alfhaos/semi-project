@@ -209,6 +209,8 @@ public class StudyGroupService {
 		try {
 			result = groupDao.deleteGroupMember(conn,studyGroup,memberId);
 			result = groupDao.deleteMemberGroupNo(conn,memberId);
+			result = groupDao.deleteNowMember(conn,studyGroup);
+			
 			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
@@ -218,6 +220,25 @@ public class StudyGroupService {
 			
 		}
 		return result;
+	}
+
+
+	public int updateNowMember(int studyGroup) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = groupDao.updateNowMember(conn,studyGroup);
+		
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+		}
+		finally {
+			close(conn);
+			
+		}
+		return result;
+		
 	}
 
 }

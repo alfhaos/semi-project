@@ -198,7 +198,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".headbadge").text(count)
+				$(".headbadge").text(count)
 
 
 		},
