@@ -86,7 +86,7 @@ const logout = () => {
 	color: #eb4b3f;
 	font-family: 'Secular One', sans-serif;
 	}
-	.badge {
+	.headbadge {
 	  display: inline-block;
 	  min-width: 10px;
 	  padding: 3px 7px;
@@ -143,7 +143,7 @@ const logout = () => {
 		<span>
 		<%= loginMember.getMember_name() %>님, 열공합시다!
 		<a href="<%= request.getContextPath() %>/studygroup/applicant">
-		<span class="badge"></span>
+		<span class="headbadge"></span>
 		</a>
 		</span>
         <div class="dropdown text-end">
@@ -198,7 +198,7 @@ function fn_alramList(){
 			var count = data.length;
 			//console.log(count);
 			if(count != 0)
-			$(".badge").text(count)
+				$(".headbadge").text(count)
 
 
 		},

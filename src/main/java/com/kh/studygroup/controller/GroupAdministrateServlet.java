@@ -62,9 +62,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		String memberId = request.getParameter("memberId");
 		int studyGroup = Integer.parseInt(request.getParameter("studyGroup"));
 		
-		System.out.println("스터디 그룹 : " + studyGroup + " 멤버 아이디 : " + memberId);
+		
 		int result = groupService.deleteGroupMember(studyGroup,memberId);
 		
+	
 		
 		String location = request.getContextPath() + "/studygroup/administrate";
 		response.sendRedirect(location);
