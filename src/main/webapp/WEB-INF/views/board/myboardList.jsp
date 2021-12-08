@@ -1,3 +1,4 @@
+<%@page import="com.kh.studygroup.board.model.vo.StudyGroupBoard"%>
 <%@page import="com.kh.community.model.vo.Questionboard"%>
 <%@page import="com.kh.community.model.vo.Freeboard"%>
 <%@page import="com.kh.board.model.vo.Frontboard"%>
@@ -249,7 +250,63 @@
 <% } %>
 
 </section>
+<br /><br /><br /><br />
+<h3 align="center"><%= loginMember.getStudy_group()==0 ? "study 게시판":"내 "+loginMember.getStudy_group()+"번 study게시판" %></h3>
+<% 
+	List<StudyGroupBoard> studyboard = (List<StudyGroupBoard>) request.getAttribute("studyboard");
+	if(studyboard.size() != 0){
+%>
+<section id="board-container">
+	<table id="tbl-board">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>첨부파일</th>
+			<th>조회수</th>
+		</tr>
+		
+		
+<%		
+	for(StudyGroupBoard board : studyboard){
+%>
+		<tr>
+			<td><%= board.getBoardNo() %></td>
+			<td>
+				<a href="<%= request.getContextPath() %>/studygroup/boardView?no=<%= board.getBoardNo() %>" onclick = boardNo()>
+				<%= board.getTitle() %>
+				<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : ""%>
+				</a>
+			</td>
+			<td><%= board.getWriter() %></td>
+			<td><%= board.getReg_Date() %></td>
+			<td>
+			<% if(board.getAttachCount() > 0){ %>
+				<img src="<%= request.getContextPath() %>/images/cola.png" alt="" width = "16px"/>
+			<% } %>
+			</td>
+			<td><%= board.getRead_count() %></td>
+		</tr>
 
+<%} %>
+	</table>
+<%			
+	}else if(studyboard.size() == 0 && loginMember.getStudy_group() == 0){
+%>	
+	<div class="alert alert-danger" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">스터디그룹</span>이 없습니다.
+	<input type="button" value="스터디 그룹 생성" id = "btn-add" onclick="location.href='<%= request.getContextPath() %>/studygroup/create';">
+	</div>
+<% }else{ %>
+	<div class="alert alert-danger" role="alert">
+	  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	  <span class="sr-only">스터디그룹</span>게시글이 없습니다.
+	<input type="button" value="글쓰기" id = "btn-add" onclick="location.href='<%= request.getContextPath() %>/studygroup/boardForm';"/>
+	</div>
+<%} %>
+</section>
 
 <br /><br /><br /><br /><br /><br />
 </body>

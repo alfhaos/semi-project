@@ -169,6 +169,7 @@ const logout = () => {
     action="<%= request.getContextPath() %>/board/MyBoardList"
     method="GET">
     <input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
+    <input type="hidden" name="studyNo" value="<%= loginMember.getStudy_group() %>" />
     </form>
 <% } %>
 		<section id="content">
