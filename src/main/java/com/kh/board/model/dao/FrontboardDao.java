@@ -3,6 +3,9 @@ package com.kh.board.model.dao;
 
 
 import static com.kh.common.JDBCTemplate.close;
+import static com.kh.common.JDBCTemplate.commit;
+import static com.kh.common.JDBCTemplate.getConnection;
+import static com.kh.common.JDBCTemplate.rollback;
 
 import java.io.File;
 import java.io.FileReader;
@@ -424,6 +427,52 @@ public class FrontboardDao {
 		}
 		return result;
 	}
+
+	public int deleteFrontBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteBoard"); 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, no);
+		
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateFrontBoard(Connection conn, Frontboard frontboard) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setString(1, frontboard.getTitle());
+			pstmt.setString(2, frontboard.getContent());
+			pstmt.setInt(3, frontboard.getNo());
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	
 
 }

@@ -51,7 +51,6 @@ $(document.boardEnrollFrm).submit(boardValidate);
 
 </script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor/ckeditor.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <style>
 #location {
 	display: none;
@@ -60,9 +59,24 @@ table {
     margin-left:auto; 
     margin-right:auto;
 }
+body{
+	text-align: center;
+}
+form{
+	padding: 10px;
+}
 
+.input-group{
+	margin: 20px;
+	
+}
+.card-header{
+	font-size: 2rem;
+	font-weight: 400;
+	margin-left: 0;
+}
 </style>
-<section id="board-container">
+<section id="board_container">
 <h2>게시판 작성</h2>
 <form
 	name="boardEnrollFrm"
@@ -70,61 +84,60 @@ table {
 	method="post">
 	<table id="tbl-board-view">
 	<tr>
-		<th>제 목</th>
-		<td><input type="text" name="title" required></td>
+		<th ><label class="input-group-text">제 목</label></th>
+		<td><input type="text" name="title" class="form-control" required></td>
 	</tr>
 	<tr>
-		<th>작성자</th>
-		<td>
-			<input type="text" name="writer" value="<%= loginMember.getMember_id() %>" readonly/>
+		<th><label class="input-group-text">작성자</label></th>
+		<td >
+			<input type="text" name="writer" class="form-control"value="<%= loginMember.getMember_name() %> " readonly/>
+			
 		</td>
 	</tr>
 	<tr>
-		<th>내 용</th>
-		<td><textarea rows="5" cols="40" name="content"></textarea></td>
+		<th colspan="2" >
+		<div class="row justify-content-md-center">
+				<div class="col-sm-12">
+            <div class="card">
+  			<div class="card-header "><%= studyGroup.getGroup_name() %></div>
+ 			 <div class="card-body">스터디 언어 : <%= studyGroup.getLanguage() %>
+ 			 <br />
+ 			 인원 현황 : <%= studyGroup.getNow_member() / studyGroup.getMax_member() %>
+ 			 <br />
+ 			 온/오프라인 : <%= studyGroup.getOn_off() %>
+ 			 <br />
+ 			 지역 : <%= studyGroup.getArea() %>
+ 			 <br />
+ 			 모집 상태 : <%= studyGroup.getStatus() %>
+ 			 </div>
+			</div>
+		</div>
+		</div>
+		</th>
+		<td>		</td>
+	</tr>
+	<tr>
+		<th colspan="2" ><textarea name="content" class="form-control" id="p_content"></textarea>
+                  <script type="text/javascript">
+                  CKEDITOR.replace('p_content'
+                                                  , {height: 500                                             
+                                                  });
+                  </script></th>
+                  
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="등록하기">
+			<button type="submit" class="btn btn-outline-danger" style="width: 20%; font-weight: bold; margin-top: 30px;">
+             등   록          
+            </button>
 		</th>
 	</tr>
 </table>
 </form>
 
-<table>
-	<tr>
-			<th>그룹번호</th>
-			<td><%= studyGroup.getGroup_number() %></td>
-		</tr>
-		<tr>
-			<th>스터디 이름</th>
-			<td><%= studyGroup.getGroup_name() %></td>
-		</tr>
-		<tr>
-			<th>인원 현황</th>
-			<td><%= studyGroup.getNow_member() / studyGroup.getMax_member() %></td>
-		</tr>
-		<tr>
-			<th>지역</th>
-			<td><%= studyGroup.getArea() %></td>
-		</tr>
-		
-		<tr>
-			<th>스터디 언어</th>
-			<td>
-				<%= studyGroup.getLanguage() %> 
-			</td>
-		</tr>
-		<tr>
-			<th>온/오프라인</th>
-			<td><%= studyGroup.getOn_off() %></td>
-		</tr>
-		<tr>
-			<th>모집 상태</th>
-			<td><%= studyGroup.getStatus() %></td>
-		</tr>
 
-</table>
+
+	
 </section>
       
 <br />

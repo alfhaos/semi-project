@@ -174,6 +174,8 @@ $(function(){
 </script>
 <section id="board-container">
 <div class="title">
+<br />
+<br />
 	<p id="title2">스터디와 사이드 프로젝트를 찾는 가장 쉬운 방법</p>
 	<p id="title">Kola <span>!</span></p>
 	</div>
