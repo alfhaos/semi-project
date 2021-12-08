@@ -198,8 +198,9 @@ const loginAlert = () => {
 
 function groupApply() {
 	var studygroup = $("#group").val();
+	console.log(studygroup);
 	if(confirm("지원하시겠습니까?")){
-		if( studygroup != null){
+		if( studygroup != 0){
 			alert("이미 소속된 스터디 그룹이 존재합니다.");
 			return;
 		}
