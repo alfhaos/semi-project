@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/stopwatch.css" />
 <br />
-<h2>오늘의 공부 시간</h2>
+<h2 id = "stopWatchTitle">오늘의 공부 시간</h2>
 <form 
 	name = "stopWatchFrm"
 	method = "POST"
@@ -13,10 +13,19 @@
 		<div id='timerBox' class="timerBox">
 			<div id="time" class="time">00:00:00</div>
 		</div>
+		<br />
 		<div class="btnBox">
-			<div id="startbtn" class="fa fa-play">시작</div>
-			<div id="pausebtn" class="fa fa-pause">일시정지</div>
-			<div id="stopbtn" class="fa fa-stop">멈춤</div>
+			<button type="button" id="startbtn" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16" id = "play">
+  <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg></button>
+			
+			<button type="button" id="pausebtn" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16" id = "pause">
+  	<path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/></svg></button>
+			
+			
+			<button type="button" id="stopbtn" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-stop" viewBox="0 0 16 16" id = "stop">
+  <path d="M3.5 5A1.5 1.5 0 0 1 5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5zM5 4.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V5a.5.5 0 0 0-.5-.5H5z"/></svg></button>
+
+
 		</div>
 	</div>
 

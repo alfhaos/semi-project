@@ -5,14 +5,14 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%@page import="com.kh.studygroup.model.vo.StudyGroupMember"%> 
 <%@ page import = "java.util.List" %>
-
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/studygroup.css" />
 <%
 	
 	List<StudyGroupMember> list = (List<StudyGroupMember>) request.getAttribute("MemberList");
 	String memberRole = (String) request.getAttribute("memberRole");
 	StudyGroup group = (StudyGroup) request.getAttribute("group");
 %>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/studygroup.css" />
+
 
 
 <% if(loginMember.getStudy_group() != 0) {%>
