@@ -1,5 +1,4 @@
 package com.kh.board.controller;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class FrontboardEnrollServlet extends HttpServlet {
 				int result = frontboardService.insertBoard(frontboard);
 				//---------------------------------------------------------------------------
 				
-				System.out.println("[FreeBoardEnrollServlet] result = " + result);
+				System.out.println("[FrontBoardEnrollServlet] result = " + result);
 				String msg = result > 0 ? "게시물 등록 성공" : "게시물 등록 실패";
 				
 				request.getSession().setAttribute("msg", msg);

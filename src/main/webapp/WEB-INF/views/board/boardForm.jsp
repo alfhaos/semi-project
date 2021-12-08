@@ -90,7 +90,7 @@ form{
 	<tr>
 		<th><label class="input-group-text">작성자</label></th>
 		<td >
-			<input type="text" name="writer" class="form-control"value="<%= loginMember.getMember_name() %> " readonly/>
+			<input type="text" name="writer" class="form-control"value="<%= loginMember.getMember_id() %> " readonly/>
 			
 		</td>
 	</tr>
