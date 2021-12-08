@@ -83,7 +83,7 @@ public class FrontboardViewServlet extends HttpServlet {
 		
 		// 댓글 목록 조회
 		List<FrontboardComment> commentList = frontboardService.selectFrontBoardCommentList(no);
-		System.out.println("[FreeboardViewServlet] commentList = " + commentList);
+		System.out.println("[FrontboardViewServlet] commentList = " + commentList);
 					
 		
 		//HttpSession session = request.getSession();

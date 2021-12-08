@@ -1,6 +1,7 @@
 <%@page import="com.kh.board.model.vo.Frontboard"%>
 <%@page import="com.kh.board.model.vo.FrontboardComment"%>
 <%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
+<%@page import="com.kh.member.model.vo.Member" %>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +10,6 @@
 	Frontboard frontboard = (Frontboard) request.getAttribute("frontboard");
 
 %>
-
 <style>
 .btn-outline-primary {
     color: #0d6efd;
@@ -69,15 +69,6 @@
 				</script>
 			</td>
 		</tr>
-		
-	
-		<% 	if(
-				loginMember != null && 
-				(
-				  loginMember.getMember_id().equals(frontboard.getWriter())
-				  || MemberService.ADMIN_ROLE.equals(loginMember.getMember_role())
-				)
-			){ %>
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th  colspan="2">
@@ -85,25 +76,11 @@
 				<input id="redbutton2" class="btn btn-outline-danger btn-xs" type="button" value="삭제하기" onclick="deleteBoard()">
 			</th>
 		</tr>
-		<% 	} %>
 	</table>
 	
 	<br />
-<% if(loginMember == null){ %>	
-
-
-	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
-
-
-<%} else { %>
-
-
-
 	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" onclick="groupApply()"/>
 
-
-
-<% } %>		
 
 	
 	</section>
@@ -292,6 +269,10 @@ const loginAlert = () => {
 	$(memberId).focus();
 };
 
+const NoAuthority = () => {
+	alert("권한이 없습니다.");
+	e.preventDefault();
+}
 const deleteBoard = () => {
 	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
 		$(document.boardDelFrm).submit();		
