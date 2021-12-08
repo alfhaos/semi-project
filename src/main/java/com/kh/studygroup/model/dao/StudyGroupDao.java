@@ -516,4 +516,58 @@ public class StudyGroupDao {
 		return result;
 	}
 
+	public int updateNowMember(Connection conn, int studyGroup) {
+		String sql = prop.getProperty("updateNowMember");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, studyGroup);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new GroupException("멤버 추가 카운트 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
+	public int deleteNowMember(Connection conn, int studyGroup) {
+		String sql = prop.getProperty("deleteNowMember");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, studyGroup);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new GroupException("now 멤버 삭제 카운트 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
 }
