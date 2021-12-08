@@ -48,7 +48,6 @@ const logout = () => {
 
 <style>
 	header{
-		font-family: 'InfinitySans-RegularA1';
 		height: 30vh;
 		text-align: center;
 		margin: 0 auto;
@@ -60,7 +59,7 @@ const logout = () => {
 		width: 80%;
 		margin: 0 auto;
 		padding: 0 auto;
-		
+		font-family: 'InfinitySans-RegularA1';
 	}
 	#title{
 	font-size: 4rem;
