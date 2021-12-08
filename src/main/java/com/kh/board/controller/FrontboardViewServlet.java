@@ -93,19 +93,17 @@ public class FrontboardViewServlet extends HttpServlet {
 		// timeout설정 - web.xml 설정보다 우선순위가 높다.
 		session.setMaxInactiveInterval(10*60); // 초단위
 				
-		Member loginMember = (Member) session.getAttribute("loginMember");	
-		int GroupNo = loginMember.getStudy_group();
-		StudyGroup studygroup = groupService.selectOneGroup(GroupNo);
 		
 		
 		
 		
 		//3. jsp forwarding
-		request.setAttribute("studyGroup", studygroup);
+		
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("frontboard", frontboard);
-		request.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")
-			   .forward(request, response);
+		request
+			.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")
+			.forward(request, response);
 
 		
 	}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.vo.Member;
 import com.kh.studygroup.model.service.StudyGroupService;
+import com.kh.studygroup.model.vo.StudyGroup;
 import com.kh.studygroup.model.vo.StudyGroupMember;
 
 /**
@@ -44,6 +45,9 @@ public class StudyGroupViewServlet extends HttpServlet {
 		if(studyGroup != 0) {
 			List<StudyGroupMember> MemberList = groupService.selectAllGroupMember(studyGroup);
 			String memberRole = groupService.selectMemberRole(memberId);
+			StudyGroup group = groupService.selectOneGroup(studyGroup);
+			
+			request.setAttribute("group", group);
 			request.setAttribute("MemberList", MemberList);
 			request.setAttribute("memberRole", memberRole);
 			

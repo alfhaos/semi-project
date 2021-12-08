@@ -51,7 +51,9 @@ public class MemberEnrollServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String memberName = request.getParameter("memberName");
 			String gender = request.getParameter("gender");
-			String email = request.getParameter("email");
+			String email01 = request.getParameter("email01");
+			String selectEmail = request.getParameter("selectEmail");
+			String email = email01+selectEmail;
 			String phone = request.getParameter("phone");
 			String address = request.getParameter("address");
 			String[] _language = request.getParameterValues("language");
