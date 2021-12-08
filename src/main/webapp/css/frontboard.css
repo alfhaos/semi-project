@@ -35,8 +35,8 @@ li.litest h1{ font-family: 'InfinitySans-RegularA1';}
 li.litest1 p{display:block; font-family: 'InfinitySans-RegularA1';}
 
 li.litest1{margin: 5px; }
-section.toptext{display:flex; position:absolute; top:102px;  left:12px;}
-section.undertext{display:flex; position:absolute; top:100px;  left:110px;}
+section.toptext{display:flex; position:absolute; top:7.6rem;  left:0.7rem;}
+section.undertext{display:flex; position:absolute; top:7.5rem;  left:9rem;}
 
 li.litest p{ font-family: 'InfinitySans-RegularA1';}
 li.litest1{margin: 10px; }

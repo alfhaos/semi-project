@@ -9,13 +9,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.service.FrontboardService;
 import com.kh.board.model.vo.Frontboard;
 import com.kh.board.model.vo.FrontboardComment;
-import com.kh.studygroup.model.service.StudyGroupService;
+import com.kh.member.model.vo.Member;
 import com.kh.studygroup.model.vo.StudyGroup;
+import com.kh.studygroup.model.service.StudyGroupService;
+
 
 /**
  * Servlet implementation class FreeboardViewServlet
@@ -24,7 +27,7 @@ import com.kh.studygroup.model.vo.StudyGroup;
 public class FrontboardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FrontboardService frontboardService = new FrontboardService();
-
+	private StudyGroupService groupService = new StudyGroupService();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,7 +69,6 @@ public class FrontboardViewServlet extends HttpServlet {
 		
 		Frontboard frontboard = frontboardService.selectOneBoard(no);
 		System.out.println("[FrontboardViewServlet] frontboard = " + frontboard);
-	
 		//게시글 가져오기에 실패한경우
 		if(frontboard == null) {
 			throw new FrontboardException("해당 게시글이 존재하지 않습니다.");
@@ -83,8 +85,20 @@ public class FrontboardViewServlet extends HttpServlet {
 		List<FrontboardComment> commentList = frontboardService.selectFrontBoardCommentList(no);
 		System.out.println("[FreeboardViewServlet] commentList = " + commentList);
 					
-					
+		
+		//HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+				
+				
+		// timeout설정 - web.xml 설정보다 우선순위가 높다.
+		session.setMaxInactiveInterval(10*60); // 초단위
+				
+		
+		
+		
+		
 		//3. jsp forwarding
+		
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("frontboard", frontboard);
 		request
@@ -94,6 +108,7 @@ public class FrontboardViewServlet extends HttpServlet {
 		
 	}
 	
+
 		
 
 }

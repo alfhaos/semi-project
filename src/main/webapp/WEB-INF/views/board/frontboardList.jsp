@@ -1,9 +1,11 @@
 <%@page import="com.kh.board.model.vo.Frontboard"%>
+<%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/frontboard.css" />
+
 
 <script>
 $(function(){
@@ -11,11 +13,11 @@ $(function(){
 	$('.libanner1').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.jscript').hide();
+		  $('.javaScript').hide();
 		  
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.jscript').show();
+		  $('.javaScript').show();
 		}
 		++clicks;
 	});
@@ -54,10 +56,10 @@ $(function(){
 	$('.libanner4').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.python').hide();
+		  $('.Python').hide();
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.python').show();
+		  $('.Python').show();
 		}
 		++clicks;
 	});
@@ -83,12 +85,12 @@ $(function(){
 	$('.libanner6').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.nodejs').hide();
+		  $('.c').hide();
 		  
 		 
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.nodejs').show();
+		  $('.c').show();
 		}
 		++clicks;
 	});
@@ -171,6 +173,8 @@ $(function(){
 
 
 
+
+
 </script>
 <section id="board-container">
 <div class="title">
@@ -184,7 +188,12 @@ $(function(){
 <% if(loginMember == null){ %>	
 	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark"onclick="javascript:noLogin_writing_btn()"/> <!-- 로그인 안하고 글쓰기 누를시 -->
 <%} else { %>
-	<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+	<% if(loginMember.getStudy_group() < 1){ %>	
+		<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="javascript:nogroup_writing_btn()"/>
+		<% } else {%>
+		<input type="button" value="글쓰기" id="writing-btn" class="btn btn-dark" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"/>
+					
+	<% } %>	
 <% } %>		
 
 
@@ -196,7 +205,7 @@ $(function(){
 		<li class="libanner3" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c++.png" width=100rem; height=100rem;></li>
 		<li class="libanner4" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/python.png" width=100rem; height=100rem;></li>
 		<li class="libanner5" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/spring.png" width=100rem; height=100rem;></li>
-		<li class="libanner6" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/nodejs.png" width=100rem; height=100rem;></li>
+		<li class="libanner6" style="margin: 1.5rem; transition: all 0.25s;"><img alt="첨부파일" src="<%=request.getContextPath() %>/images/c.png" width=110rem; height=110rem;></li>
 	</li>
 	</ul>
 </div>
@@ -238,11 +247,11 @@ $(function(){
 			<li id="<%= frontboard.getArea() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';" 
 			style="width: 15rem; height: 15rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
+			<h5 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h5>
 				<ul class="ultest1">
 					
 					<% 
-						if(frontboard.getLanguage().contains("jscript"))
+						if(frontboard.getLanguage().equals("javaScript"))
 						{
 							%>  
 							<li class="litest1">
@@ -254,7 +263,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("java"))
+						if(frontboard.getLanguage().equals("java"))
 						{
 							%>  
 							<li class="litest1">
@@ -266,7 +275,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -278,7 +287,7 @@ $(function(){
 						}
 					%> 
 					<% 
-						if(frontboard.getLanguage().contains("c쁠쁠"))
+						if(frontboard.getLanguage().equals("c쁠쁠"))
 						{
 							%>  
 							<li class="litest1">
@@ -290,7 +299,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("spring"))
+						if(frontboard.getLanguage().equals("spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -302,7 +311,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("nodejs"))
+						if(frontboard.getLanguage().equals("c"))
 						{
 							%>  
 							<li class="litest1">
@@ -349,11 +358,11 @@ $(function(){
 			<li id="<%= frontboard.getArea() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';" 
 			style="width: 15rem; height: 15rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
+			<h5 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h5>
 				<ul class="ultest1">
 					
 					<% 
-						if(frontboard.getLanguage().contains("jscript"))
+						if(frontboard.getLanguage().equals("javaScript"))
 						{
 							%>  
 							<li class="litest1">
@@ -365,7 +374,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("java"))
+						if(frontboard.getLanguage().equals("java"))
 						{
 							%>  
 							<li class="litest1">
@@ -377,7 +386,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -389,7 +398,7 @@ $(function(){
 						}
 					%> 
 					<% 
-						if(frontboard.getLanguage().contains("c쁠쁠"))
+						if(frontboard.getLanguage().equals("c쁠쁠"))
 						{
 							%>  
 							<li class="litest1">
@@ -401,7 +410,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("spring"))
+						if(frontboard.getLanguage().equals("spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -413,7 +422,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("nodejs"))
+						if(frontboard.getLanguage().equals("c"))
 						{
 							%>  
 							<li class="litest1">
@@ -460,11 +469,11 @@ $(function(){
 			<li id="<%= frontboard.getArea() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';" 
 			style="width: 15rem; height: 15rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
+			<h5 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h5>
 				<ul class="ultest1">
 					
 					<% 
-						if(frontboard.getLanguage().contains("jscript"))
+						if(frontboard.getLanguage().equals("javaScript"))
 						{
 							%>  
 							<li class="litest1">
@@ -476,7 +485,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("java"))
+						if(frontboard.getLanguage().equals("java"))
 						{
 							%>  
 							<li class="litest1">
@@ -488,7 +497,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -500,7 +509,7 @@ $(function(){
 						}
 					%> 
 					<% 
-						if(frontboard.getLanguage().contains("c쁠쁠"))
+						if(frontboard.getLanguage().equals("c쁠쁠"))
 						{
 							%>  
 							<li class="litest1">
@@ -512,7 +521,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("spring"))
+						if(frontboard.getLanguage().equals("spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -524,7 +533,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("nodejs"))
+						if(frontboard.getLanguage().equals("c"))
 						{
 							%>  
 							<li class="litest1">
@@ -571,11 +580,11 @@ $(function(){
 			<li id="<%= frontboard.getArea() %>" class="<%= frontboard.getLanguage() %>" onclick="location.href='<%= request.getContextPath() %>/board/frontboardView?no=<%= frontboard.getNo() %>';" 
 			style="width: 15rem; height: 15rem; margin:2rem; padding: 1.5rem; background: white; box-shadow:0px 5px 25px rgb(0 0 0 / 15%); border-radius:1.5rem; position: relative; cursor: pointer;
 					transition: all 0.5s;">
-			<h4 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h4>
+			<h5 style= "font-family: 'InfinitySans-RegularA1';"><%= frontboard.getTitle() %></h5>
 				<ul class="ultest1">
 					
 					<% 
-						if(frontboard.getLanguage().contains("jscript"))
+						if(frontboard.getLanguage().equals("javaScript"))
 						{
 							%>  
 							<li class="litest1">
@@ -587,7 +596,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("java"))
+						if(frontboard.getLanguage().equals("java"))
 						{
 							%>  
 							<li class="litest1">
@@ -599,7 +608,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -611,7 +620,7 @@ $(function(){
 						}
 					%> 
 					<% 
-						if(frontboard.getLanguage().contains("c쁠쁠"))
+						if(frontboard.getLanguage().equals("c쁠쁠"))
 						{
 							%>  
 							<li class="litest1">
@@ -623,7 +632,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("spring"))
+						if(frontboard.getLanguage().equals("spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -635,7 +644,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().contains("nodejs"))
+						if(frontboard.getLanguage().equals("nodejs"))
 						{
 							%>  
 							<li class="litest1">
