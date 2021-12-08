@@ -109,12 +109,7 @@ const logout = () => {
  
  <a id="header_title" href='<%= request.getContextPath() %>'><img id="cola" src="<%= request.getContextPath() %>/images/cola.png" alt="" />Kola <span id="header_title!">!</span></a>
 
-	<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-          <!-- <i class="fas fa-search"></i> -->
-            
-          
+	
         
 <!-- 커뮤니티 드롭다운 -->
         <div class="dropdown text-end">
