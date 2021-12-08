@@ -167,6 +167,14 @@ public class StudyGroupBoardService {
 		return result;
 	}
 
+	public List<StudyGroupBoard> selectMyboardList(Map<String, Integer> param, int studyNo, String memberId) {
+		Connection conn = getConnection();
+		List<StudyGroupBoard> list = dao.selectMyboardList(conn,param,studyNo,memberId);
+		
+		close(conn);
+		return list;
+	}
+
 
 
 
