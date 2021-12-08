@@ -56,8 +56,17 @@
 		
 		<tr class="table-warning">
 			<th>내 용</th>
-			<td>
-				<%= frontboard.getContent() %> 
+			<td><div id="content2"></div>
+				<script>
+				var text ="<%= frontboard.getContent() %>"; 
+				text = text.replaceAll("&lt;", "<");
+				text = text.replaceAll("&gt;", ">");
+				text = text.replaceAll("&amp;lt;", "<");
+				text = text.replaceAll("&amp;gt;", ">");
+				text = text.replaceAll("amp;nbsp;", " ");
+				text = text.replaceAll("&amp;amp;", "&");
+				document.getElementById('content2').innerHTML=text;
+				</script>
 			</td>
 		</tr>
 		
@@ -83,8 +92,6 @@
 <% if(loginMember == null){ %>	
 
 
-
-<!-- 로그인 안하고 글쓰기 누를시 -->
 	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
 
 
@@ -101,33 +108,7 @@
 	
 	</section>
 	<section>
-	<h5 class="text-primary">댓글</h5>
-<% if(loginMember != null){ %>
-<form 
-	name = "groupApplyFrm"
-	action="<%= request.getContextPath() %>/group/groupApply"
-	method="GET">
-	<input type="hidden" name="memberId" value="<%= loginMember.getMember_id() %>" />
-	<input type="hidden" name="writer" value="<%= frontboard.getWriter() %>" />
-	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
-	<input type="hidden" id = "group" name = "group" value = "<%= loginMember.getStudy_group() %>" />
-</form>
-<% } %>
-
-<form
-	name="boardDelFrm"
-	method="POST" 
-	action="<%= request.getContextPath() %>/board/frontboardDelete" >
-	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
-</form>
-     <form 
-	action="<%= request.getContextPath() %>/board/frontboardCommentDelete" 
-	name="boardCommentDelFrm"
-	method="POST">
-	<input type="hidden" name="no" />
-	<input type="hidden" name="boardNo" value="<%= frontboard.getNo() %>"/>
-</form>
-      	<div class="comment-container">
+	<div class="comment-container">
         <div class="comment-editor">
             <form 
             	action="<%=request.getContextPath()%>/board/frontboardCommentEnroll" 
@@ -138,8 +119,10 @@
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />    
 				<textarea name="content" cols="60" rows="3"></textarea>
-                <button type="submit" id="btn-comment-enroll1" class="btn btn-outline-danger">등록</button>
+                <button type="submit" id="btn-comment-enroll1">등록</button>
             </form>
+            
+            <!--table#tbl-comment-->
 <% 
 	List<FrontboardComment> commentList = (List<FrontboardComment>) request.getAttribute("commentList"); 
 	if(commentList != null && !commentList.isEmpty()){
@@ -163,14 +146,13 @@
 					<br />
 					<%-- 댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
 				</td>
+			
 			</tr>
 <%
 			} else {
@@ -182,13 +164,12 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-				</td>
-				<td>
+					<br />
 <% if(removable){ %>
 					<button class="btn-delete" value="<%= bc.getNo() %>">삭제</button>
 <% } %>
-
 				</td>
+		
 			</tr>
 <%
 			}
@@ -198,58 +179,118 @@
 <%
 	}
 %>
-</div>
+		
+	</div>
 </section>
+
+<form
+	name="boardDelFrm"
+	method="POST" 
+	action="<%= request.getContextPath() %>/board/frontboardDelete" >
+	<input type="hidden" name="no" value="<%= frontboard.getNo() %>" />
+</form>	
+<form 
+	action="<%= request.getContextPath() %>/board/frontboardCommentDelete" 
+	name="boardCommentDelFrm"
+	method="POST">
+	<input type="hidden" name="no" />
+	<input type="hidden" name="boardNo" value="<%= frontboard.getNo() %>"/>
+</form>
+
 <script>
+$(".btn-delete").click(function(){
+	if(confirm("해당 댓글을 삭제하시겠습니까?")){
+		var $frm = $(document.boardCommentDelFrm);
+		var no = $(this).val();
+		$frm.find("[name=no]").val(no);
+		$frm.submit();
+	}
+});	
+
+/**
+ * 대댓글 입력
+ * 이벤트발생객체 e.target -> button.btn-reply
+ */
+$(".btn-reply").click((e) => {
+<% if(loginMember == null){ %>
+	loginAlert();
+	return;
+<% } %>
+
+	const commentRef = $(e.target).val();
+	console.log(commentRef);
+	
+	const tr = `<tr>
+	<td colspan="2" style="text-align:left">
+		<form 
+			action="<%=request.getContextPath()%>/board/frontboardCommentEnroll" 
+			method="post">
+		    <input type="hidden" name="boardNo" value="<%= frontboard.getNo() %>" />
+		    <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMember_id() : "" %>" />
+		    <input type="hidden" name="commentLevel" value="2" />
+		    <input type="hidden" name="commentRef" value="\${commentRef}" />    
+			<textarea name="content" cols="60" rows="2"></textarea>
+		    <button type="submit" class="btn-comment-enroll2">등록</button>
+		</form>
+	</td>
+</tr>`;
+	console.log(tr);
+	
+	// e.target인 버튼태그의 부모tr을 찾고, 다음 형제요소로 추가
+	const $baseTr = $(e.target).parent().parent();
+	const $tr = $(tr);
+	
+	$tr.insertAfter($baseTr)
+		.find("form")
+		.submit((e) => {
+			const $content = $("[name=content]", e.target);
+			if(!/^(.|\n)+$/.test($content.val())){
+				alert("댓글을 작성해주세요.");
+				e.preventDefault();
+			}
+		});
+		
+	
+	// 클릭이벤트핸들러 제거!
+	$(e.target).off("click");
+	
+	
+	
+
+
+});
+
+
 
 $("[name=content]", document.boardCommentFrm).focus((e) => {
 
-	<% if(loginMember == null){ %>
-		loginAlert();
-		return;
-	<% } %>
+<% if(loginMember == null){ %>
+	loginAlert();
+	return;
+<% } %>
 
-	});
+});
 
 $(document.boardCommentFrm).submit((e) => {
-	<% if(loginMember == null){ %>
-		loginAlert();
-//		e.preventDefault();
-//		return;
-		return false;
-	<% } %>
+<% if(loginMember == null){ %>
+	loginAlert();
+//	e.preventDefault();
+//	return;
+	return false;
+<% } %>
 
-		const $content = $("[name=content]", e.target);
-		if(!/^(.|\n)+$/.test($content.val())){
-			alert("댓글을 작성해주세요.");
-			e.preventDefault();
-		}
+	const $content = $("[name=content]", e.target);
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("댓글을 작성해주세요.");
+		e.preventDefault();
+	}
 
-	});
-	
+});
+
 const loginAlert = () => {
 	alert("로그인후 사용가능합니다.");
 	$(memberId).focus();
 };
-
-function groupApply() {
-	var studygroup = $("#group").val();
-	console.log(studygroup);
-	if(confirm("지원하시겠습니까?")){
-		if( studygroup != 0){
-			alert("이미 소속된 스터디 그룹이 존재합니다.");
-			return;
-		}
-		else{
-			$(document.groupApplyFrm).submit();		
-		}
-	}
-};
-
-
-function noLogin_writing_btn(){
-	alert('로그인 후 이용해주세요.'); 
-}
 
 const deleteBoard = () => {
 	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
@@ -260,8 +301,7 @@ const deleteBoard = () => {
 const updateBoard = () => {
 	location.href = "<%= request.getContextPath() %>/board/frontboardUpdate?no=<%= frontboard.getNo() %>";
 };
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
 
+
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

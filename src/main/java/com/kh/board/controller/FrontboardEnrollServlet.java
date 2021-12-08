@@ -1,5 +1,4 @@
 package com.kh.board.controller;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,11 +43,9 @@ public class FrontboardEnrollServlet extends HttpServlet {
 				String title = request.getParameter("title");
 				String writer = request.getParameter("writer");
 				String content = request.getParameter("content");
-				int group_no = Integer.parseInt(request.getParameter("group_no"));
-				Frontboard frontboard = new Frontboard(0, title, writer, content, 0, null, group_no);
-				System.out.println("[FrontboardEnrollServlet] frontboard = " + frontboard);
 				
-				int result = frontboardService.insertBoard(frontboard);
+			
+
 				
 				//----------------------- 스터디 그룹 정보 가져오기----------------------------------
 				//HttpSession session = request.getSession();
@@ -57,6 +54,9 @@ public class FrontboardEnrollServlet extends HttpServlet {
 				Member loginMember = (Member) session.getAttribute("loginMember");	
 				int GroupNo = loginMember.getStudy_group();
 				StudyGroup studyGroup = groupService.selectOneGroup(GroupNo);
+				Frontboard frontboard = new Frontboard(0, title, writer, content, 0, null, GroupNo);
+				
+				int result = frontboardService.insertBoard(frontboard);
 				//---------------------------------------------------------------------------
 				
 				System.out.println("[FreeBoardEnrollServlet] result = " + result);
