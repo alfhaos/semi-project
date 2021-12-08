@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.vo.Member;
 import com.kh.studygroup.model.service.StudyGroupService;
@@ -45,6 +46,8 @@ public class StudyGroupCreateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 1. 사용자 입력값 처리
+		int grouoNo = 0;
+		
 		String group_name = request.getParameter("groupName");
 		int max_member = Integer.parseInt(request.getParameter("max_member"));
 		int now_member = 1;
@@ -62,13 +65,28 @@ public class StudyGroupCreateServlet extends HttpServlet {
 		
 		// 2. 업무로직
 		
-		int result = 0;
 		
-		result = groupService.InsertGroup(group,member);
+		grouoNo = groupService.InsertGroup(group,member);
+		
+		//HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+				
+				
+		// timeout설정 - web.xml 설정보다 우선순위가 높다.
+		session.setMaxInactiveInterval(10*60); // 초단위
+		
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		session.removeAttribute("loginMember");
+		
+		
+		loginMember.setStudy_group(grouoNo);
+		
+		
+		
 
-		String msg = result > 0 ? "스터디 그룹 생성 완료" : "스터디 그룹 생성 실패";
+		String msg = grouoNo > 0 ? "스터디 그룹 생성 완료" : "스터디 그룹 생성 실패";
 		request.getSession().setAttribute("msg", msg);
-		
+		session.setAttribute("loginMember", loginMember);
 		
 		// 3. view 단
 		String location = request.getContextPath() + "/studygroup/view";

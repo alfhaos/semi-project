@@ -22,13 +22,14 @@ public class StudyGroupService {
 	
 	public int InsertGroup(StudyGroup group,Member member) {
 		Connection conn = getConnection();
+		int groupNum = 0;
 		int result = 0;
 		try {
 			
 			result = groupDao.InsertGroup(group,conn);
 			
 			System.out.println("[studyGroup@Service] result1 = " + result);
-			int groupNum = groupDao.selectLastGroupNo(group,conn);
+			groupNum = groupDao.selectLastGroupNo(group,conn);
 			
 			member.setStudy_group(groupNum); // servlet에서 참조할 수 있도록 한다.
 			
@@ -51,7 +52,7 @@ public class StudyGroupService {
 		
 		
 		
-		return result;
+		return groupNum;
 	}
 
 
