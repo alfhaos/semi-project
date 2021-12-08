@@ -71,10 +71,13 @@
 	<% } %>
 <%} else{ %>
 
-
-	<h1>소속된 스터디 그룹이 없습니다 그룹을 생성하세요.</h1>
-	<input type="button" value="스터디 그룹 생성" onclick="location.href='<%= request.getContextPath() %>/studygroup/create';">
+	<div id = "createMsg">
+		
+		<h2>소속된 스터디 그룹이 없습니다 그룹을 생성하세요.</h2>
+		<br />
+		<button type="button" onclick="location.href='<%= request.getContextPath() %>/studygroup/create'" class=" btn btn-info">스터디 그룹 생성</button>
 	
+	</div>
 	
 	<%} %>
 
