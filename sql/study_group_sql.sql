@@ -66,16 +66,32 @@ insert into kola_main_board(no,title,writer,content,read_count,like_count,reg_da
 
 update kola_main_board set  title='c++ 스터디 팀원 구합니다~' where content ='반갑습니다';
 
-update kola_main_boardthis set  area=null where no='35';
+update kola_main_boardthis set  group_no=21 where no='1';
 
-select * from kola_main_board;
+delete from kola_main_boardthis where no='70';
+select * from kola_main_boardthis;
+rollback;
 
 commit;
 
 
 create sequence kola_seq_main_board_no;
 
+--댓글 등록 테스트
+-- [BoardCommentEnrollServlet] bc = FrontboardComment [no=0, commentLevel=1, writer=aaaaa6, content=asdf, boardNo=72, commentRef=0, regDate=null]
+insert into kola_board_comment values(seq_kola_board_comment_no.nextval, 1, 'aaaaa6', 'asdf', 72, null, default);
+desc kola_board_comment;
 
+
+
+select 
+                * 
+                from 
+                kola_main_boardthis a join kola_study_group b
+                on 
+                a.group_no = b.group_no
+                where
+                no ='72';
 
 select 
     *
@@ -108,6 +124,18 @@ from (
 where
     rnum between 1 and 100;
     
+     select 
+        row_number() over(order by reg_date desc) rnum,
+        b.*,
+        (select count(*) from kola_board_comment where board_no = b.no) comment_count
+    from 
+        ( select 
+                * 
+                from 
+                kola_main_boardthis a join kola_study_group b
+                on 
+                a.group_no = b.group_no) b;
+ -----   
     select 
     *
 from (
@@ -126,10 +154,12 @@ from (
 )
 where
     rnum between 1 and 100;
+ -----   
     
-
     
-    select count(*) from kola_study_group_member where group_member_no ;
+commit;
+    
+ 
     select 
     * 
     from 
@@ -140,6 +170,26 @@ where
         select 
     * 
     from kola_study_group;
+    
+    select * from Kola_main_boardthis;
+       select * from kola_study_group_member;
+       
+             select 
+        row_number() over(order by read_count desc) rnum,
+        b.*,
+        (select count(*) from kola_study_group_member  where group_member_no = b.group_no) now_member
+    from 
+          ( select 
+                * 
+                from 
+                kola_main_boardthis a join kola_study_group b
+                on 
+                a.group_no = b.group_no) b;
+    
+    select count(*) from kola_study_group_member where group_member_no = 21;
+    
+    select k.*,(select count(*) from kola_study_group_member where group_member_no = 21) now_member from kola_study_group k where group_no = 21;
+
 
 --------------------------------------------------------------------
 -- 게시판 댓글
@@ -155,9 +205,16 @@ create table kola_board_comment(
     reg_date date default sysdate,
     constraint pk_kola_board_comment_no primary key(no),
     constraint fk_kola_board_comment_writer foreign key(writer) references kola_member(member_id) on delete set null,
-    constraint fk_kola_board_comment_board_no foreign key(board_no) references kola_main_board(no) on delete cascade,
+    constraint fk_kola_board_comment_board_no foreign key(board_no) references kola_main_boardthis(no) on delete cascade,
     constraint fk_kola_board_comment_comment_ref foreign key(comment_ref) references kola_board_comment(no) on delete cascade
 );
+
+delete  from kola_board_comment where board_no='34';
+
+select board_no from kola_board_comment minus select no from kola_main_boardthis;
+
+alter table kola_board_comment add constraint fk_kola_board_comment_board_no foreign key(board_no) references kola_main_boardthis(no) on delete cascade;
+
 
 create sequence seq_free_board_comment_no;
 
@@ -222,7 +279,7 @@ update free_board set like_count = like_count+1 where (no, writer) in (select bn
 
 drop table free_board_like;
 
-
+commit;
 --------------------------------------------------------------------
 -- 스터디그룹
 --------------------------------------------------------------------
@@ -253,6 +310,8 @@ commit;
 
 select * from  kola_study_group;
 
+delect from kola_study_group where group_no ='스터디그룹';
+
 select seq_kola_study_group_no.currval from dual;
 
 insert into kola_study_group(group_no, group_name, max_member, now_member, recruitment_status, area, language)
@@ -275,6 +334,7 @@ commit;
 
 --drop table kola_study_group_member;
 select * from kola_study_group_member;
+rollback;
 
 select * from kola_study_group_member where group_member_no = 21 order by group_member_study_time desc;
 --update kola_study_group_member set group_member_study_time = '00:40:03' where group_member_id = 'aaaafsd';

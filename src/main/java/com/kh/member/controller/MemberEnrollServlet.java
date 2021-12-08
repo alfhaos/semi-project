@@ -44,6 +44,7 @@ public class MemberEnrollServlet extends HttpServlet {
 		try {
 			// 1.인코딩처리 utf-8
 			request.setCharacterEncoding("utf-8");
+			String location="";
 			
 			// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
 			String memberId = request.getParameter("memberId");
@@ -68,10 +69,16 @@ public class MemberEnrollServlet extends HttpServlet {
 			int result = memberService.insertMember(member);
 			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
 			
-			// 4.redirect 및 msg처리
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", msg);
-			String location = request.getContextPath() + "/";
+			if(result >0) {
+				location = request.getContextPath()+"/board/boardList";
+			}
+			else {
+				
+				location = request.getContextPath() + "/";
+			}
+			// 4.redirect 및 msg처리
 			response.sendRedirect(location);
 			
 		} catch (Exception e) {

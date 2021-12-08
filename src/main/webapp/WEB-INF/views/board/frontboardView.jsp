@@ -1,11 +1,18 @@
 <%@page import="com.kh.board.model.vo.Frontboard"%>
 <%@page import="com.kh.board.model.vo.FrontboardComment"%>
+<%@page import="com.kh.studygroup.model.vo.StudyGroup"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	Frontboard frontboard = (Frontboard) request.getAttribute("frontboard");
+
+%>
+<%
+	
+	StudyGroup studyGroup = (StudyGroup) request.getAttribute("studyGroup");
+
 
 %>
 <style>
@@ -15,6 +22,19 @@
     margin: 1rem;
     margin-left: 42.3rem;
 }
+
+#redbutton1{
+	margin: 1rem;
+	margin-left: 41rem;
+
+}
+
+#redbutton2{
+	margin: 1rem;
+
+
+}
+
 
 
 </style>
@@ -56,24 +76,30 @@
 			){ %>
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
-			<th colspan="2">
-				<input type="button" value="수정하기" onclick="updateBoard()">
-				<input type="button" value="삭제하기" onclick="deleteBoard()">
+			<th  colspan="2">
+				<input id="redbutton1" class="btn btn-outline-danger btn-xs" type="button" value="수정하기" onclick="updateBoard()">
+				<input id="redbutton2" class="btn btn-outline-danger btn-xs" type="button" value="삭제하기" onclick="deleteBoard()">
 			</th>
 		</tr>
 		<% 	} %>
 	</table>
+	
 	<br />
 <% if(loginMember == null){ %>	
+
 
 
 <!-- 로그인 안하고 글쓰기 누를시 -->
 	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" id="writing-btn" onclick="noLogin_writing_btn()"/>
 
+
 <%} else { %>
 
 
+
 	<input type="button" class="btn btn-outline-primary btn-xs" value="스터디그룹 참가신청" onclick="groupApply()"/>
+
+
 
 <% } %>		
 
@@ -206,7 +232,13 @@ const loginAlert = () => {
 
 function groupApply() {
 	if(confirm("지원하시겠습니까?")){
-		$(document.groupApplyFrm).submit();		
+		if(<%= loginMember.getStudy_group() %> != null){
+			alert("이미 소속된 스터디 그룹이 존재합니다.");
+			return;
+		}
+		else{
+			$(document.groupApplyFrm).submit();		
+		}
 	}
 };
 

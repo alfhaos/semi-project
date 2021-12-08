@@ -9,11 +9,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.board.model.exception.FrontboardException;
 import com.kh.board.model.service.FrontboardService;
 import com.kh.board.model.vo.Frontboard;
 import com.kh.board.model.vo.FrontboardComment;
+import com.kh.member.model.vo.Member;
+import com.kh.studygroup.model.vo.StudyGroup;
+import com.kh.studygroup.model.service.StudyGroupService;
+
 
 /**
  * Servlet implementation class FreeboardViewServlet
@@ -22,6 +27,7 @@ import com.kh.board.model.vo.FrontboardComment;
 public class FrontboardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FrontboardService frontboardService = new FrontboardService();
+	private StudyGroupService groupService = new StudyGroupService();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -79,8 +85,23 @@ public class FrontboardViewServlet extends HttpServlet {
 		List<FrontboardComment> commentList = frontboardService.selectFrontBoardCommentList(no);
 		System.out.println("[FreeboardViewServlet] commentList = " + commentList);
 					
-					
+		
+		//HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
+				
+				
+		// timeout설정 - web.xml 설정보다 우선순위가 높다.
+		session.setMaxInactiveInterval(10*60); // 초단위
+				
+		Member loginMember = (Member) session.getAttribute("loginMember");	
+		int GroupNo = loginMember.getStudy_group();
+		StudyGroup studygroup = groupService.selectOneGroup(GroupNo);
+		
+		
+		
+		
 		//3. jsp forwarding
+		request.setAttribute("studyGroup", studygroup);
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("frontboard", frontboard);
 		request.getRequestDispatcher("/WEB-INF/views/board/frontboardView.jsp")

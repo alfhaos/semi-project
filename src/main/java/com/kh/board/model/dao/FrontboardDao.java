@@ -68,7 +68,7 @@ public class FrontboardDao {
 				frontboard.setMax_member(rset.getInt("Max_member"));
 				frontboard.setGroup_no(rset.getInt("group_no"));
 				frontboard.setComment_count(rset.getInt("comment_count"));
-			
+				frontboard.setNow_member(rset.getInt("Now_member"));
 
 				list.add(frontboard);
 			}
@@ -260,6 +260,7 @@ public class FrontboardDao {
 				frontboard.setMax_member(rset.getInt("Max_member"));
 				frontboard.setGroup_no(rset.getInt("group_no"));
 				frontboard.setComment_count(rset.getInt("comment_count"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
 
 				
 				watchlist.add(frontboard);
@@ -300,6 +301,7 @@ public class FrontboardDao {
 				frontboard.setMax_member(rset.getInt("Max_member"));
 				frontboard.setGroup_no(rset.getInt("group_no"));
 				frontboard.setComment_count(rset.getInt("comment_count"));
+				frontboard.setNow_member(rset.getInt("Now_member"));
 				
 				listonline.add(frontboard);
 			}
@@ -339,7 +341,7 @@ public class FrontboardDao {
 				frontboard.setArea(rset.getString("area"));
 				frontboard.setMax_member(rset.getInt("Max_member"));
 				frontboard.setGroup_no(rset.getInt("group_no"));
-				
+				frontboard.setNow_member(rset.getInt("Now_member"));
 				
 
 				listoffline.add(frontboard);

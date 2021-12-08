@@ -37,7 +37,7 @@ public class StudyGroupDao {
 		String sql = prop.getProperty("InsertGroup");
 		PreparedStatement pstmt = null;
 		int result = 0;
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -50,6 +50,7 @@ public class StudyGroupDao {
 			
 			
 			result = pstmt.executeUpdate();
+			System.out.println("InsertGroup Dao = " + result);
 			
 		}
 		 catch (SQLException e) {
@@ -426,6 +427,91 @@ public class StudyGroupDao {
 		finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public String selectMemberRole(Connection conn, String memberId) {
+		String sql = prop.getProperty("selectMemberRole");
+
+		PreparedStatement pstmt = null;
+		String memberRole = null;
+		ResultSet rset;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberRole = rset.getString(1);
+			}
+			
+		}catch (SQLException e) {
+			throw new GroupException("멤버 권한 조회 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return memberRole;
+	}
+
+	public int deleteGroupMember(Connection conn, int studyGroup, String memberId) {
+		String sql = prop.getProperty("deleteGroupMember");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, studyGroup);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new GroupException("멤버 삭제 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
+	public int deleteMemberGroupNo(Connection conn, String memberId) {
+		String sql = prop.getProperty("deleteMemberGroupNo");
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new GroupException("멤버 그룹번호 삭제 오류!",e);
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
 		
 		return result;
 	}

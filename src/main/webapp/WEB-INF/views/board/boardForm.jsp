@@ -95,7 +95,7 @@ table {
 <% } %>
 </form >
 		<% if(studyGroup != null){ %>
-		<table style="display: none;">
+		<table>
 			<tr>
 					<th>그룹번호</th>
 					<td><%= studyGroup.getGroup_number() %></td>

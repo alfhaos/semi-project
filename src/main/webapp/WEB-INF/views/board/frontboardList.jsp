@@ -56,10 +56,10 @@ $(function(){
 	$('.libanner4').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.python').hide();
+		  $('.Python').hide();
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.python').show();
+		  $('.Python').show();
 		}
 		++clicks;
 	});
@@ -273,7 +273,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -384,7 +384,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -495,7 +495,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">
@@ -606,7 +606,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("python"))
+						if(frontboard.getLanguage().equals("Python"))
 						{
 							%>  
 							<li class="litest1">

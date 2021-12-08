@@ -8,7 +8,7 @@
 <%
 	StudyGroupBoard board = (StudyGroupBoard) request.getAttribute("board");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/freeboard.css" />
 
 <script>
 /**
@@ -41,7 +41,7 @@ $(document.groupBoardUpdateFrm).submit(boardValidate);
 </script>
 
 <section id="board-container">
-<h2>게시글 수정</h2>
+<h2>글 수정</h2>
 <form
 	name="groupBoardUpdateFrm"
 	action="<%=request.getContextPath() %>/studygroup/boardUpdate" 
@@ -51,12 +51,12 @@ $(document.groupBoardUpdateFrm).submit(boardValidate);
 	<table id="tbl-board-view">
 	<tr>
 		<th>제 목</th>
-		<td><input type="text" name="title" value = "<%= board.getTitle() %>"required></td>
+		<td><input type="text" name="title" value = "<%= board.getTitle() %>"required style="border-color:#e9ecef; width:100%; height:35px;"></td>
 	</tr>
-	<tr>
+	<tr style="border-top:1px solid #e9ecef; border-bottom:1px solid #e9ecef;">
 		<th>작성자</th>
 		<td>
-			<input type="text" name="writer" value="<%= board.getWriter() %>" readonly/>
+			<input type="text" name="writer" value="<%= board.getWriter() %>" readonly style="border:0;"/>
 		</td>
 	</tr>
 <%
@@ -83,7 +83,7 @@ $(document.groupBoardUpdateFrm).submit(boardValidate);
 <%
 	}
 %>
-	<tr>
+	<tr style=" border-bottom:1px solid #e9ecef;">
 		<th>첨부파일 추가</th>
 		<td>			
 			<input type="file" name="upFile1">
@@ -93,7 +93,7 @@ $(document.groupBoardUpdateFrm).submit(boardValidate);
 	</tr>
 	<tr>
 		<th>내 용</th>
-		<td><textarea rows="5" cols="40" name="content"><%= board.getContent() %></textarea></td>
+		<td><textarea rows="5" cols="40" name="content" style="border-color:#e9ecef; width:100%; height:160px;"><%= board.getContent() %></textarea></td>
 	</tr>
 	<tr>
 		<th colspan="2">

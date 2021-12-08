@@ -9,20 +9,6 @@
 	if(msg != null) session.removeAttribute("msg");
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-	//쿠키처리
-	Cookie[] cookies = request.getCookies();
-	String saveMemberId = null;
-	if(cookies != null){
-		for(Cookie cookie : cookies){
-			String name = cookie.getName();
-			String value = cookie.getValue();
-			System.out.println(name + " = " + value);
-			if("saveId".equals(name)){
-				saveMemberId = value;
-			}
-		}
-	}
-	System.out.println("saveMemberId@header.jsp = " + saveMemberId);
 %>   
 <!DOCTYPE html>
 <html>
@@ -144,34 +130,8 @@ const logout = () => {
 					
       <div class="col-md-3 text-end">
         <button type="button" class="btn btn-outline-danger me-2" onclick="location.href='<%= request.getContextPath() %>/member/memberLogin';">Login</button>
-        <button type="button" class="btn btn-danger">Sign-up</button>
+        <button type="button" class="btn btn-danger" value="회원가입" onclick="location.href='<%= request.getContextPath() %>/member/memberEnroll';">Sign-up</button>
       </div>
-					<form 
-						id="loginFrm" 
-						action="<%= request.getContextPath() %>/member/login"
-						method="GET">
-						<table>
-							<tr>
-								<td><input type="text" name="memberId" id="memberId" placeholder="아이디" tabindex="1" value="<%= saveMemberId != null ? saveMemberId : "" %>"></td>
-								<td><input type="submit" value="로그인" tabindex="3"></td>
-							</tr>
-							<tr>
-								<td><input type="password" name="password" id="password" placeholder="비밀번호" tabindex="2" value = ""></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %> />
-									<label for="saveId">아이디저장</label>
-									<input 
-										type="button" 
-										value="회원가입" 
-										onclick="location.href='<%= request.getContextPath() %>/member/memberEnroll';">
-								</td>
-							</tr>
-						</table>
-					</form>
-					<!-- 로그인폼 끝-->
 					
 <%} else { %>
 					
