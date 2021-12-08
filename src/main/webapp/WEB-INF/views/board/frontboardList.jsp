@@ -70,11 +70,11 @@ $(function(){
 	$('.libanner5').click(function() {
 		if(clicks%2 != 0){
 		  $(this).css('opacity', '0.3');
-		  $('.spring').hide();
+		  $('.Spring').hide();
 		 
 		} else{
 		  $(this).css('opacity', '1');
-		  $('.spring').show();
+		  $('.Spring').show();
 		}
 		++clicks;
 	});
@@ -299,7 +299,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("spring"))
+						if(frontboard.getLanguage().equals("Spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -410,7 +410,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("spring"))
+						if(frontboard.getLanguage().equals("Spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -521,7 +521,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("spring"))
+						if(frontboard.getLanguage().equals("Spring"))
 						{
 							%>  
 							<li class="litest1">
@@ -632,7 +632,7 @@ $(function(){
 						}
 					%>
 					<% 
-						if(frontboard.getLanguage().equals("spring"))
+						if(frontboard.getLanguage().equals("Spring"))
 						{
 							%>  
 							<li class="litest1">
