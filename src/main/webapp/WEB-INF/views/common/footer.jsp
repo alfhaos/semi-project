@@ -3,7 +3,6 @@
 		</section>
 
 		<footer>
-			<p>footer</p>
 		</footer>
 	</div>
 	</div>
