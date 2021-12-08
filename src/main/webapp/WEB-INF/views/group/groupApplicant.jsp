@@ -64,9 +64,8 @@
 <script>
 
 $("#btn-accept").click((e) => {
-	console.log("수락")
-	
 	 const memberId = $(e.target).val();
+	 console.log(memberId);
 	 const inputId = `<input type="hidden" name="memberId" value="\${memberId}" />`;
 	 $(document.applicantAcceptFrm)
 	 					.append(inputId)

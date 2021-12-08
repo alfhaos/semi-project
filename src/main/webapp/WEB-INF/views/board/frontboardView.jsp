@@ -159,7 +159,12 @@
 		
 	</div>
 </section>
-
+<form
+	name="groupApplyFrm"
+	method="POST" 
+	action="<%= request.getContextPath() %>/group/groupApply" >
+	<input type="hidden" name="writer" value="<%= frontboard.getWriter()  %>" />
+</form>	
 <form
 	name="boardDelFrm"
 	method="POST" 
@@ -283,6 +288,16 @@ const updateBoard = () => {
 	location.href = "<%= request.getContextPath() %>/board/frontboardUpdate?no=<%= frontboard.getNo() %>";
 };
 
+const groupApply = () => {
+	<% if(loginMember == null){ %>
+		alert("로그인후 신청 가능합니다.");
+		return;
+	
+	<% }else{ %>
+		$(document.groupApplyFrm).submit();
+	
+	<% } %>
+};
 
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

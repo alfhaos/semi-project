@@ -399,8 +399,15 @@ select * from kola_member where member_id = 'honggd';
 select * from free_board;
 select*from kola_study_group;
 
-select * from kola_member k join kola_alram a on k.member_id = a.member_id where a.group_leader_id = 'ykuhk';
-select * from kola_alram; 
+select * from kola_member k join kola_alram a on k.member_id = a.member_id where a.group_leader_id = 'final ';
+delete from kola_alram where member_id = 'ykuhk';
+select * from kola_alram;
+
+commit;
+select * from kola_alram;
+
+commit;
+
 
 
 select * from Kola_main_boardthis;
@@ -426,3 +433,29 @@ where
 select * from kola_study_group_member where group_member_no = 47 and group_member_study_time is not null order by group_member_study_time desc;
 update kola_study_group_member set group_member_study_time = null where group_member_id = 'honggd';
 commit;
+
+
+
+desc Kola_board_comment;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

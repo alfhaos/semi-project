@@ -27,18 +27,23 @@ public class GroupApplicantCheckServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		int temp = Integer.parseInt(request.getParameter("temp"));
 		int result;
-		
+		System.out.println("memberID - " + memberId );
 		//HttpSession session = request.getSession();
 		HttpSession session = request.getSession(true);
 						
 		Member loginMember = (Member) session.getAttribute("loginMember");	
 		int studyGroup = loginMember.getStudy_group();
-		String leader = loginMember.getMember_id();
+		String leaderId = loginMember.getMember_id();
+		leaderId = leaderId.trim();
 		// 업무로직
 		if(temp == 1) {
-			result = groupService.deleteApplicant(leader,memberId);
+
+			result = groupService.deleteApplicant(leaderId,memberId);
+	
 			Member member = groupService.selectOneMember(memberId);
+
 			result = groupService.updateApplicant(studyGroup,member);
+	
 			if(result > 0) {
 				result = groupService.updateNowMember(studyGroup);
 			}
@@ -47,7 +52,7 @@ public class GroupApplicantCheckServlet extends HttpServlet {
 			
 		}
 		else {
-			groupService.deleteApplicant(leader,memberId);
+			groupService.deleteApplicant(leaderId,memberId);
 		}
 		
 		String location = request.getContextPath() + "/studygroup/applicant";
