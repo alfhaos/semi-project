@@ -30,7 +30,7 @@ public class FrontboardDeleteServlet extends HttpServlet {
 			String msg = result > 0 ? "게시물 삭제 성공!" : "게시물 삭제 실패!";
 
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath() + "/board/frontboardList.jsp");
+			response.sendRedirect(request.getContextPath() + "/board/boardList");
 
 		} catch (Exception e) {
 			e.printStackTrace();
